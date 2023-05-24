@@ -20,6 +20,7 @@
     </div>
 
     <div class="form-section mb-3">
+        
         <form action="" method="post">
                 @csrf
                 <div class="form-group mb-3">
@@ -35,7 +36,7 @@
                         <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
                         <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_chambre_id">
                             @foreach ($typeschambres as $typeschambre)
-
+        
                                 <option value="{{$typeschambre->id}}">{{$typeschambre->titre}}</option>
 
                             @endforeach

@@ -123,7 +123,7 @@
                                 <td>{{$typeschambre->titre}}</td>
                                 <td>{{$typeschambre->code}}</td>
                                 <td class="px-0 py-0"><img src="{{ asset('uploads/images/' . $typeschambre->image) }}"
-                                    alt="{{ $typeschambre->image }}" width="" style="width: 80%; height: 80%;"></td>
+                                    alt="{{ $typeschambre->image }}" width="70"></td>
                                 <td class="text-center">{{$typeschambre->min}}</td>
                                 <td class="text-center">{{$typeschambre->max}}</td>
                                 <td class="text-center">{{$typeschambre->adultes}}</td>

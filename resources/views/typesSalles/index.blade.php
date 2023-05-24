@@ -115,9 +115,9 @@
                                 <td>{{$typessalle->titre}}</td>
                                 <td>{{$typessalle->code}}</td>
                                 <td class="px-0 py-0"><img src="{{ asset('/uploads/images/' . $typessalle->image) }}"
-                                    alt="{{ $typessalle->image }}" width="" style="width: 80%; height: 80%;"></td>
-                                <td>{{$typessalle->min}}</td>
-                                <td>{{$typessalle->max}}</td>
+                                    alt="{{ $typessalle->image }}" width="70"></td>
+                                <td class="text-center">{{$typessalle->min}}</td>
+                                <td class="text-center">{{$typessalle->max}}</td>
                                 <td>{{$typessalle->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">
