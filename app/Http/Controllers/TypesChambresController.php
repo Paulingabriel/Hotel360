@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\ChambresPr;
+use App\Models\ChambresPs;
 use Illuminate\Http\Request;
+use App\Models\TypesChambres;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class TypesChambresController extends Controller
@@ -12,7 +17,8 @@ class TypesChambresController extends Controller
      */
     public function index()
     {
-        return view("typesChambres.index");
+        $typeschambres= TypesChambres::latest()->get();
+        return view("typesChambres.index", compact('typeschambres' ));
     }
 
     /**
@@ -20,7 +26,8 @@ class TypesChambresController extends Controller
      */
     public function create()
     {
-        return view("typeChambres.create");
+
+        return view("typesChambres.create");
     }
 
     /**
@@ -29,63 +36,64 @@ class TypesChambresController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'nom' => 'required',
+            'titre' => 'required|unique:types_chambres',
             'code' => 'required|unique:types_chambres',
-            'description' => 'required',
+            'description' => '',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
-            'extra' => 'required|numeric',
             'enfants' => 'required|numeric',
-            'prix' => 'required|numeric',
-            'prixpersup' => 'required|numeric',
-            'prixlitsup' => 'required|numeric',
-            'image' => 'nullable'
+            'adultes' => 'required|numeric',
+            'prixpersup' => 'numeric',
+            'prixlitsup' => 'numeric',
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5000'],
         ]);
 
+        // dd($request);
+
         if($validation->fails()){
-            
             return redirect()
-            ->back()
-            ->withErrors( $validation)
-            ->withInput();
+                    ->back()
+                    ->withErrors( $validation)
+                    ->withInput();
         }
 
         try{
 
             $data = new TypesChambres();
 
-            $data->nom = $request->nom;
+            $data->titre = $request->titre;
             $data->code = $request->code;
             $data->description = $request->description;
             $data->min = $request->min;
             $data->max = $request->max;
-            $data->extra = $request->extra;
             $data->enfants = $request->enfants;
-            $data->prix = $request->prix;
+            $data->adultes = $request->adultes;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
-            // if ($request->hasFile('image')) {
-            //     $file = $request->file('image');
-            //     $extension = $file->getClientOriginalExtension();
-            //     $filename = date('YmdHi') . ucfirst($request->name) . '.' . $extension;
-            //     $file->move('uploads/images/product/', $filename);
-            //     $data->image = $filename;
-            // } else {
-            //     $data->image = 'default.png';
-            // }
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = date('YmdHi') . ucfirst($request->titre) . '.' . $extension;
+                $file->move('uploads/images/', $filename);
+                $data->image = $filename;
+            } else {
+                $data->image = 'default.png';
+            }
+            //dd($data);
+
             $data->save();
 
-            Toastr::success('Enregistrement reussit du produit : ' . $request->name);
-            return redirect()->route('product.list');
-        }
-        catch{
-            
-            Toastr::error(
-                "Echec d'enregistrement du consommable : " . $request->name
-            );
+            toastr()->success('Enregistrement éffectué avec succès!');
+            return redirect()->route('typesChambres/index');
+        } catch (Exception $e) {
+            //dd($e);
+            toastr()->error(
+                "Echec de l'enregistrement!"
+           );
             return redirect()->back();
         }
+        
     }
 
     /**
@@ -99,17 +107,77 @@ class TypesChambresController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $typeschambres = TypesChambres::FindOrFail($id);
+        return view('typesChambres.edit', compact('typeschambres'));
+    
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'titre' => 'required',
+            'code' => 'required',
+            'description' => '',
+            'min' => 'required|numeric',
+            'max' => 'required|numeric',
+            'enfants' => 'required|numeric',
+            'adultes' => 'required|numeric',
+            'prixpersup' => 'numeric',
+            'prixlitsup' => 'numeric',
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5000'],
+        ]);
+
+        if($validation->fails()){
+            return redirect()
+                    ->back()
+                    ->withErrors( $validation)
+                    ->withInput();
+        }
+
+
+        try {
+
+            $data = TypesChambres::FindOrFail($id);
+
+            $data->titre = $request->titre;
+            $data->code = $request->code;
+            $data->description = $request->description;
+            $data->min = $request->min;
+            $data->max = $request->max;
+            $data->enfants = $request->enfants;
+            $data->adultes = $request->adultes;
+            $data->prixpersup = $request->prixpersup;
+            $data->prixlitsup = $request->prixlitsup;
+
+            if ($request->hasFile('image')) {
+                $destination = 'uploads/images/' . $data->image;
+                $destination_default = 'uploads/images/default.png';
+                if ($destination_default != $destination  && File::exists($destination)) {
+                    File::delete($destination);
+                }
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = date('YmdHi') . ucfirst($request->name) . '.' . $extension;
+                $file->move('uploads/images/', $filename);
+                $data->image = $filename;
+            }
+            //dd($data);
+            $data->update();
+
+            toastr()->success('Modification éffectuée avec succès!');
+            return redirect()->route('typesChambres/index');
+        } catch (Exception $e) {
+
+            toastr()->error(
+                "Echec de l'enregistrement!"
+           );
+            return redirect()->back();
+        }
     }
 
     /**
@@ -117,6 +185,20 @@ class TypesChambresController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = TypesChambres::findOrFail($id);
+            $destination = 'uploads/images/' . $data->image;
+            $destination_default = 'uploads/images/default.png';
+
+            if ($destination_default != $destination  && File::exists($destination)) {
+                File::delete($destination);
+            }
+            $data->delete();
+            toastr()->success('Suppression avec succès de l\'enregistrement');
+        } catch (Exception $e) {
+            
+            toastr()->error('Echec de suppression de l\'enregistrement');
+        }
+        return redirect()->back();
     }
 }
