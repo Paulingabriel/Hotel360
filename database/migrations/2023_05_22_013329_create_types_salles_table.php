@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('types_chambres', function (Blueprint $table) {
+        Schema::create('types_salles', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('titre')->unique();
             $table->string('code')->unique();
-            $table->longText('description');
             $table->integer('min');
             $table->integer('max');
-            $table->integer('extra');
-            $table->integer('enfants');
-            $table->integer('prix');
-            $table->integer('prixpersup');
-            $table->integer('prixlitsup');
-            $table->string('img')->nullable();
+            $table->string('image');
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('types_chambres');
+        Schema::dropIfExists('types_salles');
     }
 };
