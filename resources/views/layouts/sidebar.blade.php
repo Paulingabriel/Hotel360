@@ -4,6 +4,7 @@
     padding: 16px!important;
 }
 
+
 </style>
 
 <div data-active-color="white" data-background-color="aqua-marine" data-image="../app-assets/img/sidebar-bg/15.webp"
