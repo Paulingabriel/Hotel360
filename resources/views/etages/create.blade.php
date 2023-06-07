@@ -9,10 +9,7 @@
 
                         <style>
 
-textarea:focus{
-    border: 1px solid  rgba(50, 162, 50, 0.8)!important;
-    box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
-}
+
 
 
 
@@ -49,13 +46,13 @@ textarea:focus{
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <label for="date" class="label col-md-12 mb-2">Description</label>
-                        <textarea class="border border-2" name="description" id="" cols="80" rows="10"></textarea>
+                        <textarea class="" name="description" id="" cols="80" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
                             <button type="button" class="btn-cancel">Reinitialiser</button>
                         </div>
                     </div>

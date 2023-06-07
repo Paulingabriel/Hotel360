@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class Chambres extends Model
 {
@@ -20,4 +21,14 @@ class Chambres extends Model
     {
         return $this->belongsTo(Etages::class);
     }
+
+    public function res_chambre(): BelongsTo
+    {
+        return $this->belongsTo(ResChambres::class);
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

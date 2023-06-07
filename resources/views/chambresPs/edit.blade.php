@@ -61,12 +61,12 @@
                 <div class="row w-100">
                     <div class="col-md-6 col-xl-5  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Sieste</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixsieste') is-invalid @enderror" name="prixsieste" value="{{ $chambresps->sieste }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixsieste') is-invalid @enderror" name="prixsieste" value="{{ $chambresps->prixsieste }}">
                         <span class="text-danger">{{ $errors->first('prixsieste') }}</span>
                     </div>
                     <div class="col-md-6 col-xl-5  offset-xl-2  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Nuitée</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixnuitee') is-invalid @enderror" name="prixnuitee" value="{{ $chambresps->nuitee }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixnuitee') is-invalid @enderror" name="prixnuitee" value="{{ $chambresps->prixnuitee }}">
                         <span class="text-danger">{{ $errors->first('prixnuitee') }}</span>
                     </div>
                 </div>
@@ -74,14 +74,14 @@
                     
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Heure</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixheure') is-invalid @enderror" name="prixheure" value="{{ $chambresps->heure }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixheure') is-invalid @enderror" name="prixheure" value="{{ $chambresps->prixheure }}">
                         <span class="text-danger">{{ $errors->first('prixheure') }}</span>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
                             <button type="button" class="btn-cancel">Reinitialiser</button>
                         </div>
                     </div>

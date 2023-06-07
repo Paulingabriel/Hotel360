@@ -10,7 +10,7 @@
 */
 (function(window, document, $) {
     'use strict';
-    
+
      $(document).ready(function(){
         var $sidebar = $('.app-sidebar'),
         $sidebar_content = $('.sidebar-content'),
@@ -93,7 +93,7 @@
                 }
             });
 
-            
+
 
             setTimeout(function() {
                 $children.addClass('is-shown');

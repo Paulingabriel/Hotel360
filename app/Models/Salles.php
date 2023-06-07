@@ -30,4 +30,14 @@ class Salles extends Model
     {
         return $this->belongsTo(Etages::class);
     }
+
+    public function res_salle(): BelongsTo
+    {
+        return $this->belongsTo(ResSalles::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

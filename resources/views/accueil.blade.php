@@ -54,7 +54,7 @@
                                         <div class="row text-white">
                                             <div class="col-6">
                                                 <h1><i
-                                                        class="fa fa-star-o background-round text-white p-2 font-medium-3"></i>
+                                                        class="ft-star background-round text-white p-2 font-medium-3"></i>
                                                 </h1>
                                                 <h4 class="pt-1 m-0 text-white">10% <i
                                                         class="fa fa-long-arrow-down"></i></h4>

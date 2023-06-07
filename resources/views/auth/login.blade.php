@@ -28,14 +28,15 @@
         font-size: 50px;
         color: #1b721b;
         text-align: center;
+        text-shadow: 0 3px 4px rgb(27, 114, 27, 0.7);
     }
     .login{
         padding: 50px 150px;
         background-color: #ffffff;
     }
     .login .logo{
-        display: flex;
-        justify-content: center;
+        /* display: flex;
+        justify-content: center; */
     }
     .login .header h6{
         text-align: center;
@@ -48,22 +49,25 @@
     .login .header p{
         text-align: center;
         font-size: 14px;
+        text-shadow: 0 3px 4px rgb(27, 114, 27, 0.3);
         letter-spacing: 1px;
         font-family: 'poppins';
         font-weight: 500;
         color: #1b721b;
-        margin-top: 30px;
-        padding: 0 50px 30px 50px;
+        margin-top: 20px;
+        padding: 0 50px 10px 50px;
     }
     input::placeholder{
         color: #319b31!important;
         font-family: 'poppins';
     }
     .form-control{
-    height: 45px;
+    height: 50px;
     box-sizing: border-box;
     border-radius: 25px!important;
     padding: 0 15px 0 55px!important;
+    border: none!important;
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1);
     }
 
     .form-control:focus{
@@ -75,6 +79,7 @@
         height: 60px!important;
         border-radius: 30px!important;
         border: none;
+        box-shadow: 0 3px 4px rgba(50, 162, 50, 0.8);
         background-color: #0B4525;
         color: #fff!important;
         font-family: 'poppins';
@@ -120,12 +125,29 @@
         background-color: #ffffff;
         }
     }
+    @media all and (max-width: 300px){
+            .login{
+        padding: 20px;
+        background-color: #ffffff;
+        }
+        .login .header p{
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 1px;
+        font-family: 'poppins';
+        font-weight: 500;
+        color: #1b721b;
+        margin-top: 30px;
+        padding: 0 20px 15px 20px;
+    }
+    }
 </style>
 <div class="container-fluid h-100">
     <div class="row h-100">
         <div class="col-md-6 d-none d-md-flex h-100 image p-0">
-            <img src="" alt="">
-            <h1>Hotel 360</h1>
+            <div class="">
+                <img src="{{ asset('../app-assets/img/logo 360 blanc.png') }}" alt="" style="width: 150px;"/>
+            </div>
         </div>
         <div class="col-md-6 col-12 h-100 login">
             <div class="header">
@@ -133,10 +155,9 @@
                     BIENVENU SUR
                 </h6>
                 <div class="logo">
-                    <img src="" alt="">
-                    <h1>
-                        Hotel 360
-                    </h1>
+                    <div class="text-center">
+                        <img src="{{ asset('../app-assets/img/logo 360.png') }}" style="width: 100px;" alt=""/>
+                    </div>
                 </div>
                 <p>
                     Entrez vos informations pour vous connecter à l'application
@@ -165,10 +186,10 @@
                     </span>
                 @enderror
                 </div>
-                <div class="input-group pt-4">
+                <div class="input-group">
                     <button type="submit" class="form-control submit">connexion</button>
                 </div>
-                <div class="row pt-4">
+                <div class="row pt-2">
                     <div class="col-sm-6 col-md-12 col-lg-6 col- d-flex">
                         <input type="checkbox" class="form-check-input" style="transform: translateY(-3px);" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label for="" class="ms-2">se rappeler de moi</label>

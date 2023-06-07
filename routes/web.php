@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\EtagesController;
 use App\Http\Controllers\SallesController;
 use App\Http\Controllers\ClientsController;
@@ -9,11 +10,14 @@ use App\Http\Controllers\ChambresController;
 use App\Http\Controllers\SallesPrController;
 use App\Http\Controllers\SallesPsController;
 use App\Http\Controllers\ResSallesController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ChambresPrController;
 use App\Http\Controllers\ChambresPsController;
 use App\Http\Controllers\ResChambresController;
 use App\Http\Controllers\TypesSallesController;
 use App\Http\Controllers\TypesChambresController;
+use App\Http\Controllers\Admin\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,26 +170,62 @@ Route::prefix('/types-salles')->name('typesSalles/')->group(function(){
 
 Route::prefix('/reservations-salles')->name('resSalles/')->group(function(){
     Route::get("/liste", [ResSallesController::class, 'index'])->name('index');
-    Route::post("/ajouter", [ResSallesController::class, 'store'])->name('store');
+    Route::get("/allData", [ResSallesController::class, 'allData'])->name('allData');
+    Route::post("/store", [ResSallesController::class, 'storeData'])->name('store');
     Route::get("/ajouter", [ResSallesController::class, 'create'])->name('ajouter');
-    Route::get("/détails", [ResSallesController::class, 'show'])->name('details');
-    Route::post("/modifier", [ResSallesController::class, 'update'])->name('modifier');
-    Route::get("/modifier", [ResSallesController::class, 'edit'])->name('edit');
-    Route::get("/supprimer", [ResSallesController::class, 'delete'])->name('delete');
+    Route::get("/facture/{id}", [ResSallesController::class, 'showData'])->name('details');
+    Route::get("/facture/{id}/telecharger", [ResSallesController::class, 'download'])->name('facture');
+    Route::post("/update/{id}", [ResSallesController::class, 'updateData'])->name('modifier');
+    Route::get("/edit/{id}", [ResSallesController::class, 'editData'])->name('edit');
+    Route::get("/supprimer/{id}", [ResSallesController::class, 'deleteData'])->name('delete');
 });
 
 /*reservations-Chambres*/
 
 Route::prefix('/reservations-chambres')->name('resChambres/')->group(function(){
     Route::get("/liste", [ResChambresController::class, 'index'])->name('index');
-    Route::post("/ajouter", [ResChambresController::class, 'store'])->name('store');
+    Route::get("/allData", [ResChambresController::class, 'allData'])->name('allData');
+    Route::post("/store", [ResChambresController::class, 'storeData'])->name('store');
     Route::get("/ajouter", [ResChambresController::class, 'create'])->name('ajouter');
-    Route::get("/détails", [ResChambresController::class, 'show'])->name('details');
-    Route::post("/modifier", [ResChambresController::class, 'update'])->name('modifier');
-    Route::get("/modifier", [ResChambresController::class, 'edit'])->name('edit');
-    Route::get("/supprimer", [ResChambresController::class, 'delete'])->name('delete');
+    Route::get("/facture/{id}", [ResChambresController::class, 'showData'])->name('details');
+    Route::get("/facture/{id}/telecharger", [ResChambresController::class, 'download'])->name('facture');
+    Route::post("/update/{id}", [ResChambresController::class, 'updateData'])->name('modifier');
+    Route::get("/edit/{id}", [ResChambresController::class, 'editData'])->name('edit');
+    Route::get("/supprimer/{id}", [ResChambresController::class, 'deleteData'])->name('delete');
+});
+
+/*prametres hotel*/
+
+Route::middleware(['auth', 'role:superadmin'])->prefix('/hotels')->name('hotels/')->group(function(){
+    Route::get("/liste", [HotelController::class, 'index'])->name('index');
+    Route::post("/ajouter", [HotelController::class, 'store'])->name('store');
+    Route::get("/ajouter", [HotelController::class, 'create'])->name('ajouter');
+    Route::get("/détails", [HotelController::class, 'show'])->name('details');
+    Route::post("/modifier/{id}", [HotelController::class, 'update'])->name('modifier');
+    Route::get("/modifier/{id}", [HotelController::class, 'edit'])->name('edit');
+    Route::get("/supprimer/{id}", [HotelController::class, 'destroy'])->name('delete');
 });
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/accueil', [App\Http\Controllers\HomeController::class, 'index'])->name('accueil');
+
+
+Route::middleware(['auth', 'role:superadmin'])->name('superadmin.')->prefix('superadmin')->group(function () {
+    // Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::resource('/roles', RoleController::class);
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::get('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+    Route::resource('/permissions', PermissionController::class);
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::get('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
+    Route::post('/utilisateurs/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/utilisateurs', [UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::get('/utilisateurs/modifier/{user}', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
+    Route::get('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
+    Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
+    Route::get('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
+});

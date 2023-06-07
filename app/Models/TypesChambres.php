@@ -6,6 +6,7 @@ use App\Models\ChambresPs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TypesChambres extends Model
@@ -21,9 +22,13 @@ class TypesChambres extends Model
     {
         return $this->hasOne(ChambresPs::class, 'types_chambre_id');
     }
-    
+
     public function chambres(): HasMany
     {
         return $this->hasMany(Chambres::class, 'types_chambre_id', 'id');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

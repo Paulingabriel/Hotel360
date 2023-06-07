@@ -3,9 +3,8 @@
 
 .container-lg{
     padding-top: 0!important;
-    padding: 30px;
 }
-.section-title h4{
+h4{
     padding: 0.5rem;
     padding-left: 0;
     margin-top: 0.5rem;
@@ -28,6 +27,8 @@
     height: 45px;
     box-sizing: border-box;
     border-radius: 25px;
+    border: none!important;
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1)!important;
     padding: 0 15px 0 15px!important;
 }
 
@@ -35,6 +36,16 @@
     border: 1px solid  rgba(50, 162, 50, 0.8)!important;
     box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
 
+}
+
+textarea:focus{
+    border: 1px solid  rgba(50, 162, 50, 0.8)!important;
+    box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
+}
+textarea{
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1)!important;
+    border: none!important;
+    border-radius: 10px;
 }
 
 /* input[type='radio']:checked:after{
@@ -55,9 +66,11 @@
 
 .btn-actions .btn-submit{
     background-color: #014601;
+    box-shadow: 0px 0px 6px rgba(50, 162, 50, 0.8)!important;
 }
 .btn-actions .btn-cancel{
     background-color: #e91717;
+    box-shadow: 0px 0px 6px rgba(255, 0, 0, 0.8)!important;
 }
 
 
@@ -89,7 +102,57 @@
   transition: .4s;
 }
 
+.slideOn {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:  rgba(50, 162, 50, 0.8);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slideOff {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:  red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+
+
 .slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  right: 2px;
+  bottom: 2.1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slideOff:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  right: 2px;
+  bottom: 2.1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slideOn:before {
   position: absolute;
   content: "";
   height: 13px;
@@ -120,7 +183,23 @@ input:checked + .slider:before {
   border-radius: 34px;
 }
 
+.sliderOn.round {
+  border-radius: 34px;
+}
+
+.sliderOff.round {
+  border-radius: 34px;
+}
+
 .slider.round:before {
+  border-radius: 50%;
+}
+
+.sliderOn.round:before {
+  border-radius: 50%;
+}
+
+.sliderOff.round:before {
   border-radius: 50%;
 }
 

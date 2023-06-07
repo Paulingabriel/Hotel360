@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Etages;
 use App\Models\Salles;
+use App\Models\ResSalles;
 use App\Models\TypesSalles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SallesController extends Controller
@@ -16,8 +18,9 @@ class SallesController extends Controller
      */
     public function index()
     {
+        $ressalle = ResSalles::where('user_id','=',Auth::id())->get();
         $salles = Salles::latest()->get();
-        return view("salles.index", compact('salles'));
+        return view("salles.index", compact('salles', 'ressalle'));
     }
 
     /**
@@ -36,7 +39,7 @@ class SallesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gt:0',
             'nom' => 'required',
         ]);
 
@@ -56,6 +59,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
+            $data->user_id = $request->user()->id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;
@@ -70,7 +74,7 @@ class SallesController extends Controller
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -98,7 +102,7 @@ class SallesController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gt:0',
             'nom' => 'required',
         ]);
 
@@ -118,6 +122,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
+            $data->user_id = $request->user()->id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;

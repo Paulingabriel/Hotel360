@@ -7,6 +7,7 @@ use App\Models\Salles;
 use App\Models\SallesPs;
 use App\Models\TypesSalles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SallesPsController extends Controller
@@ -16,7 +17,7 @@ class SallesPsController extends Controller
      */
     public function index()
     {
-        $sallesps = SallesPs::latest()->get();
+        $sallesps = SallesPs::where('user_id','=',Auth::id())->latest()->get();
         return view("SallesPs.index", compact( 'sallesps'));
     }
 
@@ -36,10 +37,10 @@ class SallesPsController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required',
+            'prix' => 'required|gt:1',
             'titre' => 'required',
-            'date1' => 'required',
-            'date2' => 'required',
+            'date1' => 'required|date',
+            'date2' => 'required|date|after:date1',
         ]);
 
         if($validation->fails()){
@@ -58,6 +59,7 @@ class SallesPsController extends Controller
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
+            $data->user_id = $request->user()->id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
             $data->save();
@@ -71,7 +73,7 @@ class SallesPsController extends Controller
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -99,10 +101,10 @@ class SallesPsController extends Controller
     public function update(Request $request, string $id)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required',
+            'prix' => 'required|gt:1',
             'titre' => 'required',
-            'date1' => 'required',
-            'date2' => 'required',
+            'date1' => 'required|date',
+            'date2' => 'required|date|after:date1',
         ]);
 
         if($validation->fails()){
@@ -122,6 +124,7 @@ class SallesPsController extends Controller
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
+            $data->user_id = $request->user()->id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
 

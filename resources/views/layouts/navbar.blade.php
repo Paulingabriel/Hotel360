@@ -127,7 +127,7 @@
                 ><span class="avatar avatar-online"
                   ><img
                     id="navbar-avatar"
-                    src="../../app-assets/img/portrait/small/avatar-s-3.jpg"
+                    src="{{ asset('../app-assets/img/portrait/small/avatar-s-3.jpg') }}"
                     alt="avatar"
                 /></span>
                 <p class="d-none">User Settings</p></a

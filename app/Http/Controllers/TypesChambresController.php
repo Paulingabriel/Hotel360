@@ -7,6 +7,7 @@ use App\Models\ChambresPr;
 use App\Models\ChambresPs;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class TypesChambresController extends Controller
      */
     public function index()
     {
-        $typeschambres= TypesChambres::latest()->get();
+        $typeschambres= TypesChambres::where('user_id','=',Auth::id())->latest()->get();
         return view("typesChambres.index", compact('typeschambres' ));
     }
 
@@ -38,7 +39,7 @@ class TypesChambresController extends Controller
         $validation = Validator::make($request->all(), [
             'titre' => 'required|unique:types_chambres',
             'code' => 'required|unique:types_chambres',
-            'description' => '',
+            'description' => 'nullable',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
             'enfants' => 'required|numeric',
@@ -68,6 +69,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
+            $data->user_id = $request->user()->id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
@@ -93,7 +95,7 @@ class TypesChambresController extends Controller
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -111,7 +113,7 @@ class TypesChambresController extends Controller
     {
         $typeschambres = TypesChambres::FindOrFail($id);
         return view('typesChambres.edit', compact('typeschambres'));
-    
+
     }
 
     /**
@@ -122,7 +124,7 @@ class TypesChambresController extends Controller
         $validation = Validator::make($request->all(), [
             'titre' => 'required',
             'code' => 'required',
-            'description' => '',
+            'description' => 'nullable',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
             'enfants' => 'required|numeric',
@@ -151,6 +153,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
+            $data->user_id = $request->user()->id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
@@ -196,7 +199,7 @@ class TypesChambresController extends Controller
             $data->delete();
             toastr()->success('Suppression avec succès de l\'enregistrement');
         } catch (Exception $e) {
-            
+
             toastr()->error('Echec de suppression de l\'enregistrement');
         }
         return redirect()->back();

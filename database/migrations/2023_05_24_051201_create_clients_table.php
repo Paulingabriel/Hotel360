@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('adresse');
             $table->string('email')->unique();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('tel1');
             $table->string('tel2')->nullable();
             $table->timestamps();

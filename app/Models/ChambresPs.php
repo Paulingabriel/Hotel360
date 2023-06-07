@@ -15,4 +15,13 @@ class ChambresPs extends Model
     {
         return $this->belongsTo(TypesChambres::class, 'types_chambre_id', 'id');
     }
+    public function res_chambre(): BelongsTo
+    {
+        return $this->belongsTo(ResChambres::class);
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

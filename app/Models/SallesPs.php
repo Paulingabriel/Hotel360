@@ -19,4 +19,10 @@ class SallesPs extends Model
     {
         return $this->belongsTo(Salles::class);
     }
+
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

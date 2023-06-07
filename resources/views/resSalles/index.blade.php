@@ -2,80 +2,24 @@
 <html lang="en" class="loading">
 
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('../app-assets/js/sweetalert2@8.js') }}"></script>
+    <script src="{{ asset('../app-assets/js/sweetalert.min.js') }}"></script>
+    <script src="/app-assets/vendors/js/core/jquery.min.js"></script>
     @include('layouts.head')
+
 </head>
 
 
 <body data-col="2-columns" class="2-columns bg-white">
-    <style>
-        html {}
 
-        .dataTables_filter [type='search']{
-            height: 100%;
-            border-radius: 20px;
-            padding: 0 15px;
-            position: relative;
-        }
-        .main-panel .btn-add{
-            background-color:  #2e612e;
-            color: white;
-            font-family: 'poppins';
-            height: 35px;
-            border: none;
-            box-sizing: border-box;
-            padding: 0 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
-        }
-        .fa-plus{
-            padding: 2.5px;
-            background-color: #fff;
-            border-radius: 50%;
-            color: #2e612e;
-            font-weight: bold;
-        }
 
-        .active .page-link{
-            background-color:  #2e612e!important;
-            border-color:  #2e612e!important;
-        }
+    @include('layouts.styleData')
 
-        .dataTables_filter [type='search']:focus{
-        border: 1px solid  rgba(50, 162, 50, 0.8)!important;
-        box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
 
-        }
+    @include('resSalles.jquery')
 
-        .dataTables_filter label{
-            position: relative;
-        }
-        table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
-            background-color:  #2e612e!important;
-        }
-        .dt-buttons{
-           text-align: center;
-           padding: 0 0 20px 0;
-        }
-        .dt-buttons button{
-            border-radius: 3px;
-            background-color: #fff;
-            border: none!important;
-            box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
-        }
-        .dataTables_length, .dataTables_filter{
-            display: inline!important;
-        }
-        .dataTables_filter{
-            float: right;
-        }
-    </style>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="wrapper px-3">
 
@@ -87,92 +31,35 @@
             <div class="main-content">
                 <div class="content-wrapper">
                     <div class="row my-3">
-                        <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;">Réservations de Salles</h4>
+                        <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="icon-screen-tablet fs-1 me-2" style="color: #2e612e;"></i>Réservations de Salles</h4>
                         <div class="col-md-12">
-                            <a href="{{route("chambres/ajouter")}}">
-                                <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
-                            </a>
+
+                            {{-- <a href="{{route("facture", ['id' => $ressalle->id])}}" target="_blank">
+                                <button class="btn-download float-left"><i class="fa-solid fa-download me-1"></i>facture</button>
+                            </a> --}}
+                            <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
+
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>#</th>
+                                <th>Nom du client</th>
+                                <th>Salle N°</th>
+                                <th>Date de reservation</th>
+                                <th>Date d'entrée</th>
+                                <th>Date de sortie</th>
+                                <th>Prix regulier</th>
+                                <th>Prix spécial</th>
+                                <th>Montant global</th>
+                                <th>Mode de payement</th>
+                                <th>Statut de réservation</th>
                                 <th>Actions</th>
-                                <th>E-mail</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tiger</td>
-                                <td>Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011-04-25</td>
-                                <td>$320,800</td>
-                                <td>
-                                    <div class="actions text-center">
-                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
-                                        <i class="ft-trash-2 danger"></i>
-                                    </div>
-                                </td>
-                                <td>t.nixon@datatables.net</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett</td>
-                                <td>Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011-07-25</td>
-                                <td>$170,750</td>
-                                <td>
-                                    <div class="actions text-center">
-                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
-                                        <i class="ft-trash-2 danger"></i>
-                                    </div>
-                                </td>
-                                <td>g.winters@datatables.net</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton</td>
-                                <td>Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009-01-12</td>
-                                <td>$86,000</td>
-                                <td>
-                                    <div class="actions text-center">
-                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
-                                        <i class="ft-trash-2 danger"></i>
-                                    </div>
-                                </td>
-                                <td>a.cox@datatables.net</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric</td>
-                                <td>Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012-03-29</td>
-                                <td>$433,060</td>
-                                <td>
-                                    <div class="actions text-center">
-                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
-                                        <i class="ft-trash-2 danger"></i>
-                                    </div>
-                                </td>
-                                <td>c.kelly@datatables.net</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -180,80 +67,9 @@
         </div>
 
     </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
+    @include('resSalles.create')
+    @include('resSalles.edit')
 
-
-    <script src="../app-assets/vendors/js/core/jquery-3.3.1.min.js"></script>
-    <script src="../app-assets/vendors/js/core/popper.min.js"></script>
-    <script src="../app-assets/vendors/js/core/bootstrap.min.js"></script>
-    <script src="../app-assets/vendors/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../app-assets/vendors/js/prism.min.js"></script>
-    <script src="../app-assets/vendors/js/jquery.matchHeight-min.js"></script>
-    <script src="../app-assets/vendors/js/screenfull.min.js"></script>
-    <script src="../app-assets/vendors/js/pace/pace.min.js"></script>
-    <script src="../app-assets/vendors/js/chartist.min.js"></script>
-    <script src="../app-assets/js/app-sidebar.js"></script>
-    <script src="../app-assets/js/notification-sidebar.js"></script>
-    <script src="../app-assets/js/customizer.js"></script>
-    <script src="../app-assets/js/dashboard-ecommerce.js"></script>
-
-    <!----------javascript links datatables--------->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
-
-
-     <!----------javascript links export buttons--------->
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js
-    ">
-    </script>
-
-
-    <script>
-    $(document).ready(function() {
-    $('#example').DataTable(
-        {
-        dom: 'Blfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    }
-    );
-    } );
-    </script>
-
-<!-- Mirrored from pixinvent.com/demo/convex-bootstrap-admin-dashboard-template/demo-3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Jan 2022 15:37:02 GMT -->
-
-</html>
-
-
-
-
-
+    @include('layouts.script')

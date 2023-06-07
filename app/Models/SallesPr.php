@@ -19,4 +19,13 @@ class SallesPr extends Model
     {
         return $this->belongsTo(Salles::class);
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+    // public function res_salle(): BelongsTo
+    // {
+    //     return $this->belongsTo(ResSalles::class);
+    // }
 }

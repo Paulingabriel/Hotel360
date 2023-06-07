@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Etages;
 use App\Models\Chambres;
+use App\Models\ResChambres;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ChambresController extends Controller
@@ -16,8 +18,9 @@ class ChambresController extends Controller
      */
     public function index()
     {
-        $chambres = Chambres::latest()->get();
-        return view("chambres.index", compact('chambres'));
+        $chambres = Chambres::where('user_id','=',Auth::id())->latest()->get();
+        $reschambre = ResChambres::get();
+        return view("chambres.index", compact('chambres', 'reschambre'));
     }
 
     /**
@@ -36,7 +39,7 @@ class ChambresController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gt:0',
         ]);
 
         if($validation->fails()){
@@ -56,6 +59,7 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
+            $data->user_id = $request->user()->id;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->save();
 
@@ -63,12 +67,14 @@ class ChambresController extends Controller
             return redirect()->route('chambres/index');
         } catch (Exception $e) {
 
+            dd($e);
+
              toastr()->error(
                  "Echec de l'enregistrement!"
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -96,7 +102,7 @@ class ChambresController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gt:0',
         ]);
 
         if($validation->fails()){
@@ -116,8 +122,9 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
+            $data->user_id = $request->user()->id;
             $data->active = $request->active == 'on' ? 0 : 1;
-            
+
 
             $data->update();
 

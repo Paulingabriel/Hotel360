@@ -60,7 +60,7 @@
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
                             <button type="button" class="btn-cancel">Reinitialiser</button>
                         </div>
                     </div>
