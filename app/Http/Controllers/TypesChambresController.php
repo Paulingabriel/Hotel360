@@ -18,7 +18,7 @@ class TypesChambresController extends Controller
      */
     public function index()
     {
-        $typeschambres= TypesChambres::where('user_id','=',Auth::id())->latest()->get();
+        $typeschambres= TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("typesChambres.index", compact('typeschambres' ));
     }
 
@@ -69,7 +69,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
@@ -153,7 +153,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 

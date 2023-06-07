@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::hErKjQ0av21x9Cr9',
+            '_route' => 'generated::yROsBVlIBs24jz5U',
           ),
           1 => NULL,
           2 => 
@@ -1133,7 +1133,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::hsimqCQYwcfV0Y8E',
+            '_route' => 'generated::Wr2d3icE2qG6lohe',
           ),
           1 => NULL,
           2 => 
@@ -1188,7 +1188,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::6LmyXOtoAo6Wd1Rq',
+            '_route' => 'generated::vGjB2eaWw33ekH8e',
           ),
           1 => NULL,
           2 => 
@@ -1279,7 +1279,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::8MPwIO4qP9ICVaTn',
+            '_route' => 'generated::9UYOda9VsHxEH8tP',
           ),
           1 => NULL,
           2 => 
@@ -1483,10 +1483,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/auth/profil' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'auth/edit',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
     ),
     2 => 
     array (
-      0 => '{^(?|/types\\-(?|chambres/(?|modifier/([^/]++)(?|(*:50))|supprimer/([^/]++)(*:76))|salles/(?|modifier/([^/]++)(?|(*:114))|supprimer/([^/]++)(*:141)))|/c(?|hambres(?|/(?|modifier/([^/]++)(?|(*:190))|supprimer/([^/]++)(*:217))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:271))|supprimer/([^/]++)(*:298))|spéciaux/(?|modifier/([^/]++)(?|(*:340))|supprimer/([^/]++)(*:367))))|lients/(?|modifier/([^/]++)(?|(*:408))|supprimer/([^/]++)(*:435)))|/étages/(?|modifier/([^/]++)(?|(*:477))|supprimer/([^/]++)(*:504))|/s(?|alles(?|/(?|modifier/([^/]++)(?|(*:550))|supprimer/([^/]++)(*:577))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:631))|supprimer/([^/]++)(*:658))|spéciaux/(?|modifier/([^/]++)(?|(*:700))|supprimer/([^/]++)(*:727))))|uperadmin/(?|roles/([^/]++)(?|(*:768)|/(?|edit(*:784)|permissions(?|(*:806)|/([^/]++)(*:823)))|(*:833))|permissions/([^/]++)(?|(*:865)|/(?|edit(*:881)|roles(?|(*:897)|/([^/]++)(*:914)))|(*:924))|u(?|sers/([^/]++)(?|(*:953)|/(?|roles(?|(*:973)|/([^/]++)(*:990))|permissions(?|(*:1013)|/([^/]++)(*:1031))))|tilisateurs/modifier/([^/]++)(*:1072))))|/reservations\\-(?|salles/(?|facture/([^/]++)(?|(*:1131)|/telecharger(*:1152))|update/([^/]++)(*:1177)|edit/([^/]++)(*:1199)|supprimer/([^/]++)(*:1226))|chambres/(?|facture/([^/]++)(?|(*:1267)|/telecharger(*:1288))|update/([^/]++)(*:1313)|edit/([^/]++)(*:1335)|supprimer/([^/]++)(*:1362)))|/hotels/(?|modifier/([^/]++)(?|(*:1404))|supprimer/([^/]++)(*:1432))|/password/reset/([^/]++)(*:1466))/?$}sDu',
+      0 => '{^(?|/types\\-(?|chambres/(?|modifier/([^/]++)(?|(*:50))|supprimer/([^/]++)(*:76))|salles/(?|modifier/([^/]++)(?|(*:114))|supprimer/([^/]++)(*:141)))|/c(?|hambres(?|/(?|modifier/([^/]++)(?|(*:190))|supprimer/([^/]++)(*:217))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:271))|supprimer/([^/]++)(*:298))|spéciaux/(?|modifier/([^/]++)(?|(*:340))|supprimer/([^/]++)(*:367))))|lients/(?|modifier/([^/]++)(?|(*:408))|supprimer/([^/]++)(*:435)))|/étages/(?|modifier/([^/]++)(?|(*:477))|supprimer/([^/]++)(*:504))|/s(?|alles(?|/(?|modifier/([^/]++)(?|(*:550))|supprimer/([^/]++)(*:577))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:631))|supprimer/([^/]++)(*:658))|spéciaux/(?|modifier/([^/]++)(?|(*:700))|supprimer/([^/]++)(*:727))))|uperadmin/(?|roles/([^/]++)(?|(*:768)|/(?|edit(*:784)|permissions(?|(*:806)|/([^/]++)(*:823)))|(*:833))|permissions/([^/]++)(?|(*:865)|/(?|edit(*:881)|roles(?|(*:897)|/([^/]++)(*:914)))|(*:924))|u(?|sers/([^/]++)(?|(*:953)|/(?|roles(?|(*:973)|/([^/]++)(*:990))|permissions(?|(*:1013)|/([^/]++)(*:1031))))|tilisateurs/modifier/([^/]++)(*:1072))))|/reservations\\-(?|salles/(?|facture/([^/]++)(?|(*:1131)|/telecharger(*:1152))|update/([^/]++)(*:1177)|edit/([^/]++)(*:1199)|supprimer/([^/]++)(*:1226))|chambres/(?|facture/([^/]++)(?|(*:1267)|/telecharger(*:1288))|update/([^/]++)(*:1313)|edit/([^/]++)(*:1335)|supprimer/([^/]++)(*:1362)))|/hotels/(?|modifier/([^/]++)(?|(*:1404))|supprimer/([^/]++)(*:1432))|/password/reset/([^/]++)(*:1466)|/auth/profil/([^/]++)(*:1496))/?$}sDu',
     ),
     3 => 
     array (
@@ -2880,6 +2900,28 @@ app('router')->setCompiledRoutes(
           5 => true,
           6 => NULL,
         ),
+      ),
+      1496 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'auth/modifier',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
         1 => 
         array (
           0 => NULL,
@@ -3042,7 +3084,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::hErKjQ0av21x9Cr9' => 
+    'generated::yROsBVlIBs24jz5U' => 
     array (
       'methods' => 
       array (
@@ -3065,7 +3107,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::hErKjQ0av21x9Cr9',
+        'as' => 'generated::yROsBVlIBs24jz5U',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6621,7 +6663,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::hsimqCQYwcfV0Y8E' => 
+    'generated::Wr2d3icE2qG6lohe' => 
     array (
       'methods' => 
       array (
@@ -6641,7 +6683,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::hsimqCQYwcfV0Y8E',
+        'as' => 'generated::Wr2d3icE2qG6lohe',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6730,7 +6772,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::6LmyXOtoAo6Wd1Rq' => 
+    'generated::vGjB2eaWw33ekH8e' => 
     array (
       'methods' => 
       array (
@@ -6750,7 +6792,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::6LmyXOtoAo6Wd1Rq',
+        'as' => 'generated::vGjB2eaWw33ekH8e',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6949,7 +6991,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::8MPwIO4qP9ICVaTn' => 
+    'generated::9UYOda9VsHxEH8tP' => 
     array (
       'methods' => 
       array (
@@ -6969,7 +7011,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::8MPwIO4qP9ICVaTn',
+        'as' => 'generated::9UYOda9VsHxEH8tP',
       ),
       'fallback' => false,
       'defaults' => 
@@ -8084,6 +8126,79 @@ app('router')->setCompiledRoutes(
         'as' => 'superadmin.users.permissions.revoke',
         'namespace' => NULL,
         'prefix' => '/superadmin',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'auth/modifier' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'auth/profil/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\AuthController@update',
+        'controller' => 'App\\Http\\Controllers\\AuthController@update',
+        'as' => 'auth/modifier',
+        'namespace' => NULL,
+        'prefix' => '/auth',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'auth/edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'auth/profil',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\AuthController@edit',
+        'controller' => 'App\\Http\\Controllers\\AuthController@edit',
+        'as' => 'auth/edit',
+        'namespace' => NULL,
+        'prefix' => '/auth',
         'where' => 
         array (
         ),

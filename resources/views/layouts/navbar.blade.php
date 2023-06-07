@@ -127,7 +127,7 @@
                 ><span class="avatar avatar-online"
                   ><img
                     id="navbar-avatar"
-                    src="{{ asset('../app-assets/img/portrait/small/avatar-s-3.jpg') }}"
+                    src="{{ asset('uploads/images/' . Auth::user()->image) }}"
                     alt="avatar"
                 /></span>
                 <p class="d-none">User Settings</p></a
@@ -138,19 +138,9 @@
               >
                 <div class="arrow_box_right">
                   <a
-                    href="user-profile-page.html"
-                    class="dropdown-item py-1"
+                    href="{{ route('auth/edit') }}"
+                        class="dropdown-item py-1"
                     ><i class="ft-edit mr-2"></i><span>My Profile</span></a
-                  ><a href="chat.html" class="dropdown-item py-1"
-                    ><i class="ft-message-circle mr-2"></i
-                    ><span>My Chat</span></a
-                  ><a href="javascript:;" class="dropdown-item py-1"
-                    ><i class="ft-settings mr-2"></i
-                    ><span>Settings</span></a
-                  >
-                  <div class="dropdown-divider"></div>
-                  <a href="javascript:;" class="dropdown-item"
-                    ><i class="ft-power mr-2"></i><span>Logout</span></a
                   >
                 </div>
               </div>

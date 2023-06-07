@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('datedebut')->nullable();
             $table->date('datefin')->nullable();
             $table->string('option');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('adultes')->nullable();
             $table->integer('enfants')->nullable();
             $table->string('payement')->nullable();

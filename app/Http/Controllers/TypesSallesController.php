@@ -16,7 +16,7 @@ class TypesSallesController extends Controller
      */
     public function index()
     {
-        $typessalles= TypesSalles::where('user_id','=',Auth::id())->latest()->get();
+        $typessalles= TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("typessalles.index", compact('typessalles' ));
     }
 
@@ -57,7 +57,7 @@ class TypesSallesController extends Controller
 
             $data->titre = $request->titre;
             $data->code = $request->code;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->description = $request->description;
             $data->min = $request->min;
             $data->max = $request->max;
@@ -130,7 +130,7 @@ class TypesSallesController extends Controller
 
             $data->titre = $request->titre;
             $data->code = $request->code;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->description = $request->description;
             $data->min = $request->min;
             $data->max = $request->max;

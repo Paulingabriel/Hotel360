@@ -20,9 +20,8 @@ class SallesPs extends Model
         return $this->belongsTo(Salles::class);
     }
 
-
-    public function user(): BelongsTo
+    public function hotel(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Hotel::class);
     }
 }

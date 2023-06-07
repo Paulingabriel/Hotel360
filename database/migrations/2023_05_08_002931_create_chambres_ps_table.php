@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('chambres_ps', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('types_chambre_id')->constrained('types_chambres')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date1');
             $table->date('date2');

@@ -19,15 +19,15 @@ class ResChambresController extends Controller
      */
     public function index()
     {
-        $reschambres = ResChambres::where('user_id','=',Auth::id())->orderBy('id','desc')->get();
-        $clients = Clients::where('user_id','=',Auth::id())->get();
-        $chambres = Chambres::where('user_id','=',Auth::id())->get();
-        $chambresprs = ChambresPr::where('user_id','=',Auth::id())->get();
-        $chambrespss = ChambresPs::where('user_id','=',Auth::id())->get();
+        $reschambres = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
+        $clients = Clients::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $chambresprs = ChambresPr::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $chambrespss = ChambresPs::where('hotel_id','=',Auth::user()->hotel_id)->get();
         return view("ResChambres.index", compact('clients', 'chambres', 'chambresprs', 'chambrespss', 'reschambres'));
     }
     public function allData(){
-        $data = ResChambres::where('user_id','=',Auth::id())->orderBy('id','DESC')->get();
+        $data = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
         return response()->json($data);
     }
 
@@ -36,7 +36,7 @@ class ResChambresController extends Controller
      */
     public function create()
     {
-        $reschambres = ResChambres::where('user_id','=',Auth::id())->orderBy('id','DESC')->get();
+        $reschambres = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
         return view("ResChambres.create", compact('reschambres'));
     }
 
@@ -62,7 +62,7 @@ class ResChambresController extends Controller
             'occ' => $request->occ,
             'adultes' => $request->adultes,
             'enfants' => $request->enfants,
-            'user_id' => $request->user()->id,
+            'hotel_id' => $request->user()->hotel_id,
             'chambres_pr_id' => $request->chambres_pr_id,
             'chambres_ps_id' => $request->chambres_ps_id,
             'payement' => $request->payement,
@@ -77,8 +77,10 @@ class ResChambresController extends Controller
      */
     public function showData(string $id)
     {
+        $todayDate = Carbon::now()->format('d-m-y');
+        $client = Clients::all();
         $reschambre = ResChambres::findOrFail($id);
-        return view('resChambres.show', compact('reschambre'));
+        return view('resChambres.show', compact('reschambre', 'client', 'todayDate'));
     }
 
     public function download($id)
@@ -118,7 +120,7 @@ class ResChambresController extends Controller
             'occ' => $request->occ,
             'adultes' => $request->adultes,
             'enfants' => $request->enfants,
-            'user_id' => $request->user()->id,
+            'hotel_id' => $request->user()->hotel_id,
             'chambres_pr_id' => $request->chambres_pr_id,
             'chambres_ps_id' => $request->chambres_ps_id,
             'payement' => $request->payement,

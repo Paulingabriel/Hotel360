@@ -34,8 +34,9 @@ class ResChambres extends Model
     {
         return $this->hasMany(ChambresPs::class, 'chambre_ps_id', 'id');
     }
-    public function user(): BelongsTo
+    
+    public function hotel(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Hotel::class);
     }
 }

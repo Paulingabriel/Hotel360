@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\EtagesController;
 use App\Http\Controllers\SallesController;
@@ -228,4 +229,14 @@ Route::middleware(['auth', 'role:superadmin'])->name('superadmin.')->prefix('sup
     Route::get('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
     Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
     Route::get('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
+});
+
+
+/*Auth*/
+
+Route::prefix('/auth')->name('auth/')->group(function(){
+    
+    Route::put("/profil/{id}", [AuthController::class, 'update'])->name('modifier');
+    Route::get("/profil", [AuthController::class, 'edit'])->name('edit');
+    
 });

@@ -69,7 +69,8 @@ class UserController extends Controller
         return view('superadmin.users.edit', compact('user', 'permissions', 'roles', 'hotels', 'hotel'));
     }
 
-    public function update(Request $request, User $user)
+    
+public function update(Request $request, User $user)
     {
 
         $validatedData = Validator::make($request->all(), [
@@ -106,7 +107,6 @@ class UserController extends Controller
             return to_route('superadmin.users.index');
         }
     }
-
     public function assignRole(Request $request, User $user)
     {
         if ($user->hasRole($request->role)) {

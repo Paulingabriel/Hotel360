@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('dateres')->nullable();
             $table->date('datedebut');
             $table->date('datefin');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->string('payement')->nullable();
             $table->integer('salles_pr_id')->nullable();
             $table->integer('salles_ps_id')->nullable();

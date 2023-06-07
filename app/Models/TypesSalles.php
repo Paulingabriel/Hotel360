@@ -26,8 +26,8 @@ class TypesSalles extends Model
     {
         return $this->hasMany(Salles::class, 'types_salle_id', 'id');
     }
-    public function user(): BelongsTo
+    public function hotel(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Hotel::class);
     }
 }

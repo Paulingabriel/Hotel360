@@ -15,7 +15,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients= Clients::where('user_id','=',Auth::id())->latest()->get();
+        $clients= Clients::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("clients.index", compact('clients' ));
     }
 
@@ -57,7 +57,7 @@ class ClientsController extends Controller
             $data->nom = $request->nom;
             $data->sexe = $request->sexe;
             $data->adresse = $request->adresse;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->email = $request->email;
             $data->tel1 = $request->tel1;
             $data->tel2 = $request->tel2;
@@ -123,7 +123,7 @@ class ClientsController extends Controller
             $data->nom = $request->nom;
             $data->sexe = $request->sexe;
             $data->adresse = $request->adresse;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->email = $request->email;
             $data->tel1 = $request->tel1;
             $data->tel2 = $request->tel2;

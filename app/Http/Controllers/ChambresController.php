@@ -18,7 +18,7 @@ class ChambresController extends Controller
      */
     public function index()
     {
-        $chambres = Chambres::where('user_id','=',Auth::id())->latest()->get();
+        $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         $reschambre = ResChambres::get();
         return view("chambres.index", compact('chambres', 'reschambre'));
     }
@@ -59,7 +59,7 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->save();
 
@@ -122,7 +122,7 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
 
 

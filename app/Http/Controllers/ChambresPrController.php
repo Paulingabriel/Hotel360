@@ -17,7 +17,7 @@ class ChambresPrController extends Controller
      */
     public function index()
     {
-        $chambrespr = ChambresPr::where('user_id','=',Auth::id())->latest()->get();
+        $chambrespr = ChambresPr::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPr.index", compact('chambrespr'));
     }
 
@@ -59,7 +59,7 @@ class ChambresPrController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->save();
 
@@ -122,7 +122,7 @@ class ChambresPrController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_chambre_id = $request->types_chambre_id;
 
             $data->update();

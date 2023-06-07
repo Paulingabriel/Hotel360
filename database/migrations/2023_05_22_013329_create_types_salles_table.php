@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre')->unique();
             $table->string('code')->unique();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('min');
             $table->integer('max');
             $table->string('image');

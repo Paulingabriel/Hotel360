@@ -19,14 +19,14 @@ class ResSallesController extends Controller
      */
     public function index()
     {
-        $clients = Clients::where('user_id','=',Auth::id())->get();
-        $salles = Salles::where('user_id','=',Auth::id())->get();
-        $sallesprs = SallesPr::where('user_id','=',Auth::id())->get();
-        $sallespss = SallesPs::where('user_id','=',Auth::id())->get();
+        $clients = Clients::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $sallesprs = SallesPr::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $sallespss = SallesPs::where('hotel_id','=',Auth::user()->hotel_id)->get();
         return view("resSalles.index", compact('clients', 'salles', 'sallesprs', 'sallespss'));
     }
     public function allData(){
-        $data = ResSalles::where('user_id','=',Auth::id())->orderBy('id','DESC')->get();
+        $data = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
         return response()->json($data);
     }
 
@@ -35,7 +35,7 @@ class ResSallesController extends Controller
      */
     public function create()
     {
-        $ressalles = ResSalles::where('user_id','=',Auth::id())->orderBy('id','DESC')->get();
+        $ressalles = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
         return view("resSalles.create", compact('ressalles'));
     }
 
@@ -56,7 +56,7 @@ class ResSallesController extends Controller
                 'dateres' => $request->dateres,
                 'datedebut' => $request->datedebut,
                 'datefin' => $request->datefin,
-                'user_id' => $request->user()->id,
+                'hotel_id' => $request->user()->hotel_id,
                 'salles_pr_id' => $request->salles_pr_id,
                 'salles_ps_id' => $request->salles_ps_id,
                 'payement' => $request->payement,
@@ -72,7 +72,9 @@ class ResSallesController extends Controller
     public function showData(string $id)
     {
         $ressalle = ResSalles::findOrFail($id);
-        return view('resSalles.show', compact('ressalle'));
+        $client = Clients::all();
+        $todayDate = Carbon::now()->format('d-m-y');
+        return view('resSalles.show', compact('ressalle', 'client',  'todayDate'));
     }
 
     public function download($id){
@@ -106,7 +108,7 @@ class ResSallesController extends Controller
             'dateres' => $request->dateres,
             'datedebut' => $request->datedebut,
             'datefin' => $request->datefin,
-            'user_id' => $request->user()->id,
+            'hotel_id' => $request->user()->hotel_id,
             'salles_pr_id' => $request->salles_pr_id,
             'salles_ps_id' => $request->salles_ps_id,
             'payement' => $request->payement,

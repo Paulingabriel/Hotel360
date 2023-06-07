@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->integer('num');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('res_salle_id')->nullable()->constrained('res_salles')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('types_salle_id')->constrained('types_salles')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('etage_id')->constrained('etages')->onUpdate('cascade')->onDelete('cascade');

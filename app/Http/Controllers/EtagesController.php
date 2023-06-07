@@ -15,7 +15,7 @@ class EtagesController extends Controller
      */
     public function index(Request $request)
     {
-        $etages= Etages::where('user_id','=',Auth::id())->latest()->get();
+        $etages= Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("etages.index", compact('etages' ));
     }
 
@@ -55,7 +55,7 @@ class EtagesController extends Controller
             $data->num = $request->num;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->description = $request->description;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
 
             $data->save();
 
@@ -115,7 +115,7 @@ class EtagesController extends Controller
 
             $data->num = $request->num;
             $data->active = $request->active;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
 
             $data->update();

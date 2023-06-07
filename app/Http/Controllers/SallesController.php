@@ -18,7 +18,7 @@ class SallesController extends Controller
      */
     public function index()
     {
-        $ressalle = ResSalles::where('user_id','=',Auth::id())->get();
+        $ressalle = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->get();
         $salles = Salles::latest()->get();
         return view("salles.index", compact('salles', 'ressalle'));
     }
@@ -59,7 +59,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;
@@ -122,7 +122,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;

@@ -17,7 +17,7 @@ class SallesPsController extends Controller
      */
     public function index()
     {
-        $sallesps = SallesPs::where('user_id','=',Auth::id())->latest()->get();
+        $sallesps = SallesPs::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("SallesPs.index", compact( 'sallesps'));
     }
 
@@ -59,7 +59,7 @@ class SallesPsController extends Controller
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
             $data->save();
@@ -124,7 +124,7 @@ class SallesPsController extends Controller
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
 

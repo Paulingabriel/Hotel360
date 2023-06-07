@@ -2,7 +2,7 @@
 
 .clearfix{
     padding: 5px 16px!important;
-    height: 70px!important;
+    height: 80px!important;
     display: flex;
     align-items: center;
 }

@@ -16,7 +16,7 @@ class ChambresPsController extends Controller
      */
     public function index()
     {
-        $chambresps = ChambresPs::where('user_id','=',Auth::id())->latest()->get();
+        $chambresps = ChambresPs::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPs.index", compact( 'chambresps'));
     }
 
@@ -59,7 +59,7 @@ class ChambresPsController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
@@ -127,7 +127,7 @@ class ChambresPsController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
-            $data->user_id = $request->user()->id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;

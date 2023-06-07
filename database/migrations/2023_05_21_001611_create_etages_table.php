@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('etages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('num');
             $table->boolean('active')->default(true);
             $table->longText('description')->nullable();
