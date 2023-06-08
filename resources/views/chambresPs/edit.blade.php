@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Prix Spécial
+            Modifier le Prix
         </h4>
     </div>
 
@@ -82,7 +82,9 @@
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
                             <button type="submit" class="btn-submit mb-2">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <a href="{{route("chambresPs/edit", ['id' => $chambresps->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

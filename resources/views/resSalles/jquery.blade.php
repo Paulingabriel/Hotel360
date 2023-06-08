@@ -172,7 +172,16 @@ allData();
                 $('#salles_pr_id').val(data.salles_pr_id);
                 $('#salles_ps_id').val(data.salles_ps_id);
                 $('#payement').val(data.payement);
-                $('#statut').val(data.statut);
+                if(data.statut == 'En cours...')
+                {
+
+                    $("#statut1").prop("checked" , true)  
+            
+                }else if(data.statut == 'Terminée'){
+
+                    $("#statut2").prop("checked" , true)
+
+                }
             }
         });
     }

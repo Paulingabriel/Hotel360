@@ -45,7 +45,7 @@ textarea:focus{
                 <div class="mb-4">
                     <label class="label" style="transform: translateY(-5px)">Active</label>
                     <label class="ms-2 switch label">
-                        <input type="checkbox" name="active">
+                        <input type="checkbox" name="active" {{$etages->active == 0 ?'checked':''}}>
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -59,7 +59,9 @@ textarea:focus{
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
                             <button type="submit" class="btn-submit mb-2">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <a href="{{route("etages/edit", ['id' => $etages->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

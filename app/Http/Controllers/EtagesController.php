@@ -99,6 +99,7 @@ class EtagesController extends Controller
             'num' => 'required',
             'description' => 'nullable',
         ]);
+        // dd($request);
 
         if($validation->fails()){
             toastr()->error('Veuillez remplir tous les champs.');
@@ -117,7 +118,6 @@ class EtagesController extends Controller
             $data->active = $request->active;
             $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
-
             $data->update();
 
             toastr()->success('Modification éffectuée avec succès!');

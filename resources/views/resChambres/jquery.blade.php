@@ -222,7 +222,16 @@ allData();
                 $('#chambres_pr_id').val(data.chambres_pr_id);
                 $('#chambres_ps_id').val(data.chambres_ps_id);
                 $('#payement').val(data.payement);
-                $('#statut').val(data.statut);
+                if(data.statut == 'En cours...')
+                {
+
+                    $("#statut1").prop("checked" , true)  
+            
+                }else if(data.statut == 'Terminée'){
+
+                    $("#statut2").prop("checked" , true)
+
+                }
 
                 var he = document.getElementById('he');
                 var d1 = document.getElementById('d1');

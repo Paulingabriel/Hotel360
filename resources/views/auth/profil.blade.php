@@ -27,7 +27,7 @@
                 <div class="form-group mb-3">
                     <input type="hidden" name="id" value="{{$auth->id}}">
                 </div>
-                <div class="row w-100">
+                <div class="row">
                     <div class="col-xl-3 col-lg-12">
                         <div class="card mb-4">
                             <div class="card-header pb-0">
@@ -58,20 +58,20 @@
                     </div>
                     <div class="col-xl-9 col-lg-12">
                         <div class="card" style="padding: 0 24px 24px 24px">
-                            <div class="row mb-4">
+                            <div class="row">
                                 <div class="section-title">
                                     <h4 class="border-bottom border-2"><i class="icon-user fs-1"></i>
                                         Profil
                                     </h4>
                                     {{-- @dump($errors) --}}
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-4">
                                     <label for="date" class="label col-md-12 mb-2">Nom</label>
                                     <input type="text" class="border border-2 form-control ps-0 form-control-line @error('name') is-invalid @enderror" name="name" value="{{$auth->name}}">
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="date" class="label col-md-12 mb-2">E-mail</label>
+                                <div class="col-md-6 mb-4">
+                                    <label for="date" class="label col-md-12 mb-2">Email</label>
                                     <input type="email" class="border border-2 form-control ps-0 form-control-line @error('email') is-invalid @enderror" name="email" value="{{$auth->email}}">
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 </div>

@@ -108,11 +108,11 @@
                             <div class="d-flex mt-2">
                                 <div class="form-check form-check-inline label1">
                                     <label class="form-check-label" for="inlineRadio1">En cours...</label>
-                                    <input class="form-check-input" type="radio" name="statut" id="statut" value="En cours...">
+                                    <input class="form-check-input" type="radio" name="statut" id="statut1" value="En cours...">
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label label2" for="inlineRadio2">Terminée</label>
-                                    <input class="form-check-input" type="radio" name="statut" id="statut" value="Terminée">
+                                    <input class="form-check-input" type="radio" name="statut" id="statut2" value="Terminée">
                                 </div>
                             </div>
                             <span class="text-danger" id="satatutError"></span>

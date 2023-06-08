@@ -2,7 +2,7 @@
 
 .clearfix{
     padding: 5px 16px!important;
-    height: 80px!important;
+    height: 70px!important;
     display: flex;
     align-items: center;
 }
@@ -16,6 +16,7 @@
     /* height: 100%!important; */
     /* height: 50px!important; */
 }
+
 </style>
 
 <div data-active-color="white" data-background-color="aqua-marine" data-image="{{ asset('../app-assets/img/sidebar-bg/15.webp') }}"
@@ -74,29 +75,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route("clients/index")}}"><i class="icon-user"></i><span data-i18n=""
-                            class="menu-title">Clients</span></a>
-                </li>
-                <li class="has-sub nav-item">
-                    <a href="#"><i class="icon-user"></i><span data-i18n=""
-                            class="menu-title">Utilisateurs</span></a>
-                            <ul class="menu-content">
-                                <li>
-                                    <a href="/superadmin/utilisateurs" class="menu-item" style="padding-left: 20px;"><i class="fa-solid fa-list"></i>Liste</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('superadmin.roles.index') }}" class="menu-item" style="padding-left: 20px;"><i class="las la-user-tag fs-4"></i>Roles</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('superadmin.permissions.index') }}" class="menu-item" style="padding-left: 20px;"><i class="las la-unlock-alt fs-4"></i>Permissions</a>
-                                </li>
-                            </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route("etages/index")}}"><i class="icon-layers"></i><span data-i18n=""
-                            class="menu-title">Etages</span></a>
-                </li>
                 <li class="has-sub nav-item">
                     <a href="#"><i class="las la-door-open fs-4"></i><span data-i18n="" class="menu-title">Salles
                             </span></a>
@@ -138,6 +116,29 @@
                             </ul>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route("clients/index")}}"><i class="icon-user"></i><span data-i18n=""
+                            class="menu-title">Clients</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route("etages/index")}}"><i class="icon-layers"></i><span data-i18n=""
+                            class="menu-title">Etages</span></a>
+                </li>
+                <li class="has-sub nav-item">
+                    <a href="#"><i class="icon-user"></i><span data-i18n=""
+                            class="menu-title">Utilisateurs</span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="/superadmin/utilisateurs" class="menu-item" style="padding-left: 20px;"><i class="fa-solid fa-list"></i>Liste</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('superadmin.roles.index') }}" class="menu-item" style="padding-left: 20px;"><i class="las la-user-tag fs-4"></i>Roles</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('superadmin.permissions.index') }}" class="menu-item" style="padding-left: 20px;"><i class="las la-unlock-alt fs-4"></i>Permissions</a>
+                                </li>
+                            </ul>
                 </li>
                 <li class="has-sub nav-item">
                     <a href="#"><i class="las la-cog fs-4"></i><span data-i18n=""

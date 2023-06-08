@@ -54,9 +54,9 @@
                                 <th>Nombre d'heures</th>
                                 <th>Adultes</th>
                                 <th>Enfants</th>
-                                <th>Prix regulier</th>
-                                <th>Prix spécial</th>
-                                <th>Montant global</th>
+                                <th>Prix regulier({{ Auth::user()->hotel->devise}})</th>
+                                <th>Prix spécial({{ Auth::user()->hotel->devise}})</th>
+                                <th>Montant global({{ Auth::user()->hotel->devise}})</th>
                                 <th>Mode de payement</th>
                                 <th>Statut de réservation</th>
                                 <th>Actions</th>

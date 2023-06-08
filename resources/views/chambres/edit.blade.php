@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Créer une nouvelle chambre
+            Modifier la chambre
         </h4>
     </div>
 
@@ -58,7 +58,7 @@
                 <div class="mb-4">
                     <label class="label" style="transform: translateY(-5px)">Disponible</label>
                     <label class="ms-2 switch label">
-                        <input type="checkbox" name="active">
+                        <input type="checkbox" name="active" {{$chambres->active == 0 ?'checked':''}}>
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -66,7 +66,9 @@
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
                             <button type="submit" class="btn-submit mb-2">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <a href="{{route("chambres/edit", ['id' => $chambres->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>
