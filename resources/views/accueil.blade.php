@@ -20,106 +20,266 @@
         @include('layouts.navbar')
 
 
-        <div class="main-panel">
+        <div class="main-panel px-3">
             <div class="main-content">
                 <div class="content-wrapper">
+                    <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-tachometer-alt fs-1 me-2"></i>Dashboard</h4>
+
                     <div class="row">
-                        <div class="col-xl-3 col-lg-6 col-12">
-                            <div class="card bg-success" style="height: 145.6px;">
-                                <div class="card-body">
-                                    <div class="px-3 py-3">
-                                        <div class="row text-white">
-                                            <div class="col-6">
-                                                <h1><i
-                                                        class="fa fa-usd background-round text-white p-2 font-medium-3"></i>
-                                                </h1>
-                                                <h4 class="pt-1 m-0 text-white">45% <i class="fa fa-long-arrow-up"></i>
-                                                </h4>
-                                            </div>
-                                            <div class="col-6 text-right pl-0">
-                                                <h4 class="text-white mb-2">Sales</h4>
-                                                <span>90%</span>
-                                                <br>
-                                                <span>Grate</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                          <div class="card bg-white">
+                            <div class="card-body">
+                              <div class="card-block pt-2 pb-0">
+                                <div class="media">
+                                  <div class="media-body white text-left">
+                                    <h4 class="d-none">{{$sum1 = 0, $sum2 = 0, $sum3 = 0, $sum4 = 0, $sum5 = 0, $sum6 = 0}}</h4>
+                                    @foreach($reschambres as $reschambre)
+                                    @if($reschambre->occ && $reschambre->chambres_pr_id)
+                                        <h4 class="d-none">{{ $sum1 += ($reschambre->chambres_pr_id)*($reschambre->occ)}}</h4>
+                                
+                                    @elseif($reschambre->occ && $reschambre->chambres_ps_id)
+                                    <h4 class="d-none">{{ $sum2 += ($reschambre->chambres_ps_id)*($reschambre->occ)}}</h4>
+
+                                    @elseif($reschambre->occ && $reschambre->chambres_pr_id && $reschambre->chambres_ps_id)
+                                    <h4 class="d-none">{{ $sum3 += ($reschambre->chambres_pr_id)*($reschambre->occ)}}</h4>
+
+                                    @elseif($reschambre->datedebut && $reschambre->datefin && $reschambre->chambres_ps_id)
+                                    <h4 class="d-none">{{ $sum4 += ($reschambre->chambres_ps_id)*(((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a'))}}</h4>
+
+                                    @elseif($reschambre->datedebut && $reschambre->datefin && $reschambre->chambres_pr_id)
+                                    <h4 class="d-none">{{ $sum5 += ($reschambre->chambres_pr_id)*(((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a'))}}</h4>
+
+                                    @elseif($reschambre->datedebut && $reschambre->datefin && $reschambre->chambres_pr_id && $reschambre->chambres_ps_id)
+                                    <h4 class="d-none">{{ $sum6 += ($reschambre->chambres_pr_id)*(((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a'))}}</h4>
+                                    @endif
+                                    @endforeach
+                                    <h4 class="font-medium-5 card-title mb-0">
+                                        {{number_format(($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6),0,'.','.')." ".Auth::user()->hotel->devise}}
+                                    </h4>
+                                    <span class="grey darken-1">Total réservations chambres</span>
+                                  </div>
+                                  <div class="media-right text-right">
+                                    <i class="icon-screen-tablet font-large-1 primary"></i>
+                                  </div>
                                 </div>
+                              </div>
+                              <div id="Widget-line-chart" class="height-150 lineChartWidget WidgetlineChart mb-2"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                          <div class="card bg-white">
+                            <div class="card-body">
+                              <div class="card-block pt-2 pb-0">
+                                <div class="media">
+                                  <div class="media-body white text-left">
+                                    <h4 class="d-none">{{$sum7 = 0, $sum8 = 0, $sum9 = 0}}</h4>
+                                    @foreach($ressalles as $ressalle)
+                                    @if($ressalle->datedebut && $ressalle->datefin && $ressalle->salles_ps_id)
+                                    <h4 class="d-none">{{ $sum7 += ($ressalle->salles_ps_id)*(((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a'))}}</h4>
+
+                                    @elseif($ressalle->datedebut && $ressalle->datefin && $ressalle->salles_pr_id)
+                                    <h4 class="d-none">{{ $sum8 += ($ressalle->salles_pr_id)*(((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a'))}}</h4>
+
+                                    @elseif($ressalle->datedebut && $ressalle->datefin && $ressalle->salles_pr_id && $ressalle->salles_ps_id)
+                                    <h4 class="d-none">{{ $sum9 += ($ressalle->salles_pr_id)*(((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a'))}}</h4>
+                                    @endif
+                                    @endforeach
+                                    <h4 class="font-medium-5 card-title mb-0">
+                                        {{number_format(($sum7 + $sum8 + $sum9),0,'.','.')." ".Auth::user()->hotel->devise}}
+                                    </h4>
+                                    <span class="grey darken-1">Total réservations salles</span>
+                                  </div>
+                                  <div class="media-right text-right">
+                                    <i class="icon-screen-tablet font-large-1 warning"></i>
+                                  </div>
+                                </div>
+                              </div>
+                              <div id="Widget-line-chart1" class="height-150 lineChartWidget WidgetlineChart1 mb-2"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                          <div class="card bg-white">
+                            <div class="card-body">
+                              <div class="card-block pt-2 pb-0">
+                                <div class="media">
+                                  <div class="media-body white text-left">
+                                    <h4 class="font-medium-5 card-title mb-0">
+                                        {{number_format(($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6 + $sum7 + $sum8 + $sum9),0,'.','.')." ".Auth::user()->hotel->devise}}
+                                    </h4>
+                                    <span class="grey darken-1">Total réservations</span>
+                                  </div>
+                                  <div class="media-right text-right">
+                                    <i class="icon-screen-tablet font-large-1 success"></i>
+                                  </div>
+                                </div>
+                              </div>
+                              <div id="Widget-line-chart2" class="height-150 lineChartWidget WidgetlineChart2 mb-2"></div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row w-100" style="margin: 0!important;">
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-info rounded-left pt-3">
+                                  <i class="fa fa-line-chart font-large-1 text-white"></i>
+                                </div>
+                                <div class="p-2 media-body">
+                                  <h6><strong class="fw-bold">ADR</strong><br>(chambres)</h6>
+                                  @if($chambresvd != 0)
+                                  <h6 class="text-bold-500 mb-0">{{ number_format((($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6)/($chambresvd)),0,'.','.')." ".Auth::user()->hotel->devise}}</h6>
+                                  @else
+                                  <h6 class="text-bold-500 mb-0"></h6>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-danger rounded-left pt-3">
+                                  <i class="fa fa-line-chart font-large-1 text-white"></i>
+                                </div>
+                                <div class="p-2 media-body">
+                                  <h6><strong class="fw-bold">ADR</strong><br>(salles)</h6>
+                                  @if($sallesvd != 0)
+                                  <h6 class="text-bold-500 mb-0">{{ number_format(($sum7 + $sum8 + $sum9)/($sallesvd),0,'.','.')." ".Auth::user()->hotel->devise }}</h6>
+                                  @else
+                                  <h6 class="text-bold-500 mb-0"></h6>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-success rounded-left pt-3">
+                                  <i class="fa fa-line-chart font-large-1 text-white"></i>
+                                </div>
+                                <div class="p-2 media-body">
+                                  <h6><strong class="fw-bold">RAVPAR</strong> (chambres)</h6>
+                                  @if($chambresvd != 0)
+                                  <h6 class="text-bold-500 mb-0">{{ number_format(((($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6)/($chambresvd))*($chambresocp/$nbrchambres)),0,'.','.')." ".Auth::user()->hotel->devise}}</h6>
+                                  @else
+                                  <h6 class="text-bold-500 mb-0"></h6>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-warning rounded-left pt-3">
+                                  <i class="fa fa-line-chart font-large-1 text-white"></i>
+                                </div>
+                                <div class="p-2 media-body">
+                                  <h6><strong class="fw-bold">RAVPAR</strong><br>(salles)</h6>
+                                  @if($sallesvd != 0)
+                                  <h6 class="text-bold-500 mb-0">{{ number_format(((($sum7 + $sum8 + $sum9)/($sallesvd))*($sallesocp/$nbrsalles)),0,'.','.')." ".Auth::user()->hotel->devise }}</h6>
+                                  @else
+                                  <h6 class="text-bold-500 mb-0"></h6>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row w-100" style="margin: 0!important;">
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-info rounded-left pt-3">
+                                  <i class="las la-bed font-large-2 text-white"></i>
+                                </div>
+                                <div class="py-2 px-2 media-body">
+                                  <h6 class="info">Taux d'occupation</h6>
+                                  @if($nbrchambres != 0)
+                                  <h5 class="text-bold-400">{{ ($chambresocp/$nbrchambres)*100 }}%</h5>
+                                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ ($chambresocp/$nbrchambres)*100 }}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                  </div>
+                                  @else
+                                  <h5 class="text-bold-400"></h5>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="media align-items-stretch">
+                                <div class="p-2 text-center bg-danger rounded-left pt-3">
+                                  <i class="las la-door-open font-large-2 text-white"></i>
+                                </div>
+                                <div class="py-2 px-2 media-body">
+                                  <h6 class="danger">Taux d'occupation</h6>
+                                  @if($nbrsalles != 0)
+                                  <h5 class="text-bold-500">{{ ($sallesocp/$nbrsalles)*100 }}%</h5>
+                                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ ($sallesocp/$nbrsalles)*100 }}%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                  @else
+                                  <h5 class="text-bold-400"></h5>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-12">
+                            <div class="card">
+                              <div class="card-body">
+                                <div class="media align-items-stretch">
+                                  <div class="p-2 text-center bg-success rounded-left pt-3">
+                                    <i class="las la-bed font-large-2 text-white"></i>
+                                  </div>
+                                  <div class="py-2 px-2 media-body">
+                                    <h6 class="success">Total Chambres</h6>
+                                    <h5 class="text-bold-400">{{ $nbrchambres }}</h5>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12">
-                            <div class="card bg-danger" style="height: 145.6px;">
-                                <div class="card-body">
-                                    <div class="px-3 py-3">
-                                        <div class="row text-white">
-                                            <div class="col-6">
-                                                <h1><i
-                                                        class="ft-star background-round text-white p-2 font-medium-3"></i>
-                                                </h1>
-                                                <h4 class="pt-1 m-0 text-white">10% <i
-                                                        class="fa fa-long-arrow-down"></i></h4>
-                                            </div>
-                                            <div class="col-6 text-right pl-0">
-                                                <h4 class="text-white mb-2">Product</h4>
-                                                <span>39%</span>
-                                                <br>
-                                                <span>Average</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="card">
+                              <div class="card-body">
+                                <div class="media align-items-stretch">
+                                  <div class="p-2 text-center bg-warning rounded-left pt-3">
+                                    <i class="las la-door-open font-large-2 text-white"></i>
+                                  </div>
+                                  <div class="py-2 px-2 media-body">
+                                    <h6 class="warning">Total Salles</h6>
+                                    <h5 class="text-bold-400">{{ $nbrsalles }}</h5>
+                                  </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12">
-                            <div class="card bg-info" style="height: 145.6px;">
-                                <div class="card-body">
-                                    <div class="px-3 py-3">
-                                        <div class="row text-white">
-                                            <div class="col-6">
-                                                <h1><i
-                                                        class="fa fa-line-chart background-round text-white p-2 font-medium-3"></i>
-                                                </h1>
-                                                <h4 class="pt-1 m-0 text-white">20% <i class="fa fa-long-arrow-up"></i>
-                                                </h4>
-                                            </div>
-                                            <div class="col-6 text-right pl-0">
-                                                <h4 class="text-white mb-2">Profit</h4>
-                                                <span>60%</span>
-                                                <br>
-                                                <span>Good</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12">
-                            <div class="card bg-warning" style="height: 145.6px;">
-                                <div class="card-body">
-                                    <div class="px-3 py-3">
-                                        <div class="row text-white">
-                                            <div class="col-6">
-                                                <h1><i
-                                                        class="fa fa-rocket background-round text-white p-2 font-medium-3"></i>
-                                                </h1>
-                                                <h4 class="pt-1 m-0 text-white">82% <i class="fa fa-long-arrow-up"></i>
-                                                </h4>
-                                            </div>
-                                            <div class="col-6 text-right pl-0">
-                                                <h4 class="text-white">Referral</h4>
-                                                <span>980</span>
-                                                <br>
-                                                <span>Grate</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        
 
     </div>
 

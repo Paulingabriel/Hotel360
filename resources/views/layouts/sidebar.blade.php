@@ -49,7 +49,7 @@
             <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
                 <li class="nav-item">
                     <a href="/accueil"><i class="icon-home"></i><span data-i18n=""
-                            class="menu-title">Dashboard</span>
+                            class="menu-title">Accueil</span>
                     </a>
 
                 </li>

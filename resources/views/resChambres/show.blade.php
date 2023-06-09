@@ -36,9 +36,13 @@
                         <p class="pb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">#INV-001001</font></font></p>
                         <ul class="px-0 list-unstyled">
                             <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Solde dû</font></font></li>
-                            @if(isset($reschambre->chambres_pr_id))
+                            @if($reschambre->chambres_pr_id && $reschambre->occ)
                             <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
-                            @elseif(isset($reschambre->chambres_ps_id))
+                            @elseif($reschambre->chambres_pr_id && $reschambre->datedebut && $reschambre->datefin)
+                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
+                            @elseif($reschambre->chambres_ps_id && $reschambre->datedebut && $reschambre->datefin)
+                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
+                            @elseif($reschambre->chambres_ps_id && $reschambre->occ)
                             <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
                             @endif
                         </ul>
@@ -86,15 +90,23 @@
                                             <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Reservation de chambre</font></font></p>
                                         </td>
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $reschambre->option }}</font></font></td>
+                                        @if($reschambre->occ)
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $reschambre->occ }}</font></font></td>
-                                        @if(isset($reschambre->chambres_pr_id))
+                                        @elseif($reschambre->datedebut && $reschambre->datefin)
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') }}</font></font></td>
+                                        @endif
+                                        @if($reschambre->chambres_pr_id)
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format($reschambre->chambres_pr_id,0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
-                                        @elseif(isset($reschambre->chambres_ps_id))
+                                        @elseif($reschambre->chambres_ps_id)
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $reschambre->chambres_ps_id }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @endif
-                                        @if(isset($reschambre->chambres_pr_id))
+                                        @if($reschambre->chambres_pr_id && $reschambre->occ)
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
-                                        @elseif(isset($reschambre->chambres_ps_id))
+                                        @elseif($reschambre->chambres_pr_id && $reschambre->datedebut && $reschambre->datefin)
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        @elseif($reschambre->chambres_ps_id && $reschambre->datedebut && $reschambre->datefin)
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        @elseif($reschambre->chambres_ps_id && $reschambre->occ)
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @endif
                                     </tr>
@@ -113,9 +125,13 @@
                                     <tbody>
                                         <tr class="bg-grey bg-lighten-4">
                                             <td class="text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Total</font></font></td>
-                                            @if(isset($reschambre->chambres_pr_id))
+                                            @if($reschambre->chambres_pr_id && $reschambre->occ)
                                             <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
-                                            @elseif(isset($reschambre->chambres_ps_id))
+                                            @elseif($reschambre->chambres_pr_id && $reschambre->datedebut && $reschambre->datefin)
+                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_pr_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                            @elseif($reschambre->chambres_ps_id && $reschambre->datedebut && $reschambre->datefin)
+                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( ((new DateTime($reschambre->datedebut))->diff(new DateTime($reschambre->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                            @elseif($reschambre->chambres_ps_id && $reschambre->occ)
                                             <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($reschambre->chambres_ps_id)*( $reschambre->occ ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                             @endif
                                         </tr>
