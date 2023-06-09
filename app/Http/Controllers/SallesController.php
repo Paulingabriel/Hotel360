@@ -39,7 +39,7 @@ class SallesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|gt:0',
+            'num' => 'required|gte:0',
             'nom' => 'required',
         ]);
 
@@ -102,7 +102,7 @@ class SallesController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|gt:0',
+            'num' => 'required|gte:0',
             'nom' => 'required',
         ]);
 

@@ -115,7 +115,7 @@
                                     <input class="form-check-input" type="radio" name="statut" id="statut" value="Terminée">
                                 </div>
                             </div>
-                            <span class="text-danger" id="satatutError"></span>
+                            <span class="text-danger" id="statutError"></span>
                         </div>
                         <div class="row">
                             <div class="offset-xl-4 col-xl-8 mt-5">

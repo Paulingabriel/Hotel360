@@ -50,7 +50,12 @@ class ResChambresController extends Controller
             'datedebut' => 'nullable',
             'datefin' => 'nullable',
             'option' => 'required',
+            'statut' => 'required',
             'occ' => 'nullable',
+            'adultes' => 'required|gte:0',
+            'enfants' => 'required|gte:0',
+            'chambres_pr_id' => 'nullable',
+            'chambres_ps_id' => 'nullable'
         ]);
          $store = ResChambres::insert([
             'client_id' => $request->client_id,
@@ -107,7 +112,12 @@ class ResChambresController extends Controller
             'datedebut' => 'nullable',
             'datefin' => 'nullable',
             'option' => 'required',
+            'statut' => 'required',
             'occ' => 'nullable',
+            'adultes' => 'required|gte:0',
+            'enfants' => 'required|gte:0',
+            'chambres_pr_id' => 'nullable',
+            'chambres_ps_id' => 'nullable'
         ]);
 
           $update = ResChambres::findOrFail($id)->update([

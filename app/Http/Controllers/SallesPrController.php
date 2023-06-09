@@ -37,7 +37,7 @@ class SallesPrController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required|gt:1',
+            'prix' => 'required|gt:0',
         ]);
 
         if($validation->fails()){
@@ -97,7 +97,7 @@ class SallesPrController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required|gt:1',
+            'prix' => 'required|gt:0',
         ]);
 
         if($validation->fails()){

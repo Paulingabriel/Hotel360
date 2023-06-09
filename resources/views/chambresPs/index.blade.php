@@ -34,9 +34,9 @@
                                 <td>{{$chambresps->types_chambre->titre}}</td>
                                 <td>{{$chambresps->titre}}</td>
                                 <td>{{"Du ". $chambresps->date1." au ".$chambresps->date2}}</td>
-                                <td>{{$chambresps->prixsieste}}</td>
-                                <td>{{$chambresps->prixheure}}</td>
-                                <td>{{$chambresps->prixnuitee}}</td>
+                                <td>{{number_format($chambresps->prixsieste,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
+                                <td>{{number_format($chambresps->prixheure,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
+                                <td>{{number_format($chambresps->prixnuitee,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
                                 <td>{{$chambresps->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">

@@ -52,6 +52,12 @@ function allData() {
                 else if(value.chambres_pr_id && value.chambres_ps_id && !value.occ){
                     data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.chambres_pr_id) + "</td>"
                 }
+                else if(!value.chambres_pr_id && !value.chambres_ps_id && value.occ){
+                    data = data + "<td>null</td>"
+                }
+                else if(!value.chambres_pr_id && !value.chambres_ps_id && !value.occ){
+                    data = data + "<td>null</td>"
+                }
 
                 data = data + "<td>" + value.payement + "</td>"
                 data = data + "<td>" + value.statut + "</td>"
@@ -190,8 +196,8 @@ allData();
                 $('#occError').text(error.responseJSON.errors.occ);
                 $('#adultesError').text(error.responseJSON.errors.adultes);
                 $('#enfantsError').text(error.responseJSON.errors.enfants);
-                $('#chambreprError').text(error.responseJSON.errors.chambres_pr_id);
-                $('#chambrepsError').text(error.responseJSON.errors.chambres_ps_id);
+                $('#chambresprError').text(error.responseJSON.errors.chambres_pr_id);
+                $('#chambrespsError').text(error.responseJSON.errors.chambres_ps_id);
                 $('#payementError').text(error.responseJSON.errors.payement);
                 $('#statutError').text(error.responseJSON.errors.statut);
 
@@ -334,8 +340,8 @@ allData();
                 $('#opccError').text(error.responseJSON.errors.occ);
                 $('#adultesError').text(error.responseJSON.errors.adultes);
                 $('#enfantsError').text(error.responseJSON.errors.enfants);
-                $('#chambreprError').text(error.responseJSON.errors.chambres_pr_id);
-                $('#chambrepsError').text(error.responseJSON.errors.chambres_ps_id);
+                $('#chambresprError').text(error.responseJSON.errors.chambres_pr_id);
+                $('#chambrespsError').text(error.responseJSON.errors.chambres_ps_id);
                 $('#payementError').text(error.responseJSON.errors.payement);
                 $('#statutError').text(error.responseJSON.errors.statut);
 

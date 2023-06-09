@@ -100,13 +100,13 @@
                         <div class="row">
                             <div class="col-md-6 col-xl-5  mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nombre d'adultes</label>
-                                <input type="number" class="border border-2 form-control ps-0 form-control-line @error('adultes') is-invalid @enderror" name="adultes"  id="adultes" value="{{ old('adultes') }}">
-                                <span class="text-danger">{{ $errors->first('adultes') }}</span>
+                                <input type="number" class="border border-2 form-control ps-0 form-control-line" name="adultes"  id="adultes" value="{{ old('adultes') }}">
+                                <span class="text-danger" id="adultesError"></span>
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nombre d'enfants</label>
-                                <input type="number" class="border border-2 form-control ps-0 form-control-line @error('enfants') is-invalid @enderror" name="enfants" id="enfants" value="{{ old('enfants') }}">
-                                <span class="text-danger">{{ $errors->first('enfants') }}</span>
+                                <input type="number" class="border border-2 form-control ps-0 form-control-line" name="enfants" id="enfants" value="{{ old('enfants') }}">
+                                <span class="text-danger" id="enfantsError"></span>
                             </div>
                         </div>
                         <div class="row">

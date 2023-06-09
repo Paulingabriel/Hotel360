@@ -34,7 +34,7 @@ class EtagesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0',
             'description' => 'nullable',
         ]);
 
@@ -96,7 +96,7 @@ class EtagesController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0',
             'description' => 'nullable',
         ]);
         // dd($request);

@@ -37,7 +37,7 @@ class SallesPsController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required|gt:1',
+            'prix' => 'required|gt:0',
             'titre' => 'required',
             'date1' => 'required|date',
             'date2' => 'required|date|after:date1',
@@ -101,7 +101,7 @@ class SallesPsController extends Controller
     public function update(Request $request, string $id)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required|gt:1',
+            'prix' => 'required|gt:0',
             'titre' => 'required',
             'date1' => 'required|date',
             'date2' => 'required|date|after:date1',

@@ -86,7 +86,9 @@
                                 <div class="offset-md-3 col-md-9 px-0 float-right mt-5">
                                     <div class="btn-actions">
                                         <button type="submit" class="btn-submit mb-2">Enregistrer</button>
-                                        <button type="button" class="btn-cancel">Reinitialiser</button>
+                                        <a href="{{route("auth/edit")}}">
+                                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

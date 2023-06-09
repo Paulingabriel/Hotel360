@@ -33,9 +33,9 @@
                             <tr>
                                 <td class="d-none">{{$chambrespr->first()->id}}</td>
                                 <td>{{$chambrespr->types_chambre->titre}}</td>
-                                <td>{{$chambrespr->prixsieste}}</td>
-                                <td>{{$chambrespr->prixheure}}</td>
-                                <td>{{$chambrespr->prixnuitee}}</td>
+                                <td>{{number_format($chambrespr->prixsieste,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
+                                <td>{{number_format($chambrespr->prixheure,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
+                                <td>{{number_format($chambrespr->prixnuitee,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
                                 <td>{{$chambrespr->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">

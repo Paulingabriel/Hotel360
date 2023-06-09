@@ -37,9 +37,9 @@
                         <ul class="px-0 list-unstyled">
                             <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Solde dû</font></font></li>
                             @if(isset($ressalle->salles_pr_id))
-                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_pr_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ) }} {{ Auth::user()->hotel->devise}}</font></font></li>
+                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_pr_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
                             @elseif(isset($ressalle->salles_ps_id))
-                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ) }} {{ Auth::user()->hotel->devise}}</font></font></li>
+                            <li class="lead text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></li>
                             @endif
                         </ul>
                     </div>
@@ -88,14 +88,14 @@
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $ressalle->option }}</font></font></td>
                                         <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') }}</font></font></td>
                                         @if(isset($ressalle->salles_pr_id))
-                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $ressalle->salles_pr_id }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format($ressalle->salles_pr_id,0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @elseif(isset($ressalle->salles_ps_id))
-                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $ressalle->salles_ps_id }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format($ressalle->salles_ps_id,0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @endif
                                         @if(isset($ressalle->salles_pr_id))
-                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_pr_id)*(((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a')) }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_pr_id)*(((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a')),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @elseif(isset($ressalle->salles_ps_id))
-                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ) }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                        <td class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                         @endif
                                     </tr>
                                 </tbody>
@@ -114,9 +114,9 @@
                                         <tr class="bg-grey bg-lighten-4">
                                             <td class="text-bold-800"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Total</font></font></td>
                                             @if(isset($ressalle->salles_pr_id))
-                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_pr_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ) }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_pr_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                             @elseif(isset($ressalle->salles_ps_id))
-                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ) }} {{ Auth::user()->hotel->devise}}</font></font></td>
+                                            <td class="text-bold-800 text-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ number_format(($ressalle->salles_ps_id)*( ((new DateTime($ressalle->datedebut))->diff(new DateTime($ressalle->datefin)))->format('%a') ),0,'.','.') }} {{ Auth::user()->hotel->devise}}</font></font></td>
                                             @endif
                                         </tr>
                                     </tbody>

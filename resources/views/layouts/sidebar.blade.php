@@ -96,10 +96,10 @@
                             Chambres</span></a>
                             <ul class="menu-content">
                                 <li>
-                                    <a href="{{route("chambresPr/index")}}" style="padding-left: 50px;"><i class="fa fa-usd"></i>Prix regulier</a>
+                                    <a href="{{route("chambresPr/index")}}" style="padding-left: 30px;"><i class="fa fa-usd"></i>Prix regulier</a>
                                 </li>
                                 <li>
-                                    <a href="{{route("chambresPs/index")}}" style="padding-left: 50px;"><i class="fa fa-usd"></i>Prix spécial</a>
+                                    <a href="{{route("chambresPs/index")}}" style="padding-left: 30px;"><i class="fa fa-usd"></i>Prix spécial</a>
                                 </li>
                             </ul>
                         </li>
@@ -108,10 +108,10 @@
                             Salles</span></a>
                             <ul class="menu-content">
                                 <li>
-                                    <a href="{{route("sallesPr/index")}}" style="padding-left: 50px;"><i class="fa fa-usd"></i>Prix regulier</a>
+                                    <a href="{{route("sallesPr/index")}}" style="padding-left: 30px;"><i class="fa fa-usd"></i>Prix regulier</a>
                                 </li>
                                 <li>
-                                    <a href="{{route("sallesPs/index")}}" style="padding-left: 50px;"><i class="fa fa-usd"></i>Prix spécial</a>
+                                    <a href="{{route("sallesPs/index")}}" style="padding-left: 30px;"><i class="fa fa-usd"></i>Prix spécial</a>
                                 </li>
                             </ul>
                         </li>

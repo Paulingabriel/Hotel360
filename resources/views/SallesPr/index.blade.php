@@ -33,7 +33,7 @@
                                 <td class="d-none">{{$sallespr->first()->id}}</td>
                                 <td>{{$sallespr->types_salle->titre}}</td>
                                 <td>{{$sallespr->salle->nom}}</td>
-                                <td class="text-center">{{$sallespr->prix}}</td>
+                                <td class="text-center">{{number_format($sallespr->prix,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
                                 <td>{{$sallespr->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">

@@ -34,7 +34,7 @@
                                 <td>{{$sallesps->types_salle->titre}}</td>
                                 <td>{{$sallesps->salle->nom}}</td>
                                 <td>{{"Du ". $sallesps->date1." au ".$sallesps->date2}}</td>
-                                <td class="text-center">{{$sallesps->prix}}</td>
+                                <td class="text-center">{{number_format($sallesps->prix,0,'.','.')." ".Auth::user()->hotel->devise}}</td>
                                 <td>{{$sallesps->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">

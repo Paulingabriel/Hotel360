@@ -34,9 +34,13 @@ function allData() {
                 else if(!value.salles_pr_id && value.salles_ps_id){
                     data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_ps_id) + "</td>"
                 }
+                else if(!value.salles_pr_id && !value.salles_ps_id){
+                    data = data + "<td>null</td>"
+                }
                 else{
                     data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_pr_id) + "</td>"
                 }
+                
                 data = data + "<td>" + value.payement + "</td>"
                 data = data + "<td>" + value.statut + "</td>"
                 data = data + "<td>"
