@@ -26,8 +26,8 @@ class SallesPrController extends Controller
      */
     public function create()
     {
-        $typessalles = TypesSalles::all();
-        $salles = Salles::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("SallesPr.create", compact('typessalles','salles'));
     }
 
@@ -86,8 +86,8 @@ class SallesPrController extends Controller
     public function edit(string $id)
     {
         $sallespr = SallesPr::FindOrFail($id);
-        $typessalles = TypesSalles::all();
-        $salles = Salles::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('SallesPr.edit', compact('sallespr', 'typessalles', 'salles'));
     }
 

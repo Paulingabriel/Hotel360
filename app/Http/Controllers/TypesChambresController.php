@@ -37,8 +37,8 @@ class TypesChambresController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'titre' => 'required|unique:types_chambres',
-            'code' => 'required|unique:types_chambres',
+            'titre' => 'required',
+            'code' => 'required',
             'description' => 'nullable',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
@@ -49,7 +49,7 @@ class TypesChambresController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5000'],
         ]);
 
-        // dd($request);
+        //dd($request);
 
         if($validation->fails()){
             return redirect()
@@ -89,7 +89,7 @@ class TypesChambresController extends Controller
             toastr()->success('Enregistrement éffectué avec succès!');
             return redirect()->route('typesChambres/index');
         } catch (Exception $e) {
-            //dd($e);
+            dd($e);
             toastr()->error(
                 "Echec de l'enregistrement!"
            );
@@ -165,7 +165,7 @@ class TypesChambresController extends Controller
                 }
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $filename = date('YmdHi') . ucfirst($request->name) . '.' . $extension;
+                $filename = date('YmdHi') . ucfirst($request->titre) . '.' . $extension;
                 $file->move('uploads/images/', $filename);
                 $data->image = $filename;
             }

@@ -18,7 +18,7 @@
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
           <ul class="navbar-nav">
             <li class="dropdown nav-item mt-1">
-              <a
+              {{-- <a
                 id="dropdownBasic2"
                 href="#"
                 data-toggle="dropdown"
@@ -28,8 +28,8 @@
                   >4</span
                 >
                 <p class="d-none">Notifications</p></a
-              >
-              <div
+              > --}}
+              {{-- <div
                 class="notification-dropdown dropdown-menu dropdown-menu-right"
               >
                 <div class="arrow_box_right">
@@ -113,10 +113,10 @@
                     >Read All Notifications</a
                   >
                 </div>
-              </div>
+              </div> --}}
             </li>
             <li class="nav-item mt-1 d-none d-lg-block">
-              
+
             </li>
             <li class="dropdown nav-item mr-0">
                 <a
@@ -125,25 +125,37 @@
                 data-toggle="dropdown"
                 class="nav-link position-relative dropdown-user-link dropdown-toggle"
                 ><span class="avatar avatar-online"
-                  ><img
+                  >
+                @if( Auth::user()->image)
+                <img
                     id="navbar-avatar"
                     src="{{ asset('uploads/images/' . Auth::user()->image) }}"
                     alt="avatar"
-                /></span>
+                />
+                @else
+                <img
+                id="navbar-avatar"
+                src="{{ asset('../app-assets/img/portrait/medium/avatar-m-9.jpg') }}"
+                alt="logo"
+                />
+                @endif
+                </span>
                 <p class="d-none">User Settings</p></a
               >
+              @if(Auth::user()->hasRole(["admin","superadmin","manager"]))
               <div
                 aria-labelledby="dropdownBasic3"
                 class="dropdown-menu dropdown-menu-right"
               >
                 <div class="arrow_box_right">
-                  <a
-                    href="{{ route('auth/edit') }}"
-                        class="dropdown-item py-1"
-                    ><i class="ft-edit mr-2"></i><span>My Profile</span></a
-                  >
+                    <a
+                        href="{{ route('auth/edit') }}"
+                            class="dropdown-item py-1"
+                        ><i class="ft-edit mr-2"></i><span>My Profile</span></a
+                    >
                 </div>
               </div>
+              @endif
             </li>
           </ul>
         </div>

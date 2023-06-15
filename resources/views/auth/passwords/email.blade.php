@@ -202,7 +202,7 @@
         <div class="col-md-6 col-12 h-100 login">
             <div class="header">
                 <h6>
-                    BIENVENU SUR
+                    BIENVENUE SUR
                 </h6>
                 <div class="logo">
                     <div class="text-center">
@@ -239,23 +239,16 @@
                 <div class="input-group">
                     <button type="submit" class="form-control submit">Envoyer</button>
                 </div>
-                <div class="row pt-2">
-                    <div class="col-sm-6 col-md-12 col-lg-6 col- d-flex">
-                        <input type="checkbox" class="form-check-input" style="transform: translateY(-3px);" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="" class="ms-2">se rappeler de moi</label>
-                    </div>
-                    @if (Route::has('password.request'))
-                    <div class="col-sm-6 col-md-12 col-lg-6 col-">
-                        <a href="{{ route('password.request') }}">
-                            <label for="" class="float-lg-end mb-0" style="transform: translateY(3px);">Mot de passe oublié?</label>
-                        </a>
-                    </div>
-                    @endif
+                @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
                 </div>
+                @endif
             </form>
         </div>
     </div>
 </div>
+
 
 <script src="../app-assets/vendors/js/core/popper.min.js"></script>
 <script src="../app-assets/vendors/js/core/bootstrap.min.js"></script>

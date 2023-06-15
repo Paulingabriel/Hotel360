@@ -29,6 +29,7 @@
                     <div class="col-md-6 col-xl-5  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Type de salle</label>
                             <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_salle_id">
+                                <option value="{{$typessalles->where('id','=',$sallespr->types_salle->id)->first()->id}}" selected>{{$typessalles->where('id','=',$sallespr->types_salle->id)->first()->titre}}</option>
                                 @foreach ($typessalles as $typessalle)
 
                                 <option value="{{$typessalle->id}}">{{$typessalle->titre}}</option>
@@ -41,6 +42,7 @@
                     <div class="col-md-6 col-xl-5  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Nom de la Salle</label>
                             <select class="border border-2 form-control form-select shadow-none form-control-line" name="salle_id">
+                                <option value="{{$salles->where('id','=',$sallespr->salle->id)->first()->id}}">{{$salles->where('id','=',$sallespr->salle->id)->first()->nom}}</option>
                                 @foreach ($salles as $salle)
 
                                 <option value="{{$salle->id}}">{{$salle->nom}}</option>

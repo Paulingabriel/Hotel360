@@ -69,7 +69,7 @@ textarea:focus{
                 <div class="row mb-3">
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Pays</label>
-                        <select class="border border-2 form-control form-select shadow-none form-control-line" name="pays">
+                        <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" name="pays">
                             @foreach ($pays as $pays)
 
                             <option value="{{$pays->nom_fr_fr}}">{{$pays->nom_fr_fr}}</option>

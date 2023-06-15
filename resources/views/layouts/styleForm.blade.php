@@ -38,6 +38,31 @@ h4{
 
 }
 
+.select2{
+    width: 100%!important;
+    height: 45px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: none!important;
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1)!important;
+    padding: 0 15px 0 15px!important;
+    display: flex;
+    align-items: center;
+}
+
+.selection, .select2-selection, .select2-selectio_rendered{
+    box-sizing: border-box;
+    height: auto!important;
+    border: none!important;
+    position: relative;
+    width: 100%;
+}
+
+.select2-container--default .select2-selection--single .select2-selectio_arrow{
+    position: absolute;
+
+}
+
 textarea:focus{
     border: 1px solid  rgba(50, 162, 50, 0.8)!important;
     box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;

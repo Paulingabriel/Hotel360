@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nom du client</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="client_id" name="client_id" value="{{ old('client_id') }}">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="client_id" name="client_id" value="{{ old('client_id') }}">
                                     @foreach ($clients as $client)
 
                                         <option value="{{$client->nom}}">{{$client->nom}}</option>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Numero de chambre</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambre_id" name="chambre_id" value="{{ old('chambre_id') }}">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="chambre_id" name="chambre_id" value="{{ old('chambre_id') }}">
                                     @foreach ($chambres as $chambre)
 
                                         <option value="{{$chambre->num}}">{{$chambre->num}}</option>
@@ -163,7 +163,7 @@
                             <div class="offset-xl-4 col-xl-8 mt-5">
                                 <div class="btn-actions">
                                     <button type="button" onclick="addData()"  class="btn-submit mb-2">Enregistrer</button>
-                                    <button type="button" class="btn-cancel" data-dismiss="modal">Reinitialiser</button>
+                                    <button type="button" class="btn-cancel" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
                         </div>

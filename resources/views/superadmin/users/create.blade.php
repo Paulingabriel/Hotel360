@@ -45,16 +45,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-xl-5">
-                                <label for="date" class="label col-md-12 mb-2">Hotel</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" name="hotel_id">
-                                    @foreach ($hotels as $hotel)
+                            @if(Auth::user()->hasRole("superadmin"))
+                                <div class="col-md-6 col-xl-5">
+                                    <label for="date" class="label col-md-12 mb-2">Hotel</label>
+                                    <select class="border border-2 form-control form-select shadow-none form-control-line" name="hotel_id">
+                                        @foreach ($hotels as $hotel)
 
-                                        <option value="{{$hotel->id}}">{{$hotel->nom}}</option>
+                                            <option value="{{$hotel->id}}">{{$hotel->nom}}</option>
 
-                                    @endforeach
-                                </select>
-                            </div>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                <div class="col-md-6 col-xl-5">
+                                    <label for="date" class="label col-md-12 mb-2">Hotel</label>
+                                    <input type="text" class="border border-2 form-control ps-0 form-control-line" name="hotel_id"  value="{{Auth::user()->hotel->nom}}" disabled>
+                                </div>
+                            @endif
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="password" class="label col-md-12 mb-2">Mot de Passe:</label>
                                 <input type="password" class="border border-2 form-control ps-0 form-control-line @error('password') is-invalid @enderror" name="password"  value="{{ old('password') }}">

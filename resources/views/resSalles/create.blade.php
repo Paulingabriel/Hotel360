@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nom du client</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="client_id" name="client_id" value="{{ old('client_id') }}">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="client_id" name="client_id" value="{{ old('client_id') }}">
                                     @foreach ($clients as $client)
 
                                         <option value="{{$client->nom}}">{{$client->nom}}</option>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Numero de salle</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="salle_id" name="salle_id" value="{{ old('salle_id') }}">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="salle_id" name="salle_id" value="{{ old('salle_id') }}">
                                     @foreach ($salles as $salle)
 
                                         <option value="{{$salle->num}}">{{$salle->num}}</option>

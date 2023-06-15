@@ -58,7 +58,7 @@ textarea:focus{
                 <div class="row w-100">
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Image</label>
-                        <input type="file" style="border-radius: 0!important; border: none!important;" class="border border-2 form-control ps-0 form-control-line" name="" value="{{ old('') }}">
+                        <input type="file" style="border-radius: 0!important; border: none!important;" class="border border-2 form-control ps-0 form-control-line" name="image">
                     </div>
                 </div>
                 <div class="row mb-4">

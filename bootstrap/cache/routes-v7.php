@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::yROsBVlIBs24jz5U',
+            '_route' => 'generated::MtUg00b96LmR3d6E',
           ),
           1 => NULL,
           2 => 
@@ -1133,7 +1133,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Wr2d3icE2qG6lohe',
+            '_route' => 'generated::TKzh7wXjRKvJtcS6',
           ),
           1 => NULL,
           2 => 
@@ -1188,7 +1188,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::vGjB2eaWw33ekH8e',
+            '_route' => 'generated::DXDQdlP2Hnd8grnL',
           ),
           1 => NULL,
           2 => 
@@ -1279,7 +1279,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::9UYOda9VsHxEH8tP',
+            '_route' => 'generated::kuM5aLe39IVPeKvj',
           ),
           1 => NULL,
           2 => 
@@ -3084,7 +3084,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::yROsBVlIBs24jz5U' => 
+    'generated::MtUg00b96LmR3d6E' => 
     array (
       'methods' => 
       array (
@@ -3101,13 +3101,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000005d60000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000005ef0000000000000000";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::yROsBVlIBs24jz5U',
+        'as' => 'generated::MtUg00b96LmR3d6E',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3209,6 +3209,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesChambresController@create',
         'controller' => 'App\\Http\\Controllers\\TypesChambresController@create',
@@ -3319,6 +3320,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesChambresController@edit',
         'controller' => 'App\\Http\\Controllers\\TypesChambresController@edit',
@@ -3356,6 +3358,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesChambresController@destroy',
         'controller' => 'App\\Http\\Controllers\\TypesChambresController@destroy',
@@ -3466,6 +3469,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresController@create',
         'controller' => 'App\\Http\\Controllers\\ChambresController@create',
@@ -3576,6 +3580,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresController@edit',
         'controller' => 'App\\Http\\Controllers\\ChambresController@edit',
@@ -3613,6 +3618,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresController@destroy',
         'controller' => 'App\\Http\\Controllers\\ChambresController@destroy',
@@ -3723,6 +3729,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ClientsController@create',
         'controller' => 'App\\Http\\Controllers\\ClientsController@create',
@@ -3833,6 +3840,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ClientsController@edit',
         'controller' => 'App\\Http\\Controllers\\ClientsController@edit',
@@ -3870,6 +3878,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ClientsController@destroy',
         'controller' => 'App\\Http\\Controllers\\ClientsController@destroy',
@@ -3980,6 +3989,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\EtagesController@create',
         'controller' => 'App\\Http\\Controllers\\EtagesController@create',
@@ -4090,6 +4100,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\EtagesController@edit',
         'controller' => 'App\\Http\\Controllers\\EtagesController@edit',
@@ -4127,6 +4138,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\EtagesController@destroy',
         'controller' => 'App\\Http\\Controllers\\EtagesController@destroy',
@@ -4237,6 +4249,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPrController@create',
         'controller' => 'App\\Http\\Controllers\\ChambresPrController@create',
@@ -4347,6 +4360,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPrController@edit',
         'controller' => 'App\\Http\\Controllers\\ChambresPrController@edit',
@@ -4384,6 +4398,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPrController@destroy',
         'controller' => 'App\\Http\\Controllers\\ChambresPrController@destroy',
@@ -4494,6 +4509,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPsController@create',
         'controller' => 'App\\Http\\Controllers\\ChambresPsController@create',
@@ -4604,6 +4620,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPsController@edit',
         'controller' => 'App\\Http\\Controllers\\ChambresPsController@edit',
@@ -4641,6 +4658,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\ChambresPsController@destroy',
         'controller' => 'App\\Http\\Controllers\\ChambresPsController@destroy',
@@ -4751,6 +4769,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesController@create',
         'controller' => 'App\\Http\\Controllers\\SallesController@create',
@@ -4861,6 +4880,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesController@edit',
         'controller' => 'App\\Http\\Controllers\\SallesController@edit',
@@ -4898,6 +4918,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesController@destroy',
         'controller' => 'App\\Http\\Controllers\\SallesController@destroy',
@@ -5008,6 +5029,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPrController@create',
         'controller' => 'App\\Http\\Controllers\\SallesPrController@create',
@@ -5118,6 +5140,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPrController@edit',
         'controller' => 'App\\Http\\Controllers\\SallesPrController@edit',
@@ -5155,6 +5178,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPrController@destroy',
         'controller' => 'App\\Http\\Controllers\\SallesPrController@destroy',
@@ -5265,6 +5289,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPsController@create',
         'controller' => 'App\\Http\\Controllers\\SallesPsController@create',
@@ -5375,6 +5400,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPsController@edit',
         'controller' => 'App\\Http\\Controllers\\SallesPsController@edit',
@@ -5412,6 +5438,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\SallesPsController@destroy',
         'controller' => 'App\\Http\\Controllers\\SallesPsController@destroy',
@@ -5522,6 +5549,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesSallesController@create',
         'controller' => 'App\\Http\\Controllers\\TypesSallesController@create',
@@ -5632,6 +5660,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesSallesController@edit',
         'controller' => 'App\\Http\\Controllers\\TypesSallesController@edit',
@@ -5669,6 +5698,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
+          1 => 'role:superadmin|admin|manager',
         ),
         'uses' => 'App\\Http\\Controllers\\TypesSallesController@destroy',
         'controller' => 'App\\Http\\Controllers\\TypesSallesController@destroy',
@@ -6663,7 +6693,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::Wr2d3icE2qG6lohe' => 
+    'generated::TKzh7wXjRKvJtcS6' => 
     array (
       'methods' => 
       array (
@@ -6683,7 +6713,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Wr2d3icE2qG6lohe',
+        'as' => 'generated::TKzh7wXjRKvJtcS6',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6772,7 +6802,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::vGjB2eaWw33ekH8e' => 
+    'generated::DXDQdlP2Hnd8grnL' => 
     array (
       'methods' => 
       array (
@@ -6792,7 +6822,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::vGjB2eaWw33ekH8e',
+        'as' => 'generated::DXDQdlP2Hnd8grnL',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6991,7 +7021,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::9UYOda9VsHxEH8tP' => 
+    'generated::kuM5aLe39IVPeKvj' => 
     array (
       'methods' => 
       array (
@@ -7011,7 +7041,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::9UYOda9VsHxEH8tP',
+        'as' => 'generated::kuM5aLe39IVPeKvj',
       ),
       'fallback' => false,
       'defaults' => 
@@ -7114,8 +7144,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.index',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@index',
@@ -7153,8 +7181,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.create',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@create',
@@ -7191,8 +7217,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.store',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@store',
@@ -7230,8 +7254,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.show',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@show',
@@ -7269,8 +7291,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.edit',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@edit',
@@ -7308,8 +7328,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.update',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@update',
@@ -7346,8 +7364,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.roles.destroy',
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@destroy',
@@ -7384,8 +7400,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@givePermission',
         'controller' => 'App\\Http\\Controllers\\Admin\\RoleController@givePermission',
@@ -7423,8 +7437,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\RoleController@revokePermission',
         'controller' => 'App\\Http\\Controllers\\Admin\\RoleController@revokePermission',
@@ -7462,8 +7474,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.index',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@index',
@@ -7501,8 +7511,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.create',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@create',
@@ -7539,8 +7547,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.store',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@store',
@@ -7578,8 +7584,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.show',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@show',
@@ -7617,8 +7621,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.edit',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@edit',
@@ -7656,8 +7658,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.update',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@update',
@@ -7694,8 +7694,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'as' => 'superadmin.permissions.destroy',
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@destroy',
@@ -7732,8 +7730,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@assignRole',
         'controller' => 'App\\Http\\Controllers\\Admin\\PermissionController@assignRole',
@@ -7771,8 +7767,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\PermissionController@removeRole',
         'controller' => 'App\\Http\\Controllers\\Admin\\PermissionController@removeRole',
@@ -7809,8 +7803,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@store',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@store',
@@ -7848,8 +7840,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@index',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@index',
@@ -7886,8 +7876,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@update',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@update',
@@ -7925,8 +7913,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@edit',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@edit',
@@ -7964,8 +7950,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@destroy',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@destroy',
@@ -8002,8 +7986,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@assignRole',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@assignRole',
@@ -8041,8 +8023,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@removeRole',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@removeRole',
@@ -8079,8 +8059,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@givePermission',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@givePermission',
@@ -8118,8 +8096,6 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
-          2 => 'role:superadmin',
         ),
         'uses' => 'App\\Http\\Controllers\\Admin\\UserController@revokePermission',
         'controller' => 'App\\Http\\Controllers\\Admin\\UserController@revokePermission',

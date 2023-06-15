@@ -40,16 +40,26 @@ function allData() {
                 else{
                     data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_pr_id) + "</td>"
                 }
-                
+
                 data = data + "<td>" + value.payement + "</td>"
                 data = data + "<td>" + value.statut + "</td>"
                 data = data + "<td>"
                 data = data + "<div class='actions text-center'>"
-                data = data + "<i class='ft-edit mr-1' style='color: rgba(50, 162, 50, 0.8);' data-toggle='modal' data-target='#exampleModalEdit' onclick='editData(" +
+                <?php if((Auth::user()->hasDirectPermission("modifier"))  && (Auth::user()->hasRole(["admin","superadmin","manager"]))){ ?>
+                    data = data + "<i class='ft-edit mr-1' style='color: rgba(50, 162, 50, 0.8);' data-toggle='modal' data-target='#exampleModalEdit' onclick='editData(" +
                     value.id + ")'></i>"
-                data = data + "<a href="+'/reservations-salles/facture/' + value.id +"><i class='fa-solid fa-eye me-1' style='color: #2e612e!important;'></i></a>"
-                data = data + "<i class='ft-trash-2 danger' onclick='deleteData(" +
+                <?php } else { ?>
+                    data = data + "<i class='ft-edit mr-1' style='color: rgba(50, 162, 50, 0.8);'></i>"
+                <?php } ?>
+                <?php if((Auth::user()->hasDirectPermission("lire"))  && (Auth::user()->hasRole(["admin","superadmin","manager"]))){ ?>
+                    data = data + "<a href="+'/reservations-salles/facture/' + value.id +"><i class='fa-solid fa-eye me-1' style='color: #2e612e!important;'></i></a>"
+                <?php } ?>
+                <?php if(Auth::user()->hasRole(["admin","superadmin"])){ ?>
+                    data = data + "<i class='ft-trash-2 danger' onclick='deleteData(" +
                     value.id + ")'></i>"
+                <?php } else { ?>
+                    data = data + "<i class='ft-trash-2 danger'></i>"
+                <?php } ?>
                 data = data + "</div>"
                 data = data + "</td>"
                 data = data + "</tr>"
@@ -179,8 +189,8 @@ allData();
                 if(data.statut == 'En cours...')
                 {
 
-                    $("#statut1").prop("checked" , true)  
-            
+                    $("#statut1").prop("checked" , true)
+
                 }else if(data.statut == 'Terminée'){
 
                     $("#statut2").prop("checked" , true)

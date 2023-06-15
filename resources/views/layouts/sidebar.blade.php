@@ -2,7 +2,7 @@
 
 .clearfix{
     padding: 5px 16px!important;
-    height: 70px!important;
+    height: 68px!important;
     display: flex;
     align-items: center;
 }
@@ -48,11 +48,17 @@
         <div class="nav-container">
             <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
                 <li class="nav-item">
+                    @if(Auth::user()->hasRole(["admin","superadmin","manager"]))
                     <a href="/accueil"><i class="icon-home"></i><span data-i18n=""
                             class="menu-title">Accueil</span>
                     </a>
-
+                    @else
+                    <a href="#"><i class="icon-home"></i><span data-i18n=""
+                        class="menu-title">Accueil</span>
+                    </a>
+                    @endif
                 </li>
+                @if((Auth::user()->hasDirectPermission("lire"))  && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                 <li class="has-sub nav-item">
                     <a href="#"><i class="icon-screen-tablet"></i><span data-i18n=""
                             class="menu-title">Reservations</span></a>
@@ -63,6 +69,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <li class="has-sub nav-item">
                     <a href="#"><i class="las la-bed fs-4"></i><span data-i18n="" class="menu-title">Chambres
                             </span></a>
@@ -125,6 +132,7 @@
                     <a href="{{route("etages/index")}}"><i class="icon-layers"></i><span data-i18n=""
                             class="menu-title">Etages</span></a>
                 </li>
+                @if(Auth::user()->hasRole(["admin","superadmin","manager"]))
                 <li class="has-sub nav-item">
                     <a href="#"><i class="icon-user"></i><span data-i18n=""
                             class="menu-title">Utilisateurs</span></a>
@@ -140,6 +148,8 @@
                                 </li>
                             </ul>
                 </li>
+                @endif
+                @if(Auth::user()->hasRole("superadmin"))
                 <li class="has-sub nav-item">
                     <a href="#"><i class="las la-cog fs-4"></i><span data-i18n=""
                             class="menu-title">Paramètres</span></a>
@@ -149,6 +159,7 @@
                                 </li>
                             </ul>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">

@@ -152,7 +152,7 @@
         <div class="col-md-6 col-12 h-100 login">
             <div class="header">
                 <h6>
-                    BIENVENU SUR
+                    BIENVENUE SUR
                 </h6>
                 <div class="logo">
                     <div class="text-center">
@@ -177,7 +177,7 @@
                 @enderror
                 </div>
                 <div class="input-group mb-4">
-                    <input type="password" name="password" class="form-control border border-2 @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="current-password">
+                    <input type="password" name="password" class="form-control border border-2 @error('password') is-invalid @enderror" placeholder="Mot de passe" required autocomplete="current-password">
                     <i class="fa-solid fa-lock"></i>
 
                     @error('password')

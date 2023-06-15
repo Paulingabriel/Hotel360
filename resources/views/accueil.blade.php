@@ -24,7 +24,7 @@
             <div class="main-content">
                 <div class="content-wrapper">
                     <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-tachometer-alt fs-1 me-2"></i>Dashboard</h4>
-
+                    @if(Auth::user()->hasRole(["admin","superadmin","manager"]))
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                           <div class="card bg-white">
@@ -36,7 +36,7 @@
                                     @foreach($reschambres as $reschambre)
                                     @if($reschambre->occ && $reschambre->chambres_pr_id)
                                         <h4 class="d-none">{{ $sum1 += ($reschambre->chambres_pr_id)*($reschambre->occ)}}</h4>
-                                
+
                                     @elseif($reschambre->occ && $reschambre->chambres_ps_id)
                                     <h4 class="d-none">{{ $sum2 += ($reschambre->chambres_ps_id)*($reschambre->occ)}}</h4>
 
@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="p-2 media-body">
                                   <h6><strong class="fw-bold">RAVPAR</strong> (chambres)</h6>
-                                  @if($chambresvd != 0)
+                                  @if($chambresvd != 0 && $nbrchambres != 0)
                                   <h6 class="text-bold-500 mb-0">{{ number_format(((($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6)/($chambresvd))*($chambresocp/$nbrchambres)),0,'.','.')." ".Auth::user()->hotel->devise}}</h6>
                                   @else
                                   <h6 class="text-bold-500 mb-0"></h6>
@@ -187,7 +187,7 @@
                                 </div>
                                 <div class="p-2 media-body">
                                   <h6><strong class="fw-bold">RAVPAR</strong><br>(salles)</h6>
-                                  @if($sallesvd != 0)
+                                  @if($sallesvd != 0 && $nbrsalles != 0)
                                   <h6 class="text-bold-500 mb-0">{{ number_format(((($sum7 + $sum8 + $sum9)/($sallesvd))*($sallesocp/$nbrsalles)),0,'.','.')." ".Auth::user()->hotel->devise }}</h6>
                                   @else
                                   <h6 class="text-bold-500 mb-0"></h6>
@@ -209,7 +209,7 @@
                                 <div class="py-2 px-2 media-body">
                                   <h6 class="info">Taux d'occupation</h6>
                                   @if($nbrchambres != 0)
-                                  <h5 class="text-bold-400">{{ ($chambresocp/$nbrchambres)*100 }}%</h5>
+                                  <h5 class="text-bold-400">{{ number_format((($chambresocp/$nbrchambres)*100),0,',','') }}%</h5>
                                   <div class="progress mt-1 mb-0" style="height: 7px;">
                                     <div class="progress-bar bg-info" role="progressbar" style="width: {{ ($chambresocp/$nbrchambres)*100 }}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                                     </div>
@@ -232,7 +232,7 @@
                                 <div class="py-2 px-2 media-body">
                                   <h6 class="danger">Taux d'occupation</h6>
                                   @if($nbrsalles != 0)
-                                  <h5 class="text-bold-500">{{ ($sallesocp/$nbrsalles)*100 }}%</h5>
+                                  <h5 class="text-bold-500">{{ number_format((($sallesocp/$nbrsalles)*100),0,',','') }}%</h5>
                                   <div class="progress mt-1 mb-0" style="height: 7px;">
                                     <div class="progress-bar bg-danger" role="progressbar" style="width: {{ ($sallesocp/$nbrsalles)*100 }}%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
                                   </div>
@@ -275,11 +275,12 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
 
-        
+
 
     </div>
 

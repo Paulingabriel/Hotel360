@@ -17,6 +17,32 @@
 
     @include('layouts.styleData')
 
+    <style>
+        .select2{
+    width: 100%!important;
+    height: 45px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: none!important;
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1)!important;
+    padding: 0 15px 0 15px!important;
+    display: flex;
+    align-items: center;
+}
+
+.selection, .select2-selection, .select2-selectio_rendered{
+    box-sizing: border-box;
+    height: auto!important;
+    border: none!important;
+    position: relative;
+    width: 100%;
+}
+
+.select2-container--default .select2-selection--single .select2-selectio_arrow{
+    position: absolute;
+
+}
+    </style>
 
     @include('resSalles.jquery')
 
@@ -37,8 +63,11 @@
                             {{-- <a href="{{route("facture", ['id' => $ressalle->id])}}" target="_blank">
                                 <button class="btn-download float-left"><i class="fa-solid fa-download me-1"></i>facture</button>
                             </a> --}}
-                            <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
-
+                            @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
+                                <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
+                            @else
+                            <button class="btn-add float-right"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
+                            @endif
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">

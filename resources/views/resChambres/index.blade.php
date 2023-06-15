@@ -3,6 +3,13 @@
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+    integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
     <script src="{{ asset('/app-assets/js/sweetalert2@8.js') }}"></script>
     <script src="{{ asset('/app-assets/js/sweetalert.min.js') }}"></script>
     <script src="/app-assets/vendors/js/core/jquery.min.js"></script>
@@ -13,6 +20,32 @@
 <body data-col="2-columns" class="2-columns bg-white">
 
     @include('layouts.styleData')
+    <style>
+       .select2{
+    width: 100%!important;
+    height: 45px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: none!important;
+    box-shadow: 0 3px 8px rgb(0, 0, 0, 0.1)!important;
+    padding: 0 15px 0 15px!important;
+    display: flex;
+    align-items: center;
+}
+
+.selection, .select2-selection, .select2-selectio_rendered{
+    box-sizing: border-box;
+    height: auto!important;
+    border: none!important;
+    position: relative;
+    width: 100%;
+}
+
+.select2-container--default .select2-selection--single .select2-selectio_arrow{
+    position: absolute;
+
+}
+    </style>
 
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -32,10 +65,11 @@
 
                         {{-- <a href="{{route("facture", ['id' => $reschambre->id])}}" target="_blank">
                             <button class="btn-download float-left"><i class="fa-solid fa-download me-1"></i>facture</button> --}}
-
+                            @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                 <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
-                        </a>
-
+                            @else
+                            <button class="btn-add float-right"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
+                            @endif
                         </div>
                     </div>
 

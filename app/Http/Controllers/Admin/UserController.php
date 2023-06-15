@@ -8,6 +8,7 @@ use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,13 @@ class UserController extends Controller
 {
     public function index()
     {
+
         $hotels = Hotel::all();
-        $users = User::latest()->get();
+        if(Auth::user()->hasRole("superadmin")){
+            $users = User::all();
+        }else{
+        $users = User::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        }
 
         return view('superadmin.users.index', compact('users', 'hotels'));
     }
@@ -28,7 +34,7 @@ class UserController extends Controller
         $validatedData = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required','min:8'],
             'hotel_id' => ['required'],
         ]);
 
@@ -69,14 +75,14 @@ class UserController extends Controller
         return view('superadmin.users.edit', compact('user', 'permissions', 'roles', 'hotels', 'hotel'));
     }
 
-    
+
 public function update(Request $request, User $user)
     {
 
         $validatedData = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required','min:8'],
             'hotel_id' => ['required'],
         ]);
 

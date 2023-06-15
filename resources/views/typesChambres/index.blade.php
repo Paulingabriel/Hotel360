@@ -9,9 +9,13 @@
                     <div class="row my-3">
                         <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;">Types de Chambres</h4>
                         <div class="col-md-12">
+                            @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                             <a href="{{route("typesChambres/ajouter")}}">
                                 <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
                             </a>
+                            @else
+                            <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
+                            @endif
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
@@ -46,12 +50,20 @@
                                 <td>{{$typeschambre->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">
+                                        @if((Auth::user()->hasDirectPermission("modifier")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("typesChambres/edit", ['id' => $typeschambre->id])}}">
                                             <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
                                         </a>
+                                        @else
+                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
+                                        @endif
+                                        @if((Auth::user()->hasDirectPermission("supprimer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("typesChambres/delete", ['id' => $typeschambre->id])}}" onclick="confirmation(event)">
                                             <i class="ft-trash-2 danger"></i>
                                         </a>
+                                        @else
+                                        <i class="ft-trash-2 danger"></i>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>{{$typeschambre->prixpersup}}</td>

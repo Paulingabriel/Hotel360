@@ -9,9 +9,13 @@
                     <div class="row my-3">
                         <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-door-open fs-1 me-2" style="color: #2e612e;"></i>Salles</h4>
                         <div class="col-md-12">
+                            @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                             <a href="{{route("salles/ajouter")}}">
                                 <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
                             </a>
+                            @else
+                            <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
+                            @endif
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
@@ -47,7 +51,7 @@
                                 <td>
                                     @if(isset($ressalle->where('salle_id', '=' , $salle->num)->last()->statut))
 
-                                    
+
                                     @if(($salle->active == 1 && $ressalle->where('salle_id', '=' , $salle->num)->last()->statut == 'Terminée'))
 
                                     <label class="actif">
@@ -72,7 +76,7 @@
                                         Occupée
                                     </label>
 
-                                    @endif 
+                                    @endif
 
                                 @else
 
@@ -84,7 +88,7 @@
                                     @elseif($salle->active == 0)
 
                                     <label class="inactif">
-                                    Occupée 
+                                    Occupée
                                     </label>
 
                                     @endif
@@ -95,12 +99,20 @@
                                 <td>{{$salle->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">
+                                        @if((Auth::user()->hasDirectPermission("modifier")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("salles/edit", ['id' => $salle->id])}}">
                                             <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
                                         </a>
+                                        @else
+                                        <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
+                                        @endif
+                                        @if((Auth::user()->hasDirectPermission("supprimer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("salles/delete", ['id' => $salle->id])}}" onclick="confirmation(event)">
                                             <i class="ft-trash-2 danger"></i>
                                         </a>
+                                        @else
+                                        <i class="ft-trash-2 danger"></i>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

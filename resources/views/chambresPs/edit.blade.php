@@ -26,7 +26,7 @@
                 <input type="hidden" name="id" value="{{$chambresps->id}}">
             </div>
             <div class="row w-100">
-                    
+
                 <div class="col-md-6 col-xl-5 mb-4">
                     <label for="date" class="label col-md-12 mb-2">Titre</label>
                     <input type="text" class="border border-2 form-control ps-0 form-control-line @error('titre') is-invalid @enderror" name="titre" value="{{ $chambresps->titre }}">
@@ -37,6 +37,7 @@
                 <div class="col-md-6 col-xl-5  mb-4">
                     <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
                         <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_chambre_id">
+                            <option value="{{$typeschambres->where('id','=',$chambresps->types_chambre->id)->first()->id}}">{{$typeschambres->where('id','=',$chambresps->types_chambre->id)->first()->titre}}</option>
                             @foreach ($typeschambres as $typeschambre)
 
                                 <option value="{{$typeschambre->id}}">{{$typeschambre->titre}}</option>
@@ -71,7 +72,7 @@
                     </div>
                 </div>
                 <div class="row w-100">
-                    
+
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Heure</label>
                         <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixheure') is-invalid @enderror" name="prixheure" value="{{ $chambresps->prixheure }}">

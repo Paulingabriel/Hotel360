@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-section mb-3">
-        
+
         <form action="/auth/profil/{{$auth->id}}" method="post"  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -50,7 +50,11 @@
                                     </div>
                                     <div class="text-center">
                                         <span class="font-medium-2 text-uppercase">{{ Auth::user()->name }}</span>
-                                        <p class="grey font-small-2">{{ Auth::user()->roles->first()->name }}</p>
+                                        @if(Auth::user()->roles->count() == 0)
+                                        <p></p>
+                                        @else
+                                            <p class="grey font-small-2">{{ Auth::user()->roles->first()->name }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

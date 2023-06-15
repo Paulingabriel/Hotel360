@@ -19,7 +19,7 @@ class ChambresController extends Controller
     public function index()
     {
         $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
-        $reschambre = ResChambres::get();
+        $reschambre = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambres.index", compact('chambres', 'reschambre'));
     }
 
@@ -28,8 +28,8 @@ class ChambresController extends Controller
      */
     public function create()
     {
-        $typeschambres = TypesChambres::all();
-        $etages = Etages::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $etages = Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambres.create", compact('typeschambres','etages'));
     }
 
@@ -91,8 +91,8 @@ class ChambresController extends Controller
     public function edit(string $id)
     {
         $chambres = Chambres::FindOrFail($id);
-        $typeschambres = TypesChambres::all();
-        $etages = etages::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $etages = etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('chambres.edit', compact('chambres', 'typeschambres', 'etages'));
     }
 
@@ -102,7 +102,7 @@ class ChambresController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|gte:0',
+            'num' => 'required|gte:0|unique:chambres',
         ]);
 
         if($validation->fails()){

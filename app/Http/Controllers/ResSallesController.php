@@ -72,7 +72,7 @@ class ResSallesController extends Controller
     public function showData(string $id)
     {
         $ressalle = ResSalles::findOrFail($id);
-        $client = Clients::all();
+        $client = Clients::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         $todayDate = Carbon::now()->format('d-m-y');
         return view('resSalles.show', compact('ressalle', 'client',  'todayDate'));
     }

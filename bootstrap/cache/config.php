@@ -7,7 +7,7 @@
     'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'UTC',
-    'locale' => 'en',
+    'locale' => 'fr',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'key' => 'base64:nryC+JmHZzgcm0R/sy2Nsfo8OLLYVOl7/GNRklMMbbc=',
@@ -565,11 +565,11 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'mailpit',
-        'port' => '1025',
-        'encryption' => NULL,
-        'username' => NULL,
-        'password' => NULL,
+        'host' => 'smtp.gmail.com',
+        'port' => '465',
+        'encryption' => 'ssl',
+        'username' => 'paulindoudieu@gmail.com',
+        'password' => 'imuikbkjpnucxvzv',
         'timeout' => NULL,
         'local_domain' => NULL,
       ),
@@ -611,8 +611,8 @@
     ),
     'from' => 
     array (
-      'address' => 'hello@example.com',
-      'name' => 'Laravel',
+      'address' => 'paulindoudieu@gmail.com',
+      'name' => 'Hotel360',
     ),
     'markdown' => 
     array (

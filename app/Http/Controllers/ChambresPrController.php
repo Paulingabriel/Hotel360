@@ -26,7 +26,7 @@ class ChambresPrController extends Controller
      */
     public function create()
     {
-        $typeschambres = TypesChambres::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPr.create", compact('typeschambres'));
     }
 
@@ -89,7 +89,7 @@ class ChambresPrController extends Controller
     public function edit(string $id)
     {
         $chambrespr = ChambresPr::FindOrFail($id);
-        $typeschambres = TypesChambres::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('ChambresPr.edit', compact('chambrespr', 'typeschambres'));
     }
 

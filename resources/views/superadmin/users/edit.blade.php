@@ -20,7 +20,7 @@ textarea:focus{
             /* padding: 0 12.5px; */
             font-size: 12px;
             padding: 0;
-            width: 70px;
+            width: 80px;
             font-family: 'poppins';
             color: white;
             border-radius: 0;

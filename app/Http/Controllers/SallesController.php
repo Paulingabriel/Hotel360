@@ -19,7 +19,7 @@ class SallesController extends Controller
     public function index()
     {
         $ressalle = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->get();
-        $salles = Salles::latest()->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("salles.index", compact('salles', 'ressalle'));
     }
 
@@ -28,8 +28,8 @@ class SallesController extends Controller
      */
     public function create()
     {
-        $typessalles = TypesSalles::all();
-        $etages = Etages::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $etages = Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("salles.create", compact('typessalles','etages'));
     }
 
@@ -39,7 +39,7 @@ class SallesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|gte:0',
+            'num' => 'required|gte:0|unique:salles',
             'nom' => 'required',
         ]);
 
@@ -91,8 +91,8 @@ class SallesController extends Controller
     public function edit(string $id)
     {
         $salles = Salles::FindOrFail($id);
-        $typessalles = TypesSalles::all();
-        $etages = etages::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $etages = etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('salles.edit', compact('salles', 'typessalles', 'etages'));
     }
 
