@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Etages;
 use App\Models\Salles;
 use App\Models\ResSalles;
@@ -18,9 +19,10 @@ class SallesController extends Controller
      */
     public function index()
     {
-        $ressalle = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $ressalle = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
+        $todayDate = Carbon::now();
         $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
-        return view("salles.index", compact('salles', 'ressalle'));
+        return view("salles.index", compact('salles', 'todayDate', 'ressalle'));
     }
 
     /**

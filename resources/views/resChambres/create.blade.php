@@ -17,7 +17,6 @@
 
 <!-- Modal Create -->
 
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" id="modalCreate">
       <div class="modal-content">
@@ -28,14 +27,14 @@
                     Ajouter une réservation de chambre
                 </h4>
             </div>
-
             <div class="form-section mb-3">
-                <form action="" method="POST">
+                <form action="" method="POST" name="form">
                     @csrf
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nom du client</label>
                                 <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="client_id" name="client_id" value="{{ old('client_id') }}">
+                                    <option value="" selected>------------</option>
                                     @foreach ($clients as $client)
 
                                         <option value="{{$client->nom}}">{{$client->nom}}</option>
@@ -46,20 +45,16 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Numero de chambre</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="chambre_id" name="chambre_id" value="{{ old('chambre_id') }}">
-                                    @foreach ($chambres as $chambre)
-
-                                        <option value="{{$chambre->num}}">{{$chambre->num}}</option>
-
-                                    @endforeach
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2" id="chambre_id" name="chambre_id" onchange="change(this.options[this.selectedIndex].value)">
                                 </select>
+
                                 <span class="text-danger" id="chambreError"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
-                                <label for="date" class="label col-md-12 mb-2">Date de réservation</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="dateres" name="dateres" value="{{ old('dateres') }}">
+                                <label for="date" class="label col-md-12 mb-2 d-none">Date de réservation</label>
+                                <input type="text" class="border border-2 form-control ps-0 form-control-line d-none" id="dateres" name="dateres" disabled>
                                 <span class="text-danger" id="dateresError"></span>
                             </div>
                         </div>
@@ -76,19 +71,19 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4" id="h" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Nombre d'heures</label>
-                                <input type="number" class="border border-2 form-control ps-0 form-control-line" id="occ" name="occ">
+                                <input type="number" class="border border-2 form-control ps-0 form-control-line" id="occ" name="occ" onkeyup="total(this.value)">
                                 <span class="text-danger" id="occError"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5  mb-4" id="de" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Date d'entrée</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datedebut" name="datedebut" value="{{ old('datedebut') }}">
+                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datedebut" name="datedebut" value="{{ old('datedebut') }}" onchange="globaldebut(this.value)">
                                 <span class="text-danger" id="datedebutError"></span>
                             </div>
                             <div class="col-md-6 col-xl-5  offset-xl-2 mb-4" id="ds" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Date de sortie</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datefin" name="datefin" value="{{ old('datefin') }}">
+                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datefin" name="datefin" value="{{ old('datefin') }}" onchange="globalfin(this.value)">
                                 <span class="text-danger" id="datefinError"></span>
                             </div>
                         </div>
@@ -106,33 +101,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
-                                <label for="date" class="label col-md-12 mb-2">Prix regulier</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambres_pr_id" name="chambres_pr_id" value="{{ old('chambres_pr_id') }}">
-                                    <option value="" selected>------------</option>
-                                    @foreach ($chambresprs as $chambrespr)
-
-                                        <option value="{{$chambrespr->prixsieste}}">sieste-{{$chambrespr->prixsieste}}</option>
-                                        <option value="{{$chambrespr->prixheure}}">heure-{{$chambrespr->prixheure}}</option>
-                                        <option value="{{$chambrespr->prixnuitee}}">nuitée-{{$chambrespr->prixnuitee}}</option>
-
-                                    @endforeach
-                                </select>
-                                <span class="text-danger" id="chambresprError"></span>
+                                <label for="date" class="label col-md-12 mb-2" style="display: none;" id="prix">Prix</label>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_1" name="chambres_pr_1" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_2" name="chambres_pr_2" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_3" name="chambres_pr_3" style="display: none;" disabled/>
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
-                                <label for="date" class="label col-md-12 mb-2">Prix spécial</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambres_ps_id" name="chambres_ps_id" value="{{ old('chambres_ps_id') }}">
-                                    <option value="" selected>------------</option>
-                                    @foreach ($chambrespss as $chambresps)
-
-                                        <option value="{{$chambresps->prixsieste}}">sieste-{{$chambresps->prixsieste}}</option>
-                                        <option value="{{$chambresps->prixheure}}">heure-{{$chambresps->prixheure}}</option>
-                                        <option value="{{$chambresps->prixnuitee}}">nuitée-{{$chambresps->prixnuitee}}</option>
-
-                                    @endforeach
-
-                                </select>
-                                <span class="text-danger" id="chambrespsError"></span>
+                                <label for="date" class="label col-md-12 mb-2" style="display: none;" id="prixtotal">Total</label>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total1" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total2" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total3" style="display: none;" disabled/>
                             </div>
                         </div>
                         <div class="row">
@@ -144,20 +122,6 @@
                                 </select>
                                 <span class="text-danger" id="payementError"></span>
                             </div>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            <label for="date" class="label col-md-12 mb-2" style="margin-left: -15px">Statut de réservation</label>
-                            <div class="d-flex mt-2">
-                                <div class="form-check form-check-inline label1">
-                                    <label class="form-check-label" for="inlineRadio1">En cours...</label>
-                                    <input class="form-check-input" type="radio" name="statut" id="statut" value="En cours...">
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label label2" for="inlineRadio2">Terminée</label>
-                                    <input class="form-check-input" type="radio" name="statut" id="statut" value="Terminée">
-                                </div>
-                            </div>
-                            <span class="text-danger" id="statutError"></span>
                         </div>
                         <div class="row">
                             <div class="offset-xl-4 col-xl-8 mt-5">
@@ -174,5 +138,10 @@
       </div>
     </div>
   </div>
+
+
+
+
+
 
 

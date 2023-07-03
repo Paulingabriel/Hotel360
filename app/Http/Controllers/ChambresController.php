@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Etages;
 use App\Models\Chambres;
 use App\Models\ResChambres;
@@ -18,9 +19,10 @@ class ChambresController extends Controller
      */
     public function index()
     {
+        $reschambre = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
+        $todayDate = Carbon::now();
         $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
-        $reschambre = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
-        return view("chambres.index", compact('chambres', 'reschambre'));
+        return view("chambres.index", compact('chambres','todayDate', 'reschambre'));
     }
 
     /**
@@ -102,7 +104,7 @@ class ChambresController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|gte:0|unique:chambres',
+            'num' => 'required|gte:0',
         ]);
 
         if($validation->fails()){

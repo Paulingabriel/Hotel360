@@ -23,7 +23,7 @@
         <div class="main-panel px-3">
             <div class="main-content">
                 <div class="content-wrapper">
-                    <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-tachometer-alt fs-1 me-2"></i>Dashboard</h4>
+                    <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-tachometer-alt fs-1 me-2" style="color: #2e612e;"></i>Dashboard</h4>
                     @if(Auth::user()->hasRole(["admin","superadmin","manager"]))
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-md-6 col-12">

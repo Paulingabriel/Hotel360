@@ -13,7 +13,7 @@ class ResSalles extends Model
 
 
     protected $fillable = [
-        'client_id', 'numres', 'salle_id','dateres','datedebut', 'datefin', 'occ', 'salles_pr_id', 'salles_ps_id', 'global', 'payement', 'statut'
+        'client_id', 'salle_id','dateres','datedebut', 'datefin','salles_pr_id', 'total', 'payement'
     ];
 
     public function salles(): HasMany
@@ -21,10 +21,10 @@ class ResSalles extends Model
         return $this->hasMany(Salles::class, 'salle_id', 'id');
     }
 
-    // public function clients(): HasMany
-    // {
-    //     return $this->hasMany(Clients::class, 'client_id', 'id');
-    // }
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Clients::class);
+    }
 
     // public function salles_pr(): HasMany
     // {
@@ -36,10 +36,10 @@ class ResSalles extends Model
     //     return $this->hasMany(SallesPs::class, 'salle_ps_id', 'id');
     // }
 
-    // public function salle(): BelongsTo
-    // {
-    //     return $this->belongsTo(Salles::class);
-    // }
+    public function salle(): BelongsTo
+    {
+        return $this->belongsTo(Salles::class);
+    }
 
     public function hotel(): BelongsTo
     {

@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-
+                        
                         <thead>
                             <tr>
                                 <th class="d-none">#</th>
@@ -72,29 +72,41 @@
                                     {{-- {{$reschambre->statut->where($reschambre->chambre_id,'=',$chambre->num)->get()}} --}}
 
 
-                                    @if(isset($reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut))
+                                    @if(isset($reschambre->where('chambre_id', '=' , $chambre->id)->first()->datefin))
 
 
-                                        @if(($chambre->active == 1 && $reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut == 'Terminée'))
-
+                                        @if(($reschambre->where('chambre_id', '=' , $chambre->id)->first()->datefin < $todayDate))
                                         <label class="actif">
                                             Disponible
                                         </label>
 
-                                        @elseif(($chambre->active == 1 && $reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut == 'En cours...'))
-
+                                        @else
                                         <label class="inactif">
                                             Occupée
                                         </label>
 
-                                        @elseif(($chambre->active == 0 && $reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut == 'Terminée'))
+                                        @endif
+
+
+                                    @elseif(isset($reschambre->where('chambre_id', '=' , $chambre->id)->first()->occ))
+
+                                        @if((((((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->days)*24) + (((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->format('%h')) > $reschambre->where('chambre_id', '=' , $chambre->id)->first()->occ))
+
+                                        {{-- {{(new DateTime($todayDate))->format('D-m-Y h:i:s')}}
+                                        {{(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('D-m-Y h:i:s')}} --}}
 
                                         <label class="actif">
+                                            {{-- {{(new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('%h')}}
+                                            {{ $reschambre->where('chambre_id', '=' , $chambre->id)->last()->occ }} --}}
                                             Disponible
                                         </label>
 
-                                        @elseif(($chambre->active == 0 && $reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut == 'En cours...'))
+                                        @else
+                                        {{-- {{(new DateTime($todayDate))->format('D-m-Y h:i:s')}}
+                                        {{(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('D-m-Y h:i:s')}} --}}
 
+                                        {{-- {{((((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->days)*24) + (((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->format('%h'))}} --}}
+                                        {{-- {{ $reschambre->where('chambre_id', '=' , $chambre->id)->last()->occ }} --}}
                                         <label class="inactif">
                                             Occupée
                                         </label>

@@ -31,9 +31,9 @@ class Salles extends Model
         return $this->belongsTo(Etages::class);
     }
 
-    public function res_salle(): BelongsTo
+    public function res_salles(): HasMany
     {
-        return $this->belongsTo(ResSalles::class);
+        return $this->hasMany(ResSalles::class, 'salle_id', 'id');
     }
 
     public function hotel(): BelongsTo

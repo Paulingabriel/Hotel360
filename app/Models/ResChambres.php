@@ -12,17 +12,17 @@ class ResChambres extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_id', 'numres', 'chambre_id','dateres','datedebut', 'datefin', 'option', 'occ', 'adultes', 'enfants', 'chambres_pr_id', 'chambres_ps_id', 'global', 'payement', 'statut'
+        'client_id','chambre_id','dateres','datedebut', 'datefin', 'option', 'occ', 'adultes', 'enfants', 'chambres_pr_id','total', 'payement'
     ];
 
-    public function chambres(): HasMany
+    public function chambre(): BelongsTo
     {
-        return $this->hasMany(Chambres::class, 'chambre_id', 'id');
+        return $this->belongsTo(Chambres::class);
     }
 
-    public function clients(): HasMany
+    public function client(): BelongsTo
     {
-        return $this->hasMany(Clients::class, 'client_id', 'id');
+        return $this->belongsTo(Clients::class);
     }
 
     public function chambres_pr(): HasMany

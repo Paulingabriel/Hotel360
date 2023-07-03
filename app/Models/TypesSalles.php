@@ -14,12 +14,12 @@ class TypesSalles extends Model
 
     public function salles_pr(): HasOne
     {
-        return $this->hasOne(SallesPr::class, 'types_chambre_id');
+        return $this->hasOne(SallesPr::class, 'types_salle_id');
     }
 
     public function salles_ps(): HasOne
     {
-        return $this->hasOne(SallesPs::class, 'types_chambre_id');
+        return $this->hasOne(SallesPs::class, 'types_salle_id');
     }
 
     public function salles(): HasMany

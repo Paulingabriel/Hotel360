@@ -39,13 +39,13 @@ class HomeController extends Controller
         $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->get();
         $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->get();
         foreach($chambres as $chambre){
-            $newchambres .=  $reschambres->where('chambre_id','=',$chambre->num)->first();
+            $newchambres .=  $reschambres->where('chambre_id','=',$chambre->id)->first();
         };
         $newnbrchambres = explode('}', $newchambres);
         $chambresocp = (count($newnbrchambres)-1);
 
         foreach($salles as $salle){
-            $newsalles .=  $ressalles->where('salle_id','=',$salle->num)->first();
+            $newsalles .=  $ressalles->where('salle_id','=',$salle->id)->first();
         };
         $newnbrsalles = explode('}', $newsalles);
         $sallesocp = (count($newnbrsalles)-1);

@@ -49,7 +49,41 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(isset($ressalle->where('salle_id', '=' , $salle->num)->last()->statut))
+
+                                    @if(isset($ressalle->where('salle_id', '=' , $salle->id)->last()->datefin))
+
+
+                                        @if(($ressalle->where('salle_id', '=' , $salle->id)->last()->datefin > $todayDate))
+
+                                        <label class="actif">
+                                            Disponible
+                                        </label>
+
+                                        @else
+
+                                        <label class="inactif">
+                                            Occupée
+                                        </label>
+
+                                        @endif
+
+                                    @else
+
+                                        @if($salle->active == 1)
+
+                                        <label class="actif">
+                                        Disponible
+                                        </label>
+                                        @elseif($sallee->active == 0)
+
+                                        <label class="inactif">
+                                        Occupée
+                                        </label>
+
+                                        @endif
+
+                                    @endif
+                                    {{-- @if(isset($ressalle->where('salle_id', '=' , $salle->num)->last()->statut))
 
 
                                     @if(($salle->active == 1 && $ressalle->where('salle_id', '=' , $salle->num)->last()->statut == 'Terminée'))
@@ -78,9 +112,9 @@
 
                                     @endif
 
-                                @else
+                                @else --}}
 
-                                    @if($salle->active == 1)
+                                    {{-- @if($salle->active == 1)
 
                                     <label class="actif">
                                     Disponible
@@ -91,9 +125,9 @@
                                     Occupée
                                     </label>
 
-                                    @endif
+                                    @endif --}}
 
-                                @endif
+                               
 
                                 </td>
                                 <td>{{$salle->created_at->diffForHumans()}}</td>

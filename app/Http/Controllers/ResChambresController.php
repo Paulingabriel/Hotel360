@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Clients;
 use App\Models\Chambres;
 use App\Models\ChambresPr;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class ResChambresController extends Controller
 {
@@ -19,15 +21,51 @@ class ResChambresController extends Controller
      */
     public function index()
     {
+
+        $todayDate = Carbon::now();
+        $chambre = Chambres::with(['types_chambre', 'res_chambres'])->where('hotel_id','=',Auth::user()->hotel_id)->get();
         $reschambres = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
         $clients = Clients::where('hotel_id','=',Auth::user()->hotel_id)->get();
-        $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->get();
         $chambresprs = ChambresPr::where('hotel_id','=',Auth::user()->hotel_id)->get();
         $chambrespss = ChambresPs::where('hotel_id','=',Auth::user()->hotel_id)->get();
-        return view("ResChambres.index", compact('clients', 'chambres', 'chambresprs', 'chambrespss', 'reschambres'));
+        return view("ResChambres.index", compact('clients', 'chambresprs', 'chambrespss', 'reschambres','chambre',   'todayDate'));
     }
+
+    public function get(){
+        $newchambres = [];
+        $newchambre = [];
+        $todayDate = Carbon::now();
+        $chambre = Chambres::with(['types_chambre', 'res_chambres'])->where('hotel_id','=',Auth::user()->hotel_id)->get();
+        foreach($chambre as $cham){
+            // dd(isset($cham->res_chambres->last()->occ));
+                if( isset($cham->res_chambres->last()->datefin) || isset($cham->res_chambres->last()->occ) ){
+                    if(($cham->res_chambres->last()->datefin !== null && $cham->res_chambres->last()->datefin < $todayDate) || ( ( (((new DateTime($todayDate))->diff(new DateTime($cham->res_chambres->last()->dateres)))->days)*24 + (((new DateTime($todayDate))->diff(new DateTime($cham->res_chambres->last()->dateres)))->format('%h'))) > $cham->res_chambres->last()->occ)){
+                        array_push($newchambres, $cham);
+                    // dd($newchambres);
+                    }
+                }
+                else{
+                    array_push($newchambre, $cham);
+                }
+            };
+        // dd($newchambres);
+        $data = array_merge($newchambres, $newchambre);
+        return response()->json($data);
+    }
+
     public function allData(){
-        $data = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
+        $data = ResChambres::with('chambre')->where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
+        return response()->json($data);
+    }
+
+    public function change($id){
+        $data = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->where('id','=',$id)->first()->types_chambre->chambres_pr;
+        return response()->json($data);
+    }
+
+    public function editChange($id){
+        
+        $data = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->where('id','=',$id)->first()->types_chambre->chambres_pr;
         return response()->json($data);
     }
 
@@ -36,6 +74,7 @@ class ResChambresController extends Controller
      */
     public function create()
     {
+
         $reschambres = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
         return view("ResChambres.create", compact('reschambres'));
     }
@@ -44,23 +83,25 @@ class ResChambresController extends Controller
      * Store a newly created resource in storage.
      */
     public function storeData(Request $request){
+
+        $todayDate = Carbon::now();
+
         $request->validate([
             'client_id' => 'required',
             'chambre_id' => 'required',
             'datedebut' => 'nullable',
             'datefin' => 'nullable',
             'option' => 'required',
-            'statut' => 'required',
+            'statut' => 'nullable',
             'occ' => 'nullable',
             'adultes' => 'required|gte:0',
             'enfants' => 'required|gte:0',
             'chambres_pr_id' => 'nullable',
-            'chambres_ps_id' => 'nullable'
         ]);
          $store = ResChambres::insert([
             'client_id' => $request->client_id,
             'chambre_id' => $request->chambre_id,
-            'dateres' => $request->dateres,
+            'dateres' => $todayDate,
             'datedebut' => $request->datedebut,
             'datefin' => $request->datefin,
             'option' => $request->option,
@@ -69,10 +110,9 @@ class ResChambresController extends Controller
             'enfants' => $request->enfants,
             'hotel_id' => $request->user()->hotel_id,
             'chambres_pr_id' => $request->chambres_pr_id,
-            'chambres_ps_id' => $request->chambres_ps_id,
+            'total' => $request->total,
             'payement' => $request->payement,
-            'statut' => $request->statut,
-                 ]);
+            ]);
 
         return response()->json($store);
     }
@@ -101,29 +141,48 @@ class ResChambresController extends Controller
      * Show the form for editing the specified resource.
      */
     public function editData($id){
+        $newchambres = [];
+        $newchambre = [];
+        $todayDate = Carbon::now();
+        $chambre = Chambres::with(['types_chambre', 'res_chambres'])->where('hotel_id','=',Auth::user()->hotel_id)->get();
+        foreach($chambre as $cham){
+            // dd();
+                if((isset($cham->res_chambres->last()->datefin) || isset($cham->res_chambres->last()->occ)) ){
+                    if(($cham->res_chambres->last()->datefin !== null && $cham->res_chambres->last()->datefin < $todayDate) || ( ( (((new DateTime($todayDate))->diff(new DateTime($cham->res_chambres->last()->dateres)))->days)*24 + (((new DateTime($todayDate))->diff(new DateTime($cham->res_chambres->last()->dateres)))->format('%h'))) > $cham->res_chambres->last()->occ)){
+                        array_push($newchambres, $cham);
+                    // dd($newchambres);
+                    }
+                }
+                else{
+                    array_push($newchambre, $cham);
+                }
+            }
+        $datas = array_merge($newchambres, $newchambre);
         $data = ResChambres::findOrFail($id);
-        return response()->json($data);
+        $num = Chambres::where('id','=',$data->chambre_id)->first()->num;
+        // dd($num);
+        return response()->json(['data' => $data, 'datas' => $datas, 'num' => $num]);
     }
 
     public function updateData(Request $request,$id){
+
+        $todayDate = Carbon::now();
+
         $request->validate([
             'client_id' => 'required',
             'chambre_id' => 'required',
             'datedebut' => 'nullable',
             'datefin' => 'nullable',
             'option' => 'required',
-            'statut' => 'required',
             'occ' => 'nullable',
             'adultes' => 'required|gte:0',
             'enfants' => 'required|gte:0',
             'chambres_pr_id' => 'nullable',
-            'chambres_ps_id' => 'nullable'
         ]);
-
           $update = ResChambres::findOrFail($id)->update([
             'client_id' => $request->client_id,
             'chambre_id' => $request->chambre_id,
-            'dateres' => $request->dateres,
+            'dateres' => $todayDate,
             'datedebut' => $request->datedebut,
             'datefin' => $request->datefin,
             'option' => $request->option,
@@ -132,11 +191,18 @@ class ResChambresController extends Controller
             'enfants' => $request->enfants,
             'hotel_id' => $request->user()->hotel_id,
             'chambres_pr_id' => $request->chambres_pr_id,
-            'chambres_ps_id' => $request->chambres_ps_id,
+            'total' => $request->total,
             'payement' => $request->payement,
-            'statut' => $request->statut,
                    ]);
-           return response()->json($update);
+            // dd($request);
+            // $data = Chambres::findOrFail($request->chambre_id);
+            // if($request->statut == "Terminée"){
+            //     $data->active = 1;
+            // }else{
+            //     $data->active = 0;
+            // }
+            // $data->update(['active' => $data->active]);
+           return response()->json($update );
 }
 
     /**

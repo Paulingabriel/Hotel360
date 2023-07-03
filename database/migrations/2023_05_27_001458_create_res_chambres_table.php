@@ -13,20 +13,19 @@ return new class extends Migration
     {
         Schema::create('res_chambres', function (Blueprint $table) {
             $table->id();
-            $table->date('dateres')->nullable();
+            $table->dateTime('dateres')->nullable();
             $table->integer('occ')->nullable();
             $table->date('datedebut')->nullable();
             $table->date('datefin')->nullable();
             $table->string('option');
             $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('chambre_id')->nullable()->constrained('chambres')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('client_id')->nullable()->constrained('clients')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('adultes')->nullable();
             $table->integer('enfants')->nullable();
             $table->string('payement')->nullable();
             $table->integer('chambres_pr_id')->nullable();
-            $table->integer('chambres_ps_id')->nullable();
-            $table->string('client_id');
-            $table->string('chambre_id');
-            $table->string('statut');
+            $table->integer('total')->nullable();
             $table->timestamps();
         });
     }

@@ -11,38 +11,107 @@
     // });
 
 // ---------------view data ------------
+
+function get(){
+
+    
+$.ajax({
+    type:"GET",
+    dataType: "json",
+    url: "/reservations-salles/get",
+    success: function(response){
+    const data = response;
+    console.log(data);
+        
+    document.form.salle_id.options.length = data.length + 1;
+    document.form.salle_id.options[0].value = '';
+    document.form.salle_id.options[0].text = '-----------';
+
+    for(let i = 0; i<data.length ; i++){
+        document.form.salle_id.options[i+1].value = data[i].id; 
+        document.form.salle_id.options[i+1].text = data[i].num;
+        // console.log(document.form.chambre_id.options[i+1].value);
+        // console.log(document.form.chambre_id.options[i+1].text);
+
+    }
+    $(document).ready(function() {
+  $('.salleSelect2').select2();
+    });
+    // console.log(document.form.chambre_id);  
+    }
+})
+};
+
+
+function change(e){
+
+console.log(e);
+$.ajax({
+    type:"GET",
+    dataType: "json",
+    url: "/reservations-salles/change/" + e,
+    success: function(response){
+    console.log(response);  
+    var salle = document.getElementById('salles_pr_id');
+     
+    salle.value = response.prix;
+    salle.style.display = 'block';
+    label.style.display = 'block';
+   
+    if(datefin.value !== '' && datedebut.value !== ''){
+        total.value = (salle.value)*(((((new Date(datefin.value)).getTime()) - ((new Date(datedebut.value)).getTime()))/(1000 * 3600 * 24)));
+        prixtotal.style.display = 'block';
+        total.style.display = 'block';
+    }  
+    }
+})
+}
+
+function editChange(e){
+
+console.log(e);
+$.ajax({
+type:"GET",
+dataType: "json",
+url: "/reservations-salles/editchange/" + e,
+success: function(response){
+
+  
+   var salleedit = document.getElementById('editsalles_pr_id');
+     
+   salleedit.value = response.prix;
+   totaledit.value = (salleedit.value)*(((((new Date(datefinedit.value)).getTime()) - ((new Date(datedebutedit.value)).getTime()))/(1000 * 3600 * 24)));
+
+   salleedit.style.display = 'block';
+   prixtotaledit.style.display = 'block';
+   editlabel.style.display = 'block';
+   totaledit.style.display = 'block';
+   editlabel.style.display = 'block';
+//    console.log(salleedit.value);
+}
+})
+}
+
+
 function allData() {
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/reservations-salles/allData",
         success: function(response) {
-            var data = ""
+            var data = "";
+            console.log(response);
             $.each(response, function(key, value) {
                 data = data + "<tr>"
                 data = data + "<td>" + value.id + "</td>"
                 data = data + "<td>" + value.client_id + "</td>"
-                data = data + "<td>" + value.salle_id + "</td>"
+                data = data + "<td>" + value.salle.num + "</td>"
                 data = data + "<td>" + value.dateres + "</td>"
                 data = data + "<td>" + value.datedebut + "</td>"
                 data = data + "<td>" + value.datefin + "</td>"
                 data = data + "<td>" + value.salles_pr_id + "</td>"
-                data = data + "<td>" + value.salles_ps_id + "</td>"
-                if(value.salles_pr_id && !value.salles_ps_id){
-                    data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_pr_id) + "</td>"
-                }
-                else if(!value.salles_pr_id && value.salles_ps_id){
-                    data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_ps_id) + "</td>"
-                }
-                else if(!value.salles_pr_id && !value.salles_ps_id){
-                    data = data + "<td>null</td>"
-                }
-                else{
-                    data = data + "<td>" + (Math.floor(((new Date(value.datefin)) - (new Date(value.datedebut))) / (1000 * 60 * 60 * 24)))*(value.salles_pr_id) + "</td>"
-                }
-
+                data = data + "<td>" + value.total + "</td>"
                 data = data + "<td>" + value.payement + "</td>"
-                data = data + "<td>" + value.statut + "</td>"
                 data = data + "<td>"
                 data = data + "<div class='actions text-center'>"
                 <?php if((Auth::user()->hasDirectPermission("modifier"))  && (Auth::user()->hasRole(["admin","superadmin","manager"]))){ ?>
@@ -72,7 +141,7 @@ function allData() {
     })
 };
 
-console.log('bonjour');
+
 allData();
 // --------- end all data ---------
 
@@ -84,9 +153,7 @@ allData();
         $('#datedebut').val('');
         $('#datefin').val('');
         $('#salles_pr_id').val('');
-        $('#salles_ps_id').val('');
         $('#payement').val('');
-        $('#statut').val('');
 
         $('#clientError').text('');
         $('#salleError').text('');
@@ -94,9 +161,7 @@ allData();
         $('#datedebutError').text('');
         $('#datefinError').text('');
         $('#salleprError').text('');
-        $('#sallepsError').text('');
         $('#payementError').text('');
-        $('#statutError').text('');
 }
     // --------- end data will be clear here ---------
 
@@ -107,9 +172,9 @@ allData();
         var datedebut = $('#datedebut').val();
         var datefin = $('#datefin').val();
         var salles_pr_id = $('#salles_pr_id').val();
-        var salles_ps_id = $('#salles_ps_id').val();
+        var total = $('#total').val();
         var payement = $('#payement').val();
-        var statut =  $('input[type="radio"]:checked').val();
+        // var statut =  $('input[type="radio"]:checked').val();
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -121,9 +186,9 @@ allData();
                 datedebut: datedebut,
                 datefin: datefin,
                 salles_pr_id: salles_pr_id,
-                salles_ps_id: salles_ps_id,
+                total: total,
                 payement: payement,
-                statut: statut,
+                // statut: statut,
             },
             url: "/reservations-salles/store",
             success: function(response) {
@@ -149,9 +214,7 @@ allData();
                 $('#datedebutError').text('');
                 $('#datefinError').text('');
                 $('#salleprError').text('');
-                $('#sallepsError').text('');
                 $('#payementError').text('');
-                $('#statutError').text('');
 
 
                 $('#clientError').text(error.responseJSON.errors.client_id);
@@ -160,9 +223,7 @@ allData();
                 $('#datedebutError').text(error.responseJSON.errors.datedebut);
                 $('#datefinError').text(error.responseJSON.errors.datefin);
                 $('#salleprError').text(error.responseJSON.errors.salles_pr_id);
-                $('#sallepsError').text(error.responseJSON.errors.salles_ps_id);
                 $('#payementError').text(error.responseJSON.errors.payement);
-                $('#statutError').text(error.responseJSON.errors.statut);
 
             }
             // end error
@@ -175,27 +236,63 @@ allData();
             type: "GET",
             dataType: "json",
             url: "/reservations-salles/edit/" + id,
-            success: function(data) {
+            success: function(response) {
+                var data = response.data;
+                var datas = response.datas;
+                console.log(response.num);
+                // var salleedit = document.getElementById('editsalles_pr_id');
+                // var totaledit = document.getElementById('totaledit');
+                // var prixtotaledit = document.getElementById('prixtotaledit');
+                // var editlabel = document.getElementById('editprix');
+
                 $('#modalCreate').html(data);
                 $('#id').val(data.id);
                 $('#client_id').val(data.client_id);
                 $('#salle_id').val(data.salle_id);
                 $('#dateres').val(data.dateres);
-                $('#datedebut').val(data.datedebut);
-                $('#datefin').val(data.datefin);
-                $('#salles_pr_id').val(data.salles_pr_id);
-                $('#salles_ps_id').val(data.salles_ps_id);
+                $('#datedebutedit').val(data.datedebut);
+                $('#datefinedit').val(data.datefin);
+                $('#editsalles_pr_id').val(data.salles_pr_id);
+                $('#totaledit').val(data.total);
                 $('#payement').val(data.payement);
-                if(data.statut == 'En cours...')
-                {
+                
+                salleedit.style.display = 'block';
+                prixtotaledit.style.display = 'block';
+                editlabel.style.display = 'block';
+                totaledit.style.display = 'block';
+                editlabel.style.display = 'block';
 
-                    $("#statut1").prop("checked" , true)
+                console.log($('#client_id').val());
 
-                }else if(data.statut == 'Terminée'){
+                const dat = datas;  
+                document.formEdit.salle_id.options.length = dat.length + 1;
+                document.formEdit.salle_id.options[0].value = data.salle_id;
+                document.formEdit.salle_id.options[0].text = response.num;
 
-                    $("#statut2").prop("checked" , true)
+                for(let i = 0; i<dat.length ; i++){
+                    document.formEdit.salle_id.options[i+1].value = dat[i].id; 
+                    document.formEdit.salle_id.options[i+1].text = dat[i].num;
+                    // console.log(document.formEdit.chambre_id.options[i+1].value);
+                    // console.log(document.formEdit.chambre_id.options[i+1].text);
 
                 }
+                $(document).ready(function() {
+                $('.salleSelect2Edit').select2();
+                }); 
+
+                // console.log(data);
+                // console.log(salleedit.style.display);
+                // console.log(totaledit.style.display);
+                // if(data.statut == 'En cours...')
+                // {
+
+                //     $("#statut1").prop("checked" , true)
+
+                // }else if(data.statut == 'Terminée'){
+
+                //     $("#statut2").prop("checked" , true)
+
+                // }
             }
         });
     }
@@ -205,14 +302,14 @@ allData();
     function updateData() {
         var id = $('#id').val();
         var client_id = $('#client_id').val();
-        var salle_id = $('#salle_id').val();
+        var salle_id = $('#editsalle_id').val();
         var dateres = $('#dateres').val();
-        var datedebut = $('#datedebut').val();
-        var datefin = $('#datefin').val();
-        var salles_pr_id = $('#salles_pr_id').val();
-        var salles_ps_id = $('#salles_ps_id').val();
+        var datedebut = $('#datedebutedit').val();
+        var datefin = $('#datefinedit').val();
+        var salles_pr_id = $('#editsalles_pr_id').val();
+        var total = $('#totaledit').val();
         var payement = $('#payement').val();
-        var statut = $('input[name="statut"]:checked').val();
+        // var statut = $('input[name="statut"]:checked').val();
         $.ajax({
             data: {
                 _token: @json(csrf_token()),
@@ -222,9 +319,9 @@ allData();
                 datedebut: datedebut,
                 datefin: datefin,
                 salles_pr_id: salles_pr_id,
-                salles_ps_id: salles_ps_id,
+                total: total,
                 payement: payement,
-                statut: statut,
+                // statut: statut,
             },
             type: "POST",
             dataType: "json",
@@ -252,9 +349,7 @@ allData();
                 $('#datedebutError').text('');
                 $('#datefinError').text('');
                 $('#salleprError').text('');
-                $('#sallepsError').text('');
                 $('#payementError').text('');
-                $('#statutError').text('');
 
                 $('#clientError').text(error.responseJSON.errors.client_id);
                 $('#salleError').text(error.responseJSON.errors.salle_id);
@@ -262,9 +357,7 @@ allData();
                 $('#datedebutError').text(error.responseJSON.errors.datedebut);
                 $('#datefinError').text(error.responseJSON.errors.datefin);
                 $('#salleprError').text(error.responseJSON.errors.salles_pr_id);
-                $('#sallepsError').text(error.responseJSON.errors.salles_ps_id);
                 $('#payementError').text(error.responseJSON.errors.payement);
-                $('#statutError').text(error.responseJSON.errors.statut);
 
             }
             // end error

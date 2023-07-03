@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Salles;
 use App\Models\Clients;
 use App\Models\SallesPr;
@@ -19,14 +20,51 @@ class ResSallesController extends Controller
      */
     public function index()
     {
+        $todayDate = Carbon::now();
         $clients = Clients::where('hotel_id','=',Auth::user()->hotel_id)->get();
-        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $salles = Salles::with(['types_salle', 'res_salles'])->where('hotel_id','=',Auth::user()->hotel_id)->where('active','=',1)->get();
+        $ressalles = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
         $sallesprs = SallesPr::where('hotel_id','=',Auth::user()->hotel_id)->get();
         $sallespss = SallesPs::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        
         return view("resSalles.index", compact('clients', 'salles', 'sallesprs', 'sallespss'));
     }
+
+    public function get(){
+        $newsalles = [];
+        $newsalle = [];
+        $todayDate = Carbon::now();
+        $salle = Salles::with(['types_salle', 'res_salles'])->where('hotel_id','=',Auth::user()->hotel_id)->get();
+        foreach($salle as $sall){
+            // dd(isset($sall->res_salles->last()->occ));
+                if( isset($sall->res_salles->last()->datefin) ){
+                    if(($sall->res_salles->last()->datefin !== null && $sall->res_salles->last()->datefin < $todayDate)){
+                        array_push($newsalles, $sall);
+                    // dd($newsalles);
+                    }
+                }
+                else{
+                    array_push($newsalle, $sall);
+                }
+            };
+        // dd($newsalles);
+        $data = array_merge($newsalles, $newsalle);
+        return response()->json($data);
+    }
+
     public function allData(){
-        $data = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
+        $data = ResSalles::with('salle')->where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','DESC')->get();
+        return response()->json($data);
+    }
+
+    public function change($id){
+        $data = Salles::where('hotel_id','=',Auth::user()->hotel_id)->where('id','=',$id)->first()->types_salle->salles_pr;
+        return response()->json($data);
+    }
+
+    public function editChange($id){
+        
+        $data = Salles::where('hotel_id','=',Auth::user()->hotel_id)->where('id','=',$id)->first()->types_salle->salles_pr;
         return response()->json($data);
     }
 
@@ -43,28 +81,30 @@ class ResSallesController extends Controller
      * Store a newly created resource in storage.
      */
     public function storeData(Request $request){
+        
+
+        $todayDate = Carbon::now();
+
         $request->validate([
              'client_id' => 'required',
              'salle_id' => 'required',
              'datedebut' => 'required',
              'datefin' => 'required',
-             'statut' => 'required',
         ]);
          $store = ResSalles::insert([
                 'client_id' => $request->client_id,
                 'salle_id' => $request->salle_id,
-                'dateres' => $request->dateres,
+                'dateres' => $todayDate,
                 'datedebut' => $request->datedebut,
                 'datefin' => $request->datefin,
                 'hotel_id' => $request->user()->hotel_id,
                 'salles_pr_id' => $request->salles_pr_id,
-                'salles_ps_id' => $request->salles_ps_id,
+                'total' => $request->total,
                 'payement' => $request->payement,
-                'statut' => $request->statut,
                  ]);
 
-        return response()->json($store);
-    }
+                return response()->json($store);
+        }
 
     /**
      * Display the specified resource.
@@ -89,31 +129,51 @@ class ResSallesController extends Controller
      * Show the form for editing the specified resource.
      */
     public function editData($id){
+        $newsalles = [];
+        $newsalle = [];
+        $todayDate = Carbon::now();
+        $salle = Salles::with(['types_salle', 'res_salles'])->where('hotel_id','=',Auth::user()->hotel_id)->get();
+        foreach($salle as $sall){
+            // dd(isset($sall->res_salles->last()->occ));
+                if( isset($sall->res_salles->last()->datefin) ){
+                    if(($sall->res_salles->last()->datefin !== null && $sall->res_salles->last()->datefin < $todayDate)){
+                        array_push($newsalles, $sall);
+                    // dd($newsalles);
+                    }
+                }
+                else{
+                    array_push($newsalle, $sall);
+                }
+            };
+        // dd($newsalles);
+        $datas = array_merge($newsalles, $newsalle);
         $data = ResSalles::findOrFail($id);
-        return response()->json($data);
+        $num = Salles::where('id','=',$data->salle_id)->first()->num;
+        return response()->json(['data' => $data, 'datas' => $datas, 'num' => $num]);
     }
 
     public function updateData(Request $request,$id){
+
+        $todayDate = Carbon::now();
+
         $request->validate([
             'client_id' => 'required',
              'salle_id' => 'required',
              'datedebut' => 'required',
              'datefin' => 'required',
-             'statut' => 'required',
         ]);
-
           $update = ResSalles::findOrFail($id)->update([
             'client_id' => $request->client_id,
             'salle_id' => $request->salle_id,
-            'dateres' => $request->dateres,
+            'dateres' => $todayDate,
             'datedebut' => $request->datedebut,
             'datefin' => $request->datefin,
             'hotel_id' => $request->user()->hotel_id,
             'salles_pr_id' => $request->salles_pr_id,
-            'salles_ps_id' => $request->salles_ps_id,
+            'total' => $request->total,
             'payement' => $request->payement,
-            'statut' => $request->statut,
                    ]);
+
            return response()->json($update);
 }
 

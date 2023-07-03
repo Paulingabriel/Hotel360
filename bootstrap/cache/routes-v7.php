@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::MtUg00b96LmR3d6E',
+            '_route' => 'generated::SKPofRAjWJ02qXn5',
           ),
           1 => NULL,
           2 => 
@@ -955,6 +955,26 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/reservations-salles/get' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resSalles/get',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/reservations-chambres/liste' => 
       array (
         0 => 
@@ -1021,6 +1041,26 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'resChambres/ajouter',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/reservations-chambres/get' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resChambres/get',
           ),
           1 => NULL,
           2 => 
@@ -1133,7 +1173,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::TKzh7wXjRKvJtcS6',
+            '_route' => 'generated::060eTwVr0wHGbq1H',
           ),
           1 => NULL,
           2 => 
@@ -1188,7 +1228,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::DXDQdlP2Hnd8grnL',
+            '_route' => 'generated::sGWVzD1uFSq6geyY',
           ),
           1 => NULL,
           2 => 
@@ -1279,7 +1319,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::kuM5aLe39IVPeKvj',
+            '_route' => 'generated::wmMuXy3kCHtQ8Gqa',
           ),
           1 => NULL,
           2 => 
@@ -1506,7 +1546,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/types\\-(?|chambres/(?|modifier/([^/]++)(?|(*:50))|supprimer/([^/]++)(*:76))|salles/(?|modifier/([^/]++)(?|(*:114))|supprimer/([^/]++)(*:141)))|/c(?|hambres(?|/(?|modifier/([^/]++)(?|(*:190))|supprimer/([^/]++)(*:217))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:271))|supprimer/([^/]++)(*:298))|spéciaux/(?|modifier/([^/]++)(?|(*:340))|supprimer/([^/]++)(*:367))))|lients/(?|modifier/([^/]++)(?|(*:408))|supprimer/([^/]++)(*:435)))|/étages/(?|modifier/([^/]++)(?|(*:477))|supprimer/([^/]++)(*:504))|/s(?|alles(?|/(?|modifier/([^/]++)(?|(*:550))|supprimer/([^/]++)(*:577))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:631))|supprimer/([^/]++)(*:658))|spéciaux/(?|modifier/([^/]++)(?|(*:700))|supprimer/([^/]++)(*:727))))|uperadmin/(?|roles/([^/]++)(?|(*:768)|/(?|edit(*:784)|permissions(?|(*:806)|/([^/]++)(*:823)))|(*:833))|permissions/([^/]++)(?|(*:865)|/(?|edit(*:881)|roles(?|(*:897)|/([^/]++)(*:914)))|(*:924))|u(?|sers/([^/]++)(?|(*:953)|/(?|roles(?|(*:973)|/([^/]++)(*:990))|permissions(?|(*:1013)|/([^/]++)(*:1031))))|tilisateurs/modifier/([^/]++)(*:1072))))|/reservations\\-(?|salles/(?|facture/([^/]++)(?|(*:1131)|/telecharger(*:1152))|update/([^/]++)(*:1177)|edit/([^/]++)(*:1199)|supprimer/([^/]++)(*:1226))|chambres/(?|facture/([^/]++)(?|(*:1267)|/telecharger(*:1288))|update/([^/]++)(*:1313)|edit/([^/]++)(*:1335)|supprimer/([^/]++)(*:1362)))|/hotels/(?|modifier/([^/]++)(?|(*:1404))|supprimer/([^/]++)(*:1432))|/password/reset/([^/]++)(*:1466)|/auth/profil/([^/]++)(*:1496))/?$}sDu',
+      0 => '{^(?|/types\\-(?|chambres/(?|modifier/([^/]++)(?|(*:50))|supprimer/([^/]++)(*:76))|salles/(?|modifier/([^/]++)(?|(*:114))|supprimer/([^/]++)(*:141)))|/c(?|hambres(?|/(?|modifier/([^/]++)(?|(*:190))|supprimer/([^/]++)(*:217))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:271))|supprimer/([^/]++)(*:298))|spéciaux/(?|modifier/([^/]++)(?|(*:340))|supprimer/([^/]++)(*:367))))|lients/(?|modifier/([^/]++)(?|(*:408))|supprimer/([^/]++)(*:435)))|/étages/(?|modifier/([^/]++)(?|(*:477))|supprimer/([^/]++)(*:504))|/s(?|alles(?|/(?|modifier/([^/]++)(?|(*:550))|supprimer/([^/]++)(*:577))|\\-prix\\-(?|réguliers/(?|modifier/([^/]++)(?|(*:631))|supprimer/([^/]++)(*:658))|spéciaux/(?|modifier/([^/]++)(?|(*:700))|supprimer/([^/]++)(*:727))))|uperadmin/(?|roles/([^/]++)(?|(*:768)|/(?|edit(*:784)|permissions(?|(*:806)|/([^/]++)(*:823)))|(*:833))|permissions/([^/]++)(?|(*:865)|/(?|edit(*:881)|roles(?|(*:897)|/([^/]++)(*:914)))|(*:924))|u(?|sers/([^/]++)(?|(*:953)|/(?|roles(?|(*:973)|/([^/]++)(*:990))|permissions(?|(*:1013)|/([^/]++)(*:1031))))|tilisateurs/modifier/([^/]++)(*:1072))))|/reservations\\-(?|salles/(?|facture/([^/]++)(?|(*:1131)|/telecharger(*:1152))|update/([^/]++)(*:1177)|change/([^/]++)(*:1201)|edit(?|change/([^/]++)(*:1232)|/([^/]++)(*:1250))|supprimer/([^/]++)(*:1278))|chambres/(?|facture/([^/]++)(?|(*:1319)|/telecharger(*:1340))|update/([^/]++)(*:1365)|change/([^/]++)(*:1389)|edit(?|change/([^/]++)(*:1420)|/([^/]++)(*:1438))|supprimer/([^/]++)(*:1466)))|/hotels/(?|modifier/([^/]++)(?|(*:1508))|supprimer/([^/]++)(*:1536))|/password/reset/([^/]++)(*:1570)|/auth/profil/([^/]++)(*:1600))/?$}sDu',
     ),
     3 => 
     array (
@@ -2653,7 +2693,53 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1199 => 
+      1201 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resSalles/change',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1232 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resSalles/editChange',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1250 => 
       array (
         0 => 
         array (
@@ -2676,7 +2762,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1226 => 
+      1278 => 
       array (
         0 => 
         array (
@@ -2699,7 +2785,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1267 => 
+      1319 => 
       array (
         0 => 
         array (
@@ -2722,7 +2808,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1288 => 
+      1340 => 
       array (
         0 => 
         array (
@@ -2745,7 +2831,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1313 => 
+      1365 => 
       array (
         0 => 
         array (
@@ -2767,7 +2853,53 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1335 => 
+      1389 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resChambres/change',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1420 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'resChambres/editChange',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1438 => 
       array (
         0 => 
         array (
@@ -2790,7 +2922,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1362 => 
+      1466 => 
       array (
         0 => 
         array (
@@ -2813,7 +2945,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1404 => 
+      1508 => 
       array (
         0 => 
         array (
@@ -2855,7 +2987,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1432 => 
+      1536 => 
       array (
         0 => 
         array (
@@ -2878,7 +3010,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1466 => 
+      1570 => 
       array (
         0 => 
         array (
@@ -2901,7 +3033,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1496 => 
+      1600 => 
       array (
         0 => 
         array (
@@ -3084,7 +3216,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::MtUg00b96LmR3d6E' => 
+    'generated::SKPofRAjWJ02qXn5' => 
     array (
       'methods' => 
       array (
@@ -3107,7 +3239,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::MtUg00b96LmR3d6E',
+        'as' => 'generated::SKPofRAjWJ02qXn5',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5980,6 +6112,117 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'resSalles/get' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-salles/get',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResSallesController@get',
+        'controller' => 'App\\Http\\Controllers\\ResSallesController@get',
+        'as' => 'resSalles/get',
+        'namespace' => NULL,
+        'prefix' => '/reservations-salles',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'resSalles/change' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-salles/change/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResSallesController@change',
+        'controller' => 'App\\Http\\Controllers\\ResSallesController@change',
+        'as' => 'resSalles/change',
+        'namespace' => NULL,
+        'prefix' => '/reservations-salles',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'resSalles/editChange' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-salles/editchange/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResSallesController@editChange',
+        'controller' => 'App\\Http\\Controllers\\ResSallesController@editChange',
+        'as' => 'resSalles/editChange',
+        'namespace' => NULL,
+        'prefix' => '/reservations-salles',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'resSalles/edit' => 
     array (
       'methods' => 
@@ -6291,6 +6534,117 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\ResChambresController@updateData',
         'controller' => 'App\\Http\\Controllers\\ResChambresController@updateData',
         'as' => 'resChambres/modifier',
+        'namespace' => NULL,
+        'prefix' => '/reservations-chambres',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'resChambres/get' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-chambres/get',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResChambresController@get',
+        'controller' => 'App\\Http\\Controllers\\ResChambresController@get',
+        'as' => 'resChambres/get',
+        'namespace' => NULL,
+        'prefix' => '/reservations-chambres',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'resChambres/change' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-chambres/change/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResChambresController@change',
+        'controller' => 'App\\Http\\Controllers\\ResChambresController@change',
+        'as' => 'resChambres/change',
+        'namespace' => NULL,
+        'prefix' => '/reservations-chambres',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'resChambres/editChange' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'reservations-chambres/editchange/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ResChambresController@editChange',
+        'controller' => 'App\\Http\\Controllers\\ResChambresController@editChange',
+        'as' => 'resChambres/editChange',
         'namespace' => NULL,
         'prefix' => '/reservations-chambres',
         'where' => 
@@ -6693,7 +7047,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::TKzh7wXjRKvJtcS6' => 
+    'generated::060eTwVr0wHGbq1H' => 
     array (
       'methods' => 
       array (
@@ -6713,7 +7067,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::TKzh7wXjRKvJtcS6',
+        'as' => 'generated::060eTwVr0wHGbq1H',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6802,7 +7156,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::DXDQdlP2Hnd8grnL' => 
+    'generated::sGWVzD1uFSq6geyY' => 
     array (
       'methods' => 
       array (
@@ -6822,7 +7176,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::DXDQdlP2Hnd8grnL',
+        'as' => 'generated::sGWVzD1uFSq6geyY',
       ),
       'fallback' => false,
       'defaults' => 
@@ -7021,7 +7375,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::kuM5aLe39IVPeKvj' => 
+    'generated::wmMuXy3kCHtQ8Gqa' => 
     array (
       'methods' => 
       array (
@@ -7041,7 +7395,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::kuM5aLe39IVPeKvj',
+        'as' => 'generated::wmMuXy3kCHtQ8Gqa',
       ),
       'fallback' => false,
       'defaults' => 

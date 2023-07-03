@@ -36,12 +36,12 @@
             </div>
 
             <div class="form-section mb-3">
-                <form action="" method="POST">
+                <form action="" method="POST" name="formEdit">
                     @csrf
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Nom du client</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="client_id" name="client_id" value="{{ old('client_id') }}">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2Edit" id="client_id" name="client_id" value="{{ old('client_id') }}">
                                     @foreach ($clients as $client)
 
                                         <option value="{{$client->nom}}">{{$client->nom}}</option>
@@ -52,12 +52,7 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Numero de chambre</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambre_id" name="chambre_id" value="{{ old('chambre_id') }}">
-                                    @foreach ($chambres as $chambre)
-
-                                        <option value="{{$chambre->num}}">{{$chambre->num}}</option>
-
-                                    @endforeach
+                                <select class="border border-2 form-control form-select shadow-none form-control-line stateSelect2Edit" id="chambre_id" name="chambre_id" value="{{ old('chambre_id') }}" onchange="editChange(this.options[this.selectedIndex].value)">
                                 </select>
                                 <span class="text-danger" id="chambreError"></span>
                             </div>
@@ -65,14 +60,14 @@
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Date de réservation</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="dateres" name="dateres" value="{{ old('dateres') }}">
+                                <input type="text" class="border border-2 form-control ps-0 form-control-line" id="dateres" name="dateres" disabled>
                                 <span class="text-danger" id="dateresError"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
                                 <label for="date" class="label col-md-12 mb-2">Option de réservation</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line option2" name="option" id="option" onchange="visibility(this)">
+                                <select class="border border-2 form-control form-select shadow-none form-control-line option2" name="option" id="optionedit" onchange="visibility(this)">
                                     <option value="nuitée">nuitée</option>
                                     <option value="sieste">sieste</option>
                                     <option value="heure">heure</option>
@@ -81,19 +76,19 @@
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4" id="he" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Nombre d'heures</label>
-                                <input type="number" class="border border-2 form-control ps-0 form-control-line" id="occ" name="occ" value="{{ old('occ') }}">
+                                <input type="number" class="border border-2 form-control ps-0 form-control-line" id="occedit" name="occ" value="{{ old('occ') }}" onkeyup="totaledit(this.value)">
                                 <span class="text-danger" id="occError"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5  mb-4" id="d1" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Date d'entrée</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datedebut" name="datedebut" value="{{ old('datedebut') }}">
+                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datedebutedit" name="datedebut" value="{{ old('datedebut') }}" onchange="globaldebutedit(this.value)">
                                 <span class="text-danger" id="datedebutError"></span>
                             </div>
                             <div class="col-md-6 col-xl-5  offset-xl-2 mb-4" id="d2" style="display: none;">
                                 <label for="date" class="label col-md-12 mb-2">Date de sortie</label>
-                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datefin" name="datefin" value="{{ old('datefin') }}">
+                                <input type="date" class="border border-2 form-control ps-0 form-control-line" id="datefinedit" name="datefin" value="{{ old('datefin') }}" onchange="globalfinedit(this.value)">
                                 <span class="text-danger" id="datefinError"></span>
                             </div>
                         </div>
@@ -111,32 +106,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xl-5 mb-4">
-                                <label for="date" class="label col-md-12 mb-2">Prix regulier</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambres_pr_id" name="chambres_pr_id" value="{{ old('chambres_pr_id') }}">
-                                    <option value="" selected>------------</option>
-                                    @foreach ($chambresprs as $chambrespr)
-
-                                        <option value="{{$chambrespr->prixsieste}}">sieste-{{$chambrespr->prixsieste}}</option>
-                                        <option value="{{$chambrespr->prixheure}}">heure-{{$chambrespr->prixheure}}</option>
-                                        <option value="{{$chambrespr->prixnuitee}}">nuitée-{{$chambrespr->prixnuitee}}</option>
-
-                                    @endforeach
-                                </select>
+                                <label for="date" class="label col-md-12 mb-2"  style="display: none;" id="editprix">Prix</label>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_4" name="chambres_pr_4" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_5" name="chambres_pr_5" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="chambres_pr_6" name="chambres_pr_6" style="display: none;" disabled/>
                                 <span class="text-danger" id="chambresprError"></span>
                             </div>
                             <div class="col-md-6 col-xl-5 offset-xl-2 mb-4">
-                                <label for="date" class="label col-md-12 mb-2">Prix spécial</label>
-                                <select class="border border-2 form-control form-select shadow-none form-control-line" id="chambres_ps_id" name="chambres_ps_id" value="{{ old('chambres_ps_id') }}">
-                                    <option value="" selected>------------</option>
-                                    @foreach ($chambrespss as $chambresps)
-                                        <option value="" selected>------------</option>
-                                        <option value="{{$chambresps->prixsieste}}">sieste-{{$chambresps->prixsieste}}</option>
-                                        <option value="{{$chambresps->prixheure}}">heure-{{$chambresps->prixheure}}</option>
-                                        <option value="{{$chambresps->prixnuitee}}">nuitée-{{$chambresps->prixnuitee}}</option>
-
-                                    @endforeach
-                                </select>
-                                <span class="text-danger" id="chambrespsError"></span>
+                                <label for="date" class="label col-md-12 mb-2" style="display: none;" id="prixtotaledit">Total</label>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total4" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total5" style="display: none;" disabled/>
+                                <input type="text" class="border border-2 form-control shadow-none form-control-line" id="total6" style="display: none;" disabled/>
                             </div>
                         </div>
                         <div class="row">
@@ -149,7 +129,7 @@
                                 <span class="text-danger" id="payementError"></span>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-4">
+                        {{-- <div class="col-md-12 mb-4">
                             <label for="date" class="label col-md-12 mb-2" style="margin-left: -15px">Statut de réservation</label>
                             <div class="d-flex mt-2">
                                 <div class="form-check form-check-inline label1">
@@ -162,7 +142,7 @@
                                 </div>
                             </div>
                             <span class="text-danger" id="satatutError"></span>
-                        </div>
+                        </div> --}}
                         <input type="hidden" id="id" name="id">
                         <div class="row">
                             <div class="offset-xl-4 col-xl-8 mt-5">

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('num');
             $table->boolean('active');
             $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('res_chambre_id')->nullable()->constrained('res_chambres')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('types_chambre_id')->constrained('types_chambres')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('etage_id')->constrained('etages')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

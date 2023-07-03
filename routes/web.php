@@ -177,6 +177,9 @@ Route::prefix('/reservations-salles')->name('resSalles/')->group(function(){
     Route::get("/facture/{id}", [ResSallesController::class, 'showData'])->name('details');
     Route::get("/facture/{id}/telecharger", [ResSallesController::class, 'download'])->name('facture');
     Route::post("/update/{id}", [ResSallesController::class, 'updateData'])->name('modifier');
+    Route::get("/get", [ResSallesController::class, 'get'])->name('get');
+    Route::get("/change/{id}", [ResSallesController::class, 'change'])->name('change');
+    Route::get("/editchange/{id}", [ResSallesController::class, 'editChange'])->name('editChange');
     Route::get("/edit/{id}", [ResSallesController::class, 'editData'])->name('edit');
     Route::get("/supprimer/{id}", [ResSallesController::class, 'deleteData'])->name('delete');
 });
@@ -191,6 +194,9 @@ Route::prefix('/reservations-chambres')->name('resChambres/')->group(function(){
     Route::get("/facture/{id}", [ResChambresController::class, 'showData'])->name('details');
     Route::get("/facture/{id}/telecharger", [ResChambresController::class, 'download'])->name('facture');
     Route::post("/update/{id}", [ResChambresController::class, 'updateData'])->name('modifier');
+    Route::get("/get", [ResChambresController::class, 'get'])->name('get');
+    Route::get("/change/{id}", [ResChambresController::class, 'change'])->name('change');
+    Route::get("/editchange/{id}", [ResChambresController::class, 'editChange'])->name('editChange');
     Route::get("/edit/{id}", [ResChambresController::class, 'editData'])->name('edit');
     Route::get("/supprimer/{id}", [ResChambresController::class, 'deleteData'])->name('delete');
 });

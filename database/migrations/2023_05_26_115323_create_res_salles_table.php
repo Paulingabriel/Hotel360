@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('res_salles', function (Blueprint $table) {
             $table->id();
-            $table->date('dateres')->nullable();
+            $table->dateTime('dateres')->nullable();
             $table->date('datedebut');
             $table->date('datefin');
             $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->string('payement')->nullable();
             $table->integer('salles_pr_id')->nullable();
-            $table->integer('salles_ps_id')->nullable();
+            $table->integer('total')->nullable();
             $table->string('client_id');
             $table->string('salle_id');
-            $table->string('statut');
             $table->timestamps();
         });
     }

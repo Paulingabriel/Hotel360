@@ -64,7 +64,7 @@
                                 <button class="btn-download float-left"><i class="fa-solid fa-download me-1"></i>facture</button>
                             </a> --}}
                             @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
-                                <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
+                                <button class="btn-add float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-2" onclick="get()"></i>Ajouter</button>
                             @else
                             <button class="btn-add float-right"><i class="fa-solid fa-plus me-2"></i>Ajouter</button>
                             @endif
@@ -80,10 +80,8 @@
                                 <th>Date d'entrée</th>
                                 <th>Date de sortie</th>
                                 <th>Prix regulier({{ Auth::user()->hotel->devise}})</th>
-                                <th>Prix spécial({{ Auth::user()->hotel->devise}})</th>
                                 <th>Montant global({{ Auth::user()->hotel->devise}})</th>
                                 <th>Mode de payement</th>
-                                <th>Statut de réservation</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -97,8 +95,81 @@
 
     </div>
 
-
+    
     @include('resSalles.create')
-    @include('resSalles.edit')
-
+    {{-- @include('resSalles.edit') --}}
+    
+    
     @include('layouts.script')
+    
+    <script>
+
+        var salle = document.getElementById('salles_pr_id');
+        var salleedit = document.getElementById('editsalles_pr_id');
+        var total = document.getElementById('total');
+        var totaledit = document.getElementById('totaledit');
+        var prixtotal = document.getElementById('prixtotal');
+        var prixtotaledit = document.getElementById('prixtotaledit');
+        var label = document.getElementById('prix');
+        var editlabel = document.getElementById('editprix');
+        var datedebut = document.getElementById('datedebut');
+        var datefin = document.getElementById('datefin');
+        var datedebutedit = document.getElementById('datedebutedit');
+        var datefinedit = document.getElementById('datefinedit');
+
+
+
+        function globalfin(e){
+            if(datedebut.value !== ''){
+                total.value = (salle.value)*(((((new Date(e)).getTime()) - ((new Date(datedebut.value)).getTime()))/(1000 * 3600 * 24)));
+                prixtotal.style.display = 'block';
+                total.style.display = 'block';
+            }
+            else{
+                total.value == 0;
+                total.style.display = 'block';
+                prixtotal.style.display = 'block';
+            }
+        }
+
+        function globalfinedit(e){
+            if(datedebutedit.value !== ''){
+                totaledit.value = (salleedit.value)*(((((new Date(e)).getTime()) - ((new Date(datedebutedit.value)).getTime()))/(1000 * 3600 * 24)));
+                prixtotaledit.style.display = 'block';
+                totaledit.style.display = 'block';
+            }
+            else{
+                totaledit.value == 0;
+                totaledit.style.display = 'block';
+                prixtotaledit.style.display = 'block';
+            }
+        }
+
+
+        function globaldebut(e){
+            if(datefin.value !== ''){
+                total.value = (salle.value)*(((((new Date(datefin.value)).getTime()) - ((new Date(e)).getTime()))/(1000 * 3600 * 24)));
+                prixtotal.style.display = 'block';
+                total.style.display = 'block';
+            }
+            else{
+                total.value == 0;
+                total.style.display = 'block';
+                prixtotal.style.display = 'block';
+            }
+        }
+
+
+        function globaldebutedit(e){
+            if(datefinedit.value !== ''){
+                totaledit.value = (salleedit.value)*(((((new Date(datefinedit.value)).getTime()) - ((new Date(e)).getTime()))/(1000 * 3600 * 24)));
+                prixtotaledit.style.display = 'block';
+                totaledit.style.display = 'block';
+            }
+            else{
+                totaledit.value == 0;
+                totaledit.style.display = 'block';
+                prixtotaledit.style.display = 'block';
+            }
+        }
+    </script>

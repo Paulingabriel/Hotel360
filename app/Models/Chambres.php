@@ -12,6 +12,8 @@ class Chambres extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['active'];
+
     public function types_chambre(): BelongsTo
     {
         return $this->belongsTo(TypesChambres::class);
@@ -22,9 +24,9 @@ class Chambres extends Model
         return $this->belongsTo(Etages::class);
     }
 
-    public function res_chambre(): BelongsTo
+    public function res_chambres(): HasMany
     {
-        return $this->belongsTo(ResChambres::class);
+        return $this->hasMany(ResChambres::class,'chambre_id','id');
     }
     public function hotel(): BelongsTo
     {
