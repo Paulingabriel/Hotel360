@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Nouveau client
+            Modifier le client
         </h4>
     </div>
 
@@ -34,14 +34,25 @@
                     <div class="col-md-12 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Sexe</label>
                         <div class="d-flex mt-2">
+                            @if($clients->sexe == 'Homme')
+                            <div class="form-check form-check-inline" style="margin-left: 20px;">
+                                <label class="form-check-label" for="inlineRadio1">Homme</label>
+                                <input class="form-check-input" type="radio" name="sexe" value='Homme' checked>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 100px;">
+                                <label class="form-check-label" for="inlineRadio2">Femme</label>
+                                <input class="form-check-input" type="radio" name="sexe" value='Femme'>
+                            </div>
+                            @elseif($clients->sexe == 'Femme')
                             <div class="form-check form-check-inline" style="margin-left: 20px;">
                                 <label class="form-check-label" for="inlineRadio1">Homme</label>
                                 <input class="form-check-input" type="radio" name="sexe" value='Homme'>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 100px;">
                                 <label class="form-check-label" for="inlineRadio2">Femme</label>
-                                <input class="form-check-input" type="radio" name="sexe" value='Femme'>
+                                <input class="form-check-input" type="radio" name="sexe" value='Femme' checked>
                             </div>
+                            @endif
                         </div>
                         <span class="text-danger">{{ isset($request->sexe) ? '' : 'Veuillez cocher une case.'}}</span>
                     </div>
@@ -73,8 +84,10 @@
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("clients/edit", ['id' => $clients->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

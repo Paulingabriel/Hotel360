@@ -7,6 +7,7 @@ use App\Models\ChambresPr;
 use App\Models\ChambresPs;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class TypesChambresController extends Controller
      */
     public function index()
     {
-        $typeschambres= TypesChambres::latest()->get();
+        $typeschambres= TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("typesChambres.index", compact('typeschambres' ));
     }
 
@@ -36,9 +37,9 @@ class TypesChambresController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'titre' => 'required|unique:types_chambres',
-            'code' => 'required|unique:types_chambres',
-            'description' => '',
+            'titre' => 'required',
+            'code' => 'required',
+            'description' => 'nullable',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
             'enfants' => 'required|numeric',
@@ -48,7 +49,7 @@ class TypesChambresController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5000'],
         ]);
 
-        // dd($request);
+        //dd($request);
 
         if($validation->fails()){
             return redirect()
@@ -68,6 +69,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
@@ -87,13 +89,13 @@ class TypesChambresController extends Controller
             toastr()->success('Enregistrement éffectué avec succès!');
             return redirect()->route('typesChambres/index');
         } catch (Exception $e) {
-            //dd($e);
+            dd($e);
             toastr()->error(
                 "Echec de l'enregistrement!"
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -111,7 +113,7 @@ class TypesChambresController extends Controller
     {
         $typeschambres = TypesChambres::FindOrFail($id);
         return view('typesChambres.edit', compact('typeschambres'));
-    
+
     }
 
     /**
@@ -122,7 +124,7 @@ class TypesChambresController extends Controller
         $validation = Validator::make($request->all(), [
             'titre' => 'required',
             'code' => 'required',
-            'description' => '',
+            'description' => 'nullable',
             'min' => 'required|numeric',
             'max' => 'required|numeric',
             'enfants' => 'required|numeric',
@@ -151,6 +153,7 @@ class TypesChambresController extends Controller
             $data->max = $request->max;
             $data->enfants = $request->enfants;
             $data->adultes = $request->adultes;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->prixpersup = $request->prixpersup;
             $data->prixlitsup = $request->prixlitsup;
 
@@ -162,7 +165,7 @@ class TypesChambresController extends Controller
                 }
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $filename = date('YmdHi') . ucfirst($request->name) . '.' . $extension;
+                $filename = date('YmdHi') . ucfirst($request->titre) . '.' . $extension;
                 $file->move('uploads/images/', $filename);
                 $data->image = $filename;
             }
@@ -196,7 +199,7 @@ class TypesChambresController extends Controller
             $data->delete();
             toastr()->success('Suppression avec succès de l\'enregistrement');
         } catch (Exception $e) {
-            
+
             toastr()->error('Echec de suppression de l\'enregistrement');
         }
         return redirect()->back();

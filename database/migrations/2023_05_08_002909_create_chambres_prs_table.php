@@ -16,6 +16,7 @@ return new class extends Migration
             $table->double('prixsieste');
             $table->double('prixheure');
             $table->double('prixnuitee');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('types_chambre_id')->constrained('types_chambres')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

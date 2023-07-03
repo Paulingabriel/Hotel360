@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Prix
+            Modifier le Prix
         </h4>
     </div>
 
@@ -29,6 +29,7 @@
                     <div class="col-md-6 col-xl-5  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
                             <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_chambre_id">
+                                <option value="{{$typeschambres->where('id','=',$chambrespr->types_chambre->id)->first()->id}}">{{$typeschambres->where('id','=',$chambrespr->types_chambre->id)->first()->titre}}</option>
                                 @foreach ($typeschambres as $typeschambre)
 
                                 <option value="{{$typeschambre->id}}">{{$typeschambre->titre}}</option>
@@ -60,8 +61,10 @@
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("chambresPr/edit", ['id' => $chambrespr->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

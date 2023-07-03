@@ -7,6 +7,7 @@ use App\Models\Salles;
 use App\Models\SallesPr;
 use App\Models\TypesSalles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SallesPrController extends Controller
@@ -16,7 +17,7 @@ class SallesPrController extends Controller
      */
     public function index()
     {
-        $sallespr = SallesPr::latest()->get();
+        $sallespr = SallesPr::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("SallesPr.index", compact('sallespr'));
     }
 
@@ -25,8 +26,8 @@ class SallesPrController extends Controller
      */
     public function create()
     {
-        $typessalles = TypesSalles::all();
-        $salles = Salles::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("SallesPr.create", compact('typessalles','salles'));
     }
 
@@ -36,7 +37,7 @@ class SallesPrController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required',
+            'prix' => 'required|gt:0',
         ]);
 
         if($validation->fails()){
@@ -54,6 +55,7 @@ class SallesPrController extends Controller
             $data = new SallesPr();
 
             $data->prix = $request->prix;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
             $data->save();
@@ -67,7 +69,7 @@ class SallesPrController extends Controller
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -84,8 +86,8 @@ class SallesPrController extends Controller
     public function edit(string $id)
     {
         $sallespr = SallesPr::FindOrFail($id);
-        $typessalles = TypesSalles::all();
-        $salles = Salles::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('SallesPr.edit', compact('sallespr', 'typessalles', 'salles'));
     }
 
@@ -95,7 +97,7 @@ class SallesPrController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'prix' => 'required',
+            'prix' => 'required|gt:0',
         ]);
 
         if($validation->fails()){
@@ -113,6 +115,7 @@ class SallesPrController extends Controller
 
 
             $data->prix = $request->prix;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->salle_id = $request->salle_id;
 

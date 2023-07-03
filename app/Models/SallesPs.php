@@ -19,4 +19,9 @@ class SallesPs extends Model
     {
         return $this->belongsTo(Salles::class);
     }
+
+    public function hotel(): BelongsTo
+    {
+        return $this->belongsTo(Hotel::class);
+    }
 }

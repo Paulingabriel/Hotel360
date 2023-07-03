@@ -45,21 +45,23 @@ textarea:focus{
                 <div class="mb-4">
                     <label class="label" style="transform: translateY(-5px)">Active</label>
                     <label class="ms-2 switch label">
-                        <input type="checkbox" name="active">
+                        <input type="checkbox" name="active" {{$etages->active == 0 ?'checked':''}}>
                         <span class="slider round"></span>
                     </label>
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <label for="date" class="label col-md-12 mb-2">Description</label>
-                        <textarea class="border border-2" name="description" id="" cols="80" rows="10"></textarea>
+                        <textarea class="" name="description" id="" cols="80" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("etages/edit", ['id' => $etages->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

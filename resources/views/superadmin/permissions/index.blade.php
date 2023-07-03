@@ -27,6 +27,7 @@
 
         .permissions{
             border: 2px solid rgba(50, 162, 50, 0.8)!important;
+            background-color: ;
             width: 80px;
             font-size: 12px;
             font-family: 'poppins';

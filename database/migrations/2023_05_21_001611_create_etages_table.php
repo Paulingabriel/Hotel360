@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('etages', function (Blueprint $table) {
             $table->id();
-            $table->integer('num')->unique();
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('num');
             $table->boolean('active')->default(true);
             $table->longText('description')->nullable();
             $table->timestamps();

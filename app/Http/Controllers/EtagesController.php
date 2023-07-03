@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Etages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class EtagesController extends Controller
@@ -12,9 +13,9 @@ class EtagesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $etages= Etages::latest()->get();
+        $etages= Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("etages.index", compact('etages' ));
     }
 
@@ -33,8 +34,8 @@ class EtagesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required|unique:etages',
-            'description' => '',
+            'num' => 'required|gte:0',
+            'description' => 'nullable',
         ]);
 
         //dd($request);
@@ -54,19 +55,21 @@ class EtagesController extends Controller
             $data->num = $request->num;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->description = $request->description;
-            
+            $data->hotel_id = $request->user()->hotel_id;
+
             $data->save();
 
             toastr()->success('Enregistrement éffectué avec succès!');
             return redirect()->route('etages/index');
         } catch (Exception $e) {
 
+
             toastr()->error(
                 "Echec de l'enregistrement!"
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -84,7 +87,7 @@ class EtagesController extends Controller
     {
         $etages = Etages::FindOrFail($id);
         return view('etages.edit', compact('etages'));
-    
+
     }
 
     /**
@@ -93,9 +96,10 @@ class EtagesController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
-            'description' => '',
+            'num' => 'required|gte:0',
+            'description' => 'nullable',
         ]);
+        // dd($request);
 
         if($validation->fails()){
             toastr()->error('Veuillez remplir tous les champs.');
@@ -112,6 +116,7 @@ class EtagesController extends Controller
 
             $data->num = $request->num;
             $data->active = $request->active;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->update();
 

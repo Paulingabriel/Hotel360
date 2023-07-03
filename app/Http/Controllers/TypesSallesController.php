@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\TypesSalles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,7 @@ class TypesSallesController extends Controller
      */
     public function index()
     {
-        $typessalles= TypesSalles::latest()->get();
+        $typessalles= TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("typessalles.index", compact('typessalles' ));
     }
 
@@ -41,7 +42,7 @@ class TypesSallesController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5000'],
         ]);
 
-        // dd($request);
+        //dd($request);
 
         if($validation->fails()){
             return redirect()
@@ -56,6 +57,7 @@ class TypesSallesController extends Controller
 
             $data->titre = $request->titre;
             $data->code = $request->code;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->description = $request->description;
             $data->min = $request->min;
             $data->max = $request->max;
@@ -80,7 +82,7 @@ class TypesSallesController extends Controller
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -98,7 +100,7 @@ class TypesSallesController extends Controller
     {
         $typessalles = TypesSalles::FindOrFail($id);
         return view('typesSalles.edit', compact('typessalles'));
-    
+
     }
 
     /**
@@ -128,6 +130,7 @@ class TypesSallesController extends Controller
 
             $data->titre = $request->titre;
             $data->code = $request->code;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->description = $request->description;
             $data->min = $request->min;
             $data->max = $request->max;
@@ -140,7 +143,7 @@ class TypesSallesController extends Controller
                 }
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $filename = date('YmdHi') . ucfirst($request->name) . '.' . $extension;
+                $filename = date('YmdHi') . ucfirst($request->titre) . '.' . $extension;
                 $file->move('uploads/images/', $filename);
                 $data->image = $filename;
             }
@@ -174,7 +177,7 @@ class TypesSallesController extends Controller
             $data->delete();
             toastr()->success('Suppression avec succès de l\'enregistrement');
         } catch (Exception $e) {
-            
+
             toastr()->error('Echec de suppression de l\'enregistrement');
         }
         return redirect()->back();

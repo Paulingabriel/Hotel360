@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Clients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ClientsController extends Controller
@@ -14,7 +15,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients= Clients::latest()->get();
+        $clients= Clients::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("clients.index", compact('clients' ));
     }
 
@@ -56,6 +57,7 @@ class ClientsController extends Controller
             $data->nom = $request->nom;
             $data->sexe = $request->sexe;
             $data->adresse = $request->adresse;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->email = $request->email;
             $data->tel1 = $request->tel1;
             $data->tel2 = $request->tel2;
@@ -121,6 +123,7 @@ class ClientsController extends Controller
             $data->nom = $request->nom;
             $data->sexe = $request->sexe;
             $data->adresse = $request->adresse;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->email = $request->email;
             $data->tel1 = $request->tel1;
             $data->tel2 = $request->tel2;

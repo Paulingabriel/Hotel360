@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Etages;
 use App\Models\Salles;
+use App\Models\ResSalles;
 use App\Models\TypesSalles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SallesController extends Controller
@@ -16,8 +19,10 @@ class SallesController extends Controller
      */
     public function index()
     {
-        $salles = Salles::latest()->get();
-        return view("salles.index", compact('salles'));
+        $ressalle = ResSalles::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
+        $todayDate = Carbon::now();
+        $salles = Salles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        return view("salles.index", compact('salles', 'todayDate', 'ressalle'));
     }
 
     /**
@@ -25,8 +30,8 @@ class SallesController extends Controller
      */
     public function create()
     {
-        $typessalles = TypesSalles::all();
-        $etages = Etages::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $etages = Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("salles.create", compact('typessalles','etages'));
     }
 
@@ -36,7 +41,7 @@ class SallesController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0|unique:salles',
             'nom' => 'required',
         ]);
 
@@ -56,6 +61,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;
@@ -70,7 +76,7 @@ class SallesController extends Controller
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -87,8 +93,8 @@ class SallesController extends Controller
     public function edit(string $id)
     {
         $salles = Salles::FindOrFail($id);
-        $typessalles = TypesSalles::all();
-        $etages = etages::all();
+        $typessalles = TypesSalles::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $etages = etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('salles.edit', compact('salles', 'typessalles', 'etages'));
     }
 
@@ -98,7 +104,7 @@ class SallesController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0',
             'nom' => 'required',
         ]);
 
@@ -118,6 +124,7 @@ class SallesController extends Controller
 
             $data->num = $request->num;
             $data->nom = $request->nom;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_salle_id = $request->types_salle_id;
             $data->etage_id = $request->etage_id;
             $data->active = $request->active == 'on' ? 0 : 1;

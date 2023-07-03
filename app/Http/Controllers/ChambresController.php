@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Etages;
 use App\Models\Chambres;
+use App\Models\ResChambres;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ChambresController extends Controller
@@ -16,8 +19,10 @@ class ChambresController extends Controller
      */
     public function index()
     {
-        $chambres = Chambres::latest()->get();
-        return view("chambres.index", compact('chambres'));
+        $reschambre = ResChambres::where('hotel_id','=',Auth::user()->hotel_id)->orderBy('id','desc')->get();
+        $todayDate = Carbon::now();
+        $chambres = Chambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        return view("chambres.index", compact('chambres','todayDate', 'reschambre'));
     }
 
     /**
@@ -25,8 +30,8 @@ class ChambresController extends Controller
      */
     public function create()
     {
-        $typeschambres = TypesChambres::all();
-        $etages = Etages::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->get();
+        $etages = Etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambres.create", compact('typeschambres','etages'));
     }
 
@@ -36,7 +41,7 @@ class ChambresController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0',
         ]);
 
         if($validation->fails()){
@@ -56,6 +61,7 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
             $data->save();
 
@@ -63,12 +69,14 @@ class ChambresController extends Controller
             return redirect()->route('chambres/index');
         } catch (Exception $e) {
 
+            dd($e);
+
              toastr()->error(
                  "Echec de l'enregistrement!"
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -85,8 +93,8 @@ class ChambresController extends Controller
     public function edit(string $id)
     {
         $chambres = Chambres::FindOrFail($id);
-        $typeschambres = TypesChambres::all();
-        $etages = etages::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        $etages = etages::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('chambres.edit', compact('chambres', 'typeschambres', 'etages'));
     }
 
@@ -96,7 +104,7 @@ class ChambresController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'num' => 'required',
+            'num' => 'required|gte:0',
         ]);
 
         if($validation->fails()){
@@ -116,8 +124,9 @@ class ChambresController extends Controller
             $data->num = $request->num;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->etage_id = $request->etage_id;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->active = $request->active == 'on' ? 0 : 1;
-            
+
 
             $data->update();
 

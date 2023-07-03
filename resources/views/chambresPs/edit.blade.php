@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Prix Spécial
+            Modifier le Prix
         </h4>
     </div>
 
@@ -26,7 +26,7 @@
                 <input type="hidden" name="id" value="{{$chambresps->id}}">
             </div>
             <div class="row w-100">
-                    
+
                 <div class="col-md-6 col-xl-5 mb-4">
                     <label for="date" class="label col-md-12 mb-2">Titre</label>
                     <input type="text" class="border border-2 form-control ps-0 form-control-line @error('titre') is-invalid @enderror" name="titre" value="{{ $chambresps->titre }}">
@@ -37,6 +37,7 @@
                 <div class="col-md-6 col-xl-5  mb-4">
                     <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
                         <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_chambre_id">
+                            <option value="{{$typeschambres->where('id','=',$chambresps->types_chambre->id)->first()->id}}">{{$typeschambres->where('id','=',$chambresps->types_chambre->id)->first()->titre}}</option>
                             @foreach ($typeschambres as $typeschambre)
 
                                 <option value="{{$typeschambre->id}}">{{$typeschambre->titre}}</option>
@@ -61,28 +62,30 @@
                 <div class="row w-100">
                     <div class="col-md-6 col-xl-5  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Sieste</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixsieste') is-invalid @enderror" name="prixsieste" value="{{ $chambresps->sieste }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixsieste') is-invalid @enderror" name="prixsieste" value="{{ $chambresps->prixsieste }}">
                         <span class="text-danger">{{ $errors->first('prixsieste') }}</span>
                     </div>
                     <div class="col-md-6 col-xl-5  offset-xl-2  mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Nuitée</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixnuitee') is-invalid @enderror" name="prixnuitee" value="{{ $chambresps->nuitee }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixnuitee') is-invalid @enderror" name="prixnuitee" value="{{ $chambresps->prixnuitee }}">
                         <span class="text-danger">{{ $errors->first('prixnuitee') }}</span>
                     </div>
                 </div>
                 <div class="row w-100">
-                    
+
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Prix/Heure</label>
-                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixheure') is-invalid @enderror" name="prixheure" value="{{ $chambresps->heure }}">
+                        <input type="number" class="border border-2 form-control ps-0 form-control-line @error('prixheure') is-invalid @enderror" name="prixheure" value="{{ $chambresps->prixheure }}">
                         <span class="text-danger">{{ $errors->first('prixheure') }}</span>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("chambresPs/edit", ['id' => $chambresps->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -1,112 +1,53 @@
-<!DOCTYPE html>
-<html lang="en" class="loading">
+@extends('layouts.main')
 
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css">
-    @include('layouts.head')
-</head>
+@section('content')
 
+@include('layouts.styleData')
 
-<body data-col="2-columns" class="2-columns bg-white">
     <style>
-        html {}
 
-        .dataTables_filter [type='search']{
-            height: 100%;
-            border-radius: 20px;
-            padding: 0 15px;
-            position: relative;
-        }
-        .main-panel .btn-add{
-            background-color:  #2e612e;
-            color: white;
-            font-family: 'poppins';
-            height: 35px;
-            border: none;
-            box-sizing: border-box;
-            padding: 0 20px;
-            border-radius: 20px;
+        .actif{
+            padding: 0 8px;
             font-size: 12px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
+            color: white;
+            border-radius: 5px;
+            background-color: rgba(50, 162, 50, 0.8);
             box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
         }
-        .fa-plus{
-            padding: 2.5px;
-            background-color: #fff;
-            border-radius: 50%;
-            color: #2e612e;
-            font-weight: bold;
-        }
-
-        .active .page-link{
-            background-color:  #2e612e!important;
-            border-color:  #2e612e!important;
-        }
-
-        .dataTables_filter [type='search']:focus{
-        border: 1px solid  rgba(50, 162, 50, 0.8)!important;
-        box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
-
-        }
-
-        .dataTables_filter label{
-            position: relative;
-        }
-        table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
-            background-color:  #2e612e!important;
-        }
-        .dt-buttons{
-           text-align: center;
-           padding: 0 0 20px 0;
-        }
-        .dt-buttons button{
-            border-radius: 3px;
-            background-color: #fff;
-            border: none!important;
-            box-shadow: 0px 0px 4px rgba(50, 162, 50, 0.8)!important;
-        }
-        .dataTables_length, .dataTables_filter{
-            display: inline!important;
-        }
-        .dataTables_filter{
-            float: right;
+        .inactif{
+            padding: 0 10px;
+            font-size: 12px;
+            color: white;
+            border-radius: 5px;
+            background-color: rgb(255, 0, 0, 0.8);
+            box-shadow: 0px 0px 4px rgba(255, 0, 0, 0.8)!important;
         }
     </style>
 
-    @include('sweetalert::alert')
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <div class="wrapper px-3">
 
-        @include('layouts.sidebar')
-
-        @include('layouts.navbar')
-
-        <div class="main-panel">
-            <div class="main-content">
-                <div class="content-wrapper">
                     <div class="row my-3">
-                        <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;">Chambres</h4>
+                        <h4 class="border-bottom border-2 pb-2 mb-4" style="font-weight: 500;"><i class="las la-bed fs-1 me-2" style="color: #2e612e;"></i>Chambres</h4>
                         <div class="col-md-12">
+                            @if((Auth::user()->hasDirectPermission("créer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                             <a href="{{route("chambres/ajouter")}}">
                                 <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
                             </a>
+                            @else
+                            <button class="btn-add float-right"><i class="fa-solid fa-plus  me-2"></i>Ajouter</button>
+                            @endif
                         </div>
                     </div>
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                         
                         <thead>
                             <tr>
-                                <td class="d-none">#</td>
-                                <td>Numero de chambre</td>
-                                <td>Types de Chambres</td>
-                                <td>Etage</td>
-                                <td>Etat</td>
-                                <td>Ajoutée</td>
-                                <td>Actions</td>
+                                <th class="d-none">#</th>
+                                <th>Numero de chambre</th>
+                                <th>Types de Chambres</th>
+                                <th>Etage</th>
+                                <th>Etat</th>
+                                <th>Ajoutée</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,16 +65,89 @@
                                     Niveau-{{$chambre->etage->num}}
                                     @endif
                                 </td>
-                                <td>{{ $chambre->active == 1 ? 'Disponible' : 'Occupée' }}</td>
+                                <td>
+
+
+                                    {{-- ($reschambre->where('chambre_id', '=' , $chambre->num)->last()->statut) --}}
+                                    {{-- {{$reschambre->statut->where($reschambre->chambre_id,'=',$chambre->num)->get()}} --}}
+
+
+                                    @if(isset($reschambre->where('chambre_id', '=' , $chambre->id)->first()->datefin))
+
+
+                                        @if(($reschambre->where('chambre_id', '=' , $chambre->id)->first()->datefin < $todayDate))
+                                        <label class="actif">
+                                            Disponible
+                                        </label>
+
+                                        @else
+                                        <label class="inactif">
+                                            Occupée
+                                        </label>
+
+                                        @endif
+
+
+                                    @elseif(isset($reschambre->where('chambre_id', '=' , $chambre->id)->first()->occ))
+
+                                        @if((((((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->days)*24) + (((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->format('%h')) > $reschambre->where('chambre_id', '=' , $chambre->id)->first()->occ))
+
+                                        {{-- {{(new DateTime($todayDate))->format('D-m-Y h:i:s')}}
+                                        {{(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('D-m-Y h:i:s')}} --}}
+
+                                        <label class="actif">
+                                            {{-- {{(new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('%h')}}
+                                            {{ $reschambre->where('chambre_id', '=' , $chambre->id)->last()->occ }} --}}
+                                            Disponible
+                                        </label>
+
+                                        @else
+                                        {{-- {{(new DateTime($todayDate))->format('D-m-Y h:i:s')}}
+                                        {{(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres))->format('D-m-Y h:i:s')}} --}}
+
+                                        {{-- {{((((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->days)*24) + (((new DateTime($todayDate))->diff(new DateTime($reschambre->where('chambre_id', '=' , $chambre->id)->last()->dateres)))->format('%h'))}} --}}
+                                        {{-- {{ $reschambre->where('chambre_id', '=' , $chambre->id)->last()->occ }} --}}
+                                        <label class="inactif">
+                                            Occupée
+                                        </label>
+
+                                        @endif
+
+                                    @else
+
+                                        @if($chambre->active == 1)
+
+                                        <label class="actif">
+                                        Disponible
+                                        </label>
+                                        @elseif($chambre->active == 0)
+
+                                        <label class="inactif">
+                                        Occupée
+                                        </label>
+
+                                        @endif
+
+                                    @endif
+
+                                </td>
                                 <td>{{$chambre->created_at->diffForHumans()}}</td>
                                 <td>
                                     <div class="actions text-center">
+                                        @if((Auth::user()->hasDirectPermission("modifier")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("chambres/edit", ['id' => $chambre->id])}}">
                                             <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
                                         </a>
+                                        @else
+                                            <i class="ft-edit mr-1" style="color: rgba(50, 162, 50, 0.8);"></i>
+                                        @endif
+                                        @if((Auth::user()->hasDirectPermission("supprimer")) && (Auth::user()->hasRole(["admin","superadmin","manager"])))
                                         <a href="{{route("chambres/delete", ['id' => $chambre->id])}}"  onclick="confirmation(event)">
                                             <i class="ft-trash-2 danger"></i>
                                         </a>
+                                        @else
+                                        <i class="ft-trash-2 danger"></i>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -141,84 +155,5 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
 
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-
-
-    <script src="../app-assets/vendors/js/core/jquery-3.3.1.min.js"></script>
-    <script src="../app-assets/vendors/js/core/popper.min.js"></script>
-    <script src="../app-assets/vendors/js/core/bootstrap.min.js"></script>
-    <script src="../app-assets/vendors/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../app-assets/vendors/js/prism.min.js"></script>
-    <script src="../app-assets/vendors/js/jquery.matchHeight-min.js"></script>
-    <script src="../app-assets/vendors/js/screenfull.min.js"></script>
-    <script src="../app-assets/vendors/js/pace/pace.min.js"></script>
-    <script src="../app-assets/vendors/js/chartist.min.js"></script>
-    <script src="../app-assets/js/app-sidebar.js"></script>
-    <script src="../app-assets/js/notification-sidebar.js"></script>
-    <script src="../app-assets/js/customizer.js"></script>
-    <script src="../app-assets/js/dashboard-ecommerce.js"></script>
-
-    <!----------javascript links datatables--------->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
-
-
-     <!----------javascript links export buttons--------->
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js">
-    </script>
-    <script
-    type="text/javascript"
-    charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js
-    ">
-    </script>
-
-
-    <script>
-    $(document).ready(function() {
-    $('#example').DataTable(
-        {
-        dom: 'Blfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    }
-    );
-    } );
-    </script>
-
-
-<!-- Mirrored from pixinvent.com/demo/convex-bootstrap-admin-dashboard-template/demo-3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Jan 2022 15:37:02 GMT -->
-
-</html>
-
-
-
-
-
+@endsection

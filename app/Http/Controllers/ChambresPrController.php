@@ -7,6 +7,7 @@ use App\Models\ChambresPr;
 use App\Models\ChambresPs;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ChambresPrController extends Controller
@@ -16,7 +17,7 @@ class ChambresPrController extends Controller
      */
     public function index()
     {
-        $chambrespr = ChambresPr::latest()->get();
+        $chambrespr = ChambresPr::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPr.index", compact('chambrespr'));
     }
 
@@ -25,7 +26,7 @@ class ChambresPrController extends Controller
      */
     public function create()
     {
-        $typeschambres = TypesChambres::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPr.create", compact('typeschambres'));
     }
 
@@ -35,9 +36,9 @@ class ChambresPrController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prixsieste' => 'required',
-            'prixheure' => 'required',
-            'prixnuitee' => 'required',
+            'prixsieste' => 'required|gt:1',
+            'prixheure' => 'required|gt:1',
+            'prixnuitee' => 'required|gt:1',
             'types_chambre_id' => 'required',
         ]);
 
@@ -58,6 +59,7 @@ class ChambresPrController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_chambre_id = $request->types_chambre_id;
             $data->save();
 
@@ -70,7 +72,7 @@ class ChambresPrController extends Controller
             );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -87,7 +89,7 @@ class ChambresPrController extends Controller
     public function edit(string $id)
     {
         $chambrespr = ChambresPr::FindOrFail($id);
-        $typeschambres = TypesChambres::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view('ChambresPr.edit', compact('chambrespr', 'typeschambres'));
     }
 
@@ -97,9 +99,9 @@ class ChambresPrController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'prixsieste' => 'required',
-            'prixheure' => 'required',
-            'prixnuitee' => 'required',
+            'prixsieste' => 'required|gt:1',
+            'prixheure' => 'required|gt:1',
+            'prixnuitee' => 'required|gt:1',
             'types_chambre_id' => 'required',
         ]);
 
@@ -120,6 +122,7 @@ class ChambresPrController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->types_chambre_id = $request->types_chambre_id;
 
             $data->update();

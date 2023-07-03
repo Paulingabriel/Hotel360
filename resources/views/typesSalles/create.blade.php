@@ -58,21 +58,23 @@ textarea:focus{
                 <div class="row w-100">
                     <div class="col-md-6 col-xl-5 mb-4">
                         <label for="date" class="label col-md-12 mb-2">Image</label>
-                        <input type="file" style="border-radius: 0!important; border: none!important;" class="border border-2 form-control ps-0 form-control-line" name="" value="{{ old('') }}">
+                        <input type="file" style="border-radius: 0!important; border: none!important;" class="border border-2 form-control ps-0 form-control-line" name="image">
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <label for="date" class="label col-md-12 mb-2">Description</label>
-                        <textarea class="border border-2" name="description" id="" cols="80" rows="10"></textarea>
+                        <textarea class="" name="description" id="" cols="80" rows="10"></textarea>
                         <span class="text-danger">{{ $errors->first('') }}</span>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("typesSalles/ajouter")}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use Exception;
 use App\Models\ChambresPs;
 use Illuminate\Http\Request;
 use App\Models\TypesChambres;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ChambresPsController extends Controller
@@ -15,7 +16,7 @@ class ChambresPsController extends Controller
      */
     public function index()
     {
-        $chambresps = ChambresPs::latest()->get();
+        $chambresps = ChambresPs::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPs.index", compact( 'chambresps'));
     }
 
@@ -24,7 +25,7 @@ class ChambresPsController extends Controller
      */
     public function create()
     {
-        $typeschambres = TypesChambres::all();
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
         return view("chambresPs.create", compact('typeschambres'));
     }
 
@@ -34,12 +35,12 @@ class ChambresPsController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'prixsieste' => 'required',
-            'prixheure' => 'required',
-            'prixnuitee' => 'required',
+            'prixsieste' => 'required|gt:1',
+            'prixheure' => 'required|gt:1',
+            'prixnuitee' => 'required|gt:1',
             'titre' => 'required',
-            'date1' => 'required',
-            'date2' => 'required',
+            'date1' => 'required|date',
+            'date2' => 'required|date|after:date1',
             'types_chambre_id' => '',
         ]);
 
@@ -58,6 +59,7 @@ class ChambresPsController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
@@ -73,7 +75,7 @@ class ChambresPsController extends Controller
            );
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -90,8 +92,8 @@ class ChambresPsController extends Controller
     public function edit(string $id)
     {
         $chambresps = ChambresPs::FindOrFail($id);
-        $typeschambres = TypesChambres::all();
-        return view('ChambresPr.edit', compact('chambresps', 'typeschambres'));
+        $typeschambres = TypesChambres::where('hotel_id','=',Auth::user()->hotel_id)->latest()->get();
+        return view('ChambresPs.edit', compact('chambresps', 'typeschambres'));
     }
 
     /**
@@ -100,12 +102,12 @@ class ChambresPsController extends Controller
     public function update(Request $request, string $id)
     {
         $validation = Validator::make($request->all(), [
-            'prixsieste' => 'required',
-            'prixheure' => 'required',
-            'prixnuitee' => 'required',
+            'prixsieste' => 'required|gt:1',
+            'prixheure' => 'required|gt:1',
+            'prixnuitee' => 'required|gt:1',
             'titre' => 'required',
-            'date1' => 'required',
-            'date2' => 'required',
+            'date1' => 'required|date',
+            'date2' => 'required|date|after:date1',
             'types_chambre_id' => 'required',
         ]);
 
@@ -125,6 +127,7 @@ class ChambresPsController extends Controller
             $data->prixsieste = $request->prixsieste;
             $data->prixheure = $request->prixheure;
             $data->prixnuitee = $request->prixnuitee;
+            $data->hotel_id = $request->user()->hotel_id;
             $data->titre = $request->titre;
             $data->date1 = $request->date1;
             $data->date2 = $request->date2;
@@ -133,7 +136,7 @@ class ChambresPsController extends Controller
             $data->update();
 
             toastr()->success('Modification éffectuée avec succès!');
-            return redirect()->route('chambresPr/index');
+            return redirect()->route('chambresPs/index');
         } catch (Exception $e) {
 
             toastr()->error(

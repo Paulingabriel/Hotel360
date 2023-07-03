@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('max');
             $table->integer('enfants');
             $table->integer('adultes');
+            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('prixpersup')->nullable();
             $table->integer('prixlitsup')->nullable();
             $table->string('image')->nullable();

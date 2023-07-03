@@ -15,7 +15,7 @@
 
     <div class="section-title">
         <h4 class="border-bottom border-2">
-            Prix Spécial
+            Modifier le Prix
         </h4>
     </div>
 
@@ -26,7 +26,7 @@
                 <input type="hidden" name="id" value="{{$sallesps->id}}">
             </div>
             <div class="row w-100">
-                    
+
                 <div class="col-md-6 col-xl-5 mb-4">
                     <label for="date" class="label col-md-12 mb-2">Titre</label>
                     <input type="text" class="border border-2 form-control ps-0 form-control-line @error('titre') is-invalid @enderror" name="titre" value="{{ $sallesps->titre }}">
@@ -37,6 +37,7 @@
                 <div class="col-md-6 col-xl-5  mb-4">
                     <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
                         <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_salle_id">
+                            <option value="{{$typessalles->where('id','=',$sallesps->types_salle->id)->first()->id}}" selected>{{$typessalles->where('id','=',$sallesps->types_salle->id)->first()->titre}}</option>
                             @foreach ($typessalles as $typessalle)
 
                                 <option value="{{$typessalle->id}}">{{$typessalle->titre}}</option>
@@ -50,6 +51,7 @@
                 <div class="col-md-6 col-xl-5  mb-4">
                     <label for="date" class="label col-md-12 mb-2">Nom de la Salle</label>
                         <select class="border border-2 form-control form-select shadow-none form-control-line" name="salle_id">
+                            <option value="{{$salles->where('id','=',$sallesps->salle->id)->first()->id}}">{{$salles->where('id','=',$sallesps->salle->id)->first()->nom}}</option>
                             @foreach ($salles as $salle)
 
                             <option value="{{$salle->id}}">{{$salle->nom}}</option>
@@ -80,8 +82,10 @@
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("sallesPs/edit", ['id' => $sallesps->id])}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>

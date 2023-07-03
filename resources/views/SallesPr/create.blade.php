@@ -24,7 +24,7 @@
             @csrf
                 <div class="row w-100">
                     <div class="col-md-6 col-xl-5  mb-4">
-                        <label for="date" class="label col-md-12 mb-2">Type de chambre</label>
+                        <label for="date" class="label col-md-12 mb-2">Type de salle</label>
                             <select class="border border-2 form-control form-select shadow-none form-control-line" name="types_salle_id" value="{{ old('') }}">
                                 @foreach ($typessalles as $typessalle)
 
@@ -56,8 +56,10 @@
                 <div class="row w-100">
                     <div class="offset-xl-7 col-xl-5 mt-5">
                         <div class="btn-actions">
-                            <button type="submit" class="btn-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel">Reinitialiser</button>
+                            <button type="submit" class="btn-submit mb-2">Enregistrer</button>
+                            <a href="{{route("sallesPr/ajouter")}}">
+                                <button type="button" class="btn-cancel">Reinitialiser</button>
+                            </a>
                         </div>
                     </div>
                 </div>
